@@ -1,9 +1,9 @@
-package demo.grid;
+package ca.etsmtl.log720.lab1;
 
 import java.io.*;
 import org.omg.CosNaming.*;
 
-public class Server {
+public class Server_Voiture {
 	public static void main(String[] args) {
 		org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 		try {
@@ -26,7 +26,7 @@ public class Server {
 
 				NamingContextExt nc = NamingContextExtHelper.narrow(orb
 						.resolve_initial_references("NameService"));
-				nc.rebind(nc.to_name("grid.example"), o);
+				nc.rebind(nc.to_name("server_voiture"), o);
 			}
 
 			orb.run();

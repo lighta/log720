@@ -1,9 +1,12 @@
-package demo.grid;
+package ca.etsmtl.log720.lab1;
 
 import org.omg.CosNaming.*;
+
+import demo.grid.MyGrid;
+import demo.grid.MyGridHelper;
 import demo.grid.MyGridPackage.GridException;
 
-public class Client {
+public class Client_Poste {
 	public static void main(String args[]) {
 		try {
 			MyGrid grid;
@@ -16,10 +19,7 @@ public class Client {
 			} else {
 				NamingContextExt nc = NamingContextExtHelper.narrow(orb
 						.resolve_initial_references("NameService"));
-
-				// nc.to_name("grid.example");
-
-				org.omg.CORBA.Object o = nc.resolve(nc.to_name("grid.example"));
+				org.omg.CORBA.Object o = nc.resolve(nc.to_name("server_poste"));
 
 				grid = MyGridHelper.narrow(o);
 			}

@@ -1,9 +1,11 @@
-package demo.grid;
+package ca.etsmtl.log720.lab1;
+
 
 /**
  * A very simple implementation of a 2-D grid
  */
 
+import demo.grid.MyGridPOA;
 import demo.grid.MyGridPackage.GridException;
 
 public class GridImpl extends MyGridPOA {
