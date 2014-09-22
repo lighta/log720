@@ -1,0 +1,36 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+			
+	<repositories>
+		<repository>
+			<id>log720</id>
+			<url>https://cours.etsmtl.ca/log720/m2</url>
+		</repository>
+	</repositories>
+	
+	<parent>
+		<groupId>ca.etsmtl.log720</groupId>
+		<artifactId>corba</artifactId>
+		<version>1.0.3</version>
+	</parent>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ca.etsmtl.log720</groupId>
+	<artifactId>lab1</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0</version>
+	
+	<modules>
+		<module>client_poste</module>
+		<module>client_voiture</module>
+		<module>server_poste</module>
+		<module>server_voiture</module> 
+	</modules>
+</project>
