@@ -7,6 +7,11 @@
 *.jar
 *.war
 *.ear
+/lab1-onsaitpas/idl/target
+/lab1-onsaitpas/client_poste/target
+/lab1-onsaitpas/client_voiture/target
+/lab1-onsaitpas/server_poste/target
+/lab1-onsaitpas/server_voiture/target
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

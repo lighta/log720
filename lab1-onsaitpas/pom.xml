@@ -12,7 +12,7 @@
 	</repositories>
 	
 	<parent>
-		<groupId>ca.etsmtl.log720</groupId>
+		<groupId>ca.etsmtl.log720.exemples</groupId>
 		<artifactId>corba</artifactId>
 		<version>1.0.3</version>
 	</parent>
@@ -22,12 +22,13 @@
 	</properties>
 	
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ca.etsmtl.log720</groupId>
+	<groupId>ca.etsmtl.log720.exemples.corba</groupId>
 	<artifactId>lab1</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0</version>
 	
 	<modules>
+		<module>idl</module>
 		<module>client_poste</module>
 		<module>client_voiture</module>
 		<module>server_poste</module>

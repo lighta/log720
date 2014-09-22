@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<parent>
-		<groupId>ca.etsmtl.log720.lab1</groupId>
-		<artifactId>client_voiture</artifactId>
+		<groupId>ca.etsmtl.log720.exemples.corba</groupId>
+		<artifactId>lab1</artifactId>
 		<version>1.0.0</version>
 	</parent>
 	
@@ -15,13 +15,13 @@
 	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ca.etsmtl.log720.lab1</groupId>
+	<groupId>ca.etsmtl.log720.exemples.corba.lab1</groupId>
 	<artifactId>client_voiture</artifactId>
   <version>1.0.1</version>
 	
 	<dependencies>
 		<dependency>
-			<groupId>ca.etsmtl.log720.lab1</groupId>
+			<groupId>ca.etsmtl.log720.exemples.corba.lab1</groupId>
 			<artifactId>idl</artifactId>
 			<version>1.0.1</version>
 		</dependency>
