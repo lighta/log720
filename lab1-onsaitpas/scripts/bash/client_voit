@@ -1,3 +1,3 @@
 #!/bin/bash
 source run.properties
-jaco $CLIENT $@
+jaco $CLIENT_VOITURE $@
