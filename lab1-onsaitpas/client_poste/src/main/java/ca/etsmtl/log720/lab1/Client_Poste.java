@@ -2,51 +2,26 @@ package ca.etsmtl.log720.lab1;
 
 import org.omg.CosNaming.*;
 
-import demo.grid.MyGrid;
-import demo.grid.MyGridHelper;
-import demo.grid.MyGridPackage.GridException;
-
 public class Client_Poste {
 	public static void main(String args[]) {
 		try {
-			MyGrid grid;
+			BanqueDossiers banque_dossier;
+			BanqueInfractions banque_infraction;
 
 			org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 
-			if (args.length == 1) {
-				// args[0] is an IOR-string
-				grid = MyGridHelper.narrow(orb.string_to_object(args[0]));
+			if (args.length == 2) {
+				// args[0] and args[1] are IOR-string
+				banque_dossier = BanqueDossiersHelper.narrow(orb.string_to_object(args[0]));
+				banque_infraction = BanqueInfractionsHelper.narrow(orb.string_to_object(args[1]));
 			} else {
 				NamingContextExt nc = NamingContextExtHelper.narrow(orb
 						.resolve_initial_references("NameService"));
-				org.omg.CORBA.Object o = nc.resolve(nc.to_name("server_poste"));
-
-				grid = MyGridHelper.narrow(o);
-			}
-
-			short x = grid.height();
-			System.out.println("Height = " + x);
-
-			short y = grid.width();
-			System.out.println("Width = " + y);
-
-			x -= 1;
-			y -= 1;
-
-			System.out.println("Old value at (" + x + "," + y + "): "
-					+ grid.getElement(x, y));
-
-			System.out.println("Setting (" + x + "," + y + ") to 470.11");
-
-			grid.setElement(x, y, 470.11);
-
-			System.out.println("New value at (" + x + "," + y + "): "
-					+ grid.getElement(x, y));
-
-			try {
-				grid.opWithException();
-			} catch (GridException ex) {
-				System.out.println("Exception, reason: " + ex.why);
+				org.omg.CORBA.Object obj_dos = nc.resolve(nc.to_name("banque_dossier"));
+				org.omg.CORBA.Object obj_inf = nc.resolve(nc.to_name("banque_infraction"));
+				
+				banque_dossier = BanqueDossiersHelper.narrow(obj_dos);
+				banque_infraction = BanqueInfractionsHelper.narrow(obj_inf);
 			}
 
 			orb.shutdown(true);
