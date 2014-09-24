@@ -1,5 +1,7 @@
 package ca.etsmtl.log720.lab1.infraction;
 
+import java.util.Arrays;
+
 import ca.etsmtl.log720.lab1.CollectionInfractionPOA;
 import ca.etsmtl.log720.lab1.Infraction;
 import ca.etsmtl.log720.lab1.NiveauHorsBornesException;
@@ -50,5 +52,11 @@ public class CollectionInfractionImpl extends CollectionInfractionPOA {
 				return getInfraction(i);
 		}
 		return null;
+	}
+
+	@Override
+	public String toString() {
+		return "CollectionInfractionImpl [infractions="
+				+ Arrays.toString(infractions) + ", size=" + size + "]";
 	}
 }

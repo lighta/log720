@@ -77,4 +77,6 @@ public class InfractionImpl extends InfractionPOA {
 			return false;
 		return true;
 	}
+	
+	
 }

@@ -37,4 +37,8 @@ public class BanqueInfractionImpl extends BanqueInfractionsPOA {
 		infractions.ajouterInfraction(description, niveau);	
 	}
 
+	@Override
+	public String toString() {
+		return "BanqueInfractionImpl [infractions=" + infractions + "]";
+	}
 }

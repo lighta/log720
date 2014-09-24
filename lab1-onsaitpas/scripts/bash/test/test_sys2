@@ -1,0 +1,21 @@
+#!/bin/bash
+cd .. #going back to ../ dir
+source run.properties
+
+#1 poste avec client/server + 2 voiture avec client/serveur
+#opening a terminal for each client and server
+
+# poste
+xterm -e 'jaco $SERVER_POSTE $@ | less' &
+sleep 2 #wait a bit
+xterm -e 'jaco $CLIENT_POSTE $@ | less' &
+
+#voiture 1
+xterm -e 'jaco $SERVER_VOITURE $@ | less' &
+sleep 2
+xterm -e 'jaco $CLIENT_VOITURE $@ | less' &
+
+#voiture 2
+xterm -e 'jaco $SERVER_VOITURE $@ | less' &
+sleep 2
+xterm -e 'jaco $CLIENT_VOITURE $@ | less' &

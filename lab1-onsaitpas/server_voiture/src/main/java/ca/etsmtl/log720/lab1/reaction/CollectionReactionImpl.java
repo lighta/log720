@@ -1,5 +1,7 @@
 package ca.etsmtl.log720.lab1.reaction;
 
+import java.util.Arrays;
+
 import ca.etsmtl.log720.lab1.CollectionReactionPOA;
 import ca.etsmtl.log720.lab1.Dossier;
 import ca.etsmtl.log720.lab1.Reaction;
@@ -53,4 +55,12 @@ public class CollectionReactionImpl extends CollectionReactionPOA {
 		}
 		return null;
 	}
+
+	@Override
+	public String toString() {
+		return "CollectionReactionImpl [reactions="
+				+ Arrays.toString(reactions) + ", size=" + size + "]";
+	}
+	
+	
 }

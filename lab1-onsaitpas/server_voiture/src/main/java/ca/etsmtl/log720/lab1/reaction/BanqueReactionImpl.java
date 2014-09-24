@@ -32,4 +32,8 @@ public class BanqueReactionImpl extends BanqueReactionsPOA {
 		return reactions.trouverReactionParId(idReaction);
 	}
 
+	@Override
+	public String toString() {
+		return "BanqueReactionImpl [reactions=" + reactions + "]";
+	}
 }
