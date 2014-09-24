@@ -14,23 +14,22 @@ public class BanqueReactionImpl extends BanqueReactionsPOA {
 	}
 
 	public CollectionReaction reactions() {
-		// TODO Auto-generated method stub
-		return null;
+		return reactions._this();
 	}
 
 	public void ajouterReaction(String reaction, int gravite) {
-		// TODO Auto-generated method stub
-		
+		reactions.ajouterReaction(reaction, gravite);
 	}
 
 	public CollectionReaction trouverReactionsParDossier(Dossier myDossier) {
-		// TODO Auto-generated method stub
+		CollectionReactionImpl tmp_col_reac = reactions.trouverReactionsParDossier(myDossier);
+		if(tmp_col_reac.size()>0)
+			return tmp_col_reac._this();
 		return null;
 	}
 
 	public Reaction trouverReactionParId(int idReaction) {
-		// TODO Auto-generated method stub
-		return null;
+		return reactions.trouverReactionParId(idReaction);
 	}
 
 }

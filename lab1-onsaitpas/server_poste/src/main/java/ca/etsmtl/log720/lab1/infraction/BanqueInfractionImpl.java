@@ -23,28 +23,18 @@ public class BanqueInfractionImpl extends BanqueInfractionsPOA {
 		int i=0;
 		while(infractions.size() < i++){
 		//	infractions.getInfraction(i)
-			;  //ajouter infractions qui fit dossiers
+			;  // TODO ajouter infractions qui fit dossiers
 		}
 		return (CollectionInfraction) list_infraction;
 	}
 
 	public Infraction trouverInfractionParId(int idInfraction) {
-		// TODO Auto-generated method stub
-		int i=0;
-		Infraction tmp;
-		while(infractions.size() < i++){
-			tmp = infractions.getInfraction(i);
-		    if(tmp.id() == idInfraction)
-		    	return tmp;		
-		}
-		return null;
+		return infractions.trouverInfractionParId(idInfraction);
 	}
 
 	public void ajouterInfraction(String description, int niveau)
 			throws NiveauHorsBornesException {
-		int id = infractions.size(); // auto id ??
-		InfractionImpl InfractionImpl = new InfractionImpl(id,description,niveau);
-		// TODO Auto-generated method stub	
+		infractions.ajouterInfraction(description, niveau);	
 	}
 
 }

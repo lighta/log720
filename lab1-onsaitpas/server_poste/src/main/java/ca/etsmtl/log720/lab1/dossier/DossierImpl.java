@@ -3,21 +3,23 @@ package ca.etsmtl.log720.lab1.dossier;
 import ca.etsmtl.log720.lab1.DossierPOA;
 
 public class DossierImpl extends DossierPOA {
-	int id;
+	int id=0;
 	String nom;
 	String noPermis;
 	String noPlaque;
 	String prenom;
-	int niveau;
+	int niveau=0;
+	int list_infraction[]; //infractions ID
+	int size_infraction=0;
+	int list_reaction[]; //reaction ID
+	int size_reaction=0;
 	
 	public DossierImpl() {
 		super();
-		this.id = 0;
 		this.nom = "";
 		this.noPermis = "";
 		this.noPlaque = "";
 		this.prenom = "";
-		this.niveau = 0;
 	}
 	
 	public DossierImpl(int id, String nom, String noPermis, String noPlaque,
@@ -30,8 +32,13 @@ public class DossierImpl extends DossierPOA {
 		this.prenom = prenom;
 		this.niveau = niveau;
 	}
-
 	
+	public DossierImpl(String nom, String prenom) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+	}
+
 	public int id() {
 		return id;
 	}
@@ -57,23 +64,22 @@ public class DossierImpl extends DossierPOA {
 	}
 
 	public int[] getListeInfraction() {
-		// TODO Auto-generated method stub
-		return null;
+		return list_infraction;
 	}
 
 	public int[] getListeReaction() {
-		// TODO Auto-generated method stub
-		return null;
+		return list_reaction;
 	}
 
 	public void ajouterReactionAListe(int idReaction) {
-		// TODO Auto-generated method stub
+		list_reaction[size_reaction] = idReaction;
+		size_reaction++;
 		
 	}
 
 	public void ajouterInfractionAListe(int idInfraction) {
-		// TODO Auto-generated method stub
-		
+		list_infraction[size_infraction] = idInfraction;
+		size_infraction++;
 	}
 
 	public String _toString() {
@@ -88,4 +94,56 @@ public class DossierImpl extends DossierPOA {
 				+ ", niveau=" + niveau + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + niveau;
+		result = prime * result
+				+ ((noPermis == null) ? 0 : noPermis.hashCode());
+		result = prime * result
+				+ ((noPlaque == null) ? 0 : noPlaque.hashCode());
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DossierImpl other = (DossierImpl) obj;
+		if (id != other.id)
+			return false;
+		if (niveau != other.niveau)
+			return false;
+		if (noPermis == null) {
+			if (other.noPermis != null)
+				return false;
+		} else if (!noPermis.equals(other.noPermis))
+			return false;
+		if (noPlaque == null) {
+			if (other.noPlaque != null)
+				return false;
+		} else if (!noPlaque.equals(other.noPlaque))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		return true;
+	}
+
+	
 }

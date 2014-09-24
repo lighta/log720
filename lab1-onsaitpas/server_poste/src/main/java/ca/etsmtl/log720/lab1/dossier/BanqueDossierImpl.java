@@ -19,41 +19,42 @@ public class BanqueDossierImpl extends BanqueDossiersPOA {
 	}
 
 	public CollectionDossier trouverDossiersParPlaque(String plaque) {
-		// TODO Auto-generated method stub
+		CollectionDossierImpl tmp_listdos = dossiers.matches(null,null,plaque);
+		if(tmp_listdos.size()>0)
+			return tmp_listdos._this();
 		return null;
 	}
 
 	public CollectionDossier trouverDossiersParNom(String nom, String prenom) {
-		// TODO Auto-generated method stub
+		CollectionDossierImpl tmp_listdos = dossiers.matches(nom,prenom,null);
+		if(tmp_listdos.size()>0)
+			return tmp_listdos._this();
 		return null;
 	}
 
 	public Dossier trouverDossierParPermis(String noPermis) {
-		// TODO Auto-generated method stub
-		return null;
+		return dossiers.trouverDossierParPermis(noPermis);
 	}
 
 	public Dossier trouverDossierParId(int idDossier) {
-		// TODO Auto-generated method stub
-		return null;
+		return dossiers.trouverDossierParId(idDossier);
 	}
 
 	public void ajouterDossier(String nom, String prenom, String noPermis,
 			String noPlaque) throws NoPermisExisteDejaException {
-		// TODO Auto-generated method stub
-		
+		dossiers.ajouterDossier(nom, prenom, noPermis, noPlaque);		
 	}
 
 	public void ajouterInfractionAuDossier(int idDossier, int idInfraction)
 			throws InvalidIdException {
-		// TODO Auto-generated method stub
-		
+		Dossier dos_tmp = trouverDossierParId(idDossier);
+		dos_tmp.ajouterInfractionAListe(idInfraction);		
 	}
 
 	public void ajouterReactionAuDossier(int idDossier, int idReaction)
 			throws InvalidIdException {
-		// TODO Auto-generated method stub
-		
+		Dossier dos_tmp = trouverDossierParId(idDossier);
+		dos_tmp.ajouterReactionAListe(idReaction);
 	}
 
 }
