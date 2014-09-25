@@ -23,6 +23,9 @@ public class Client_Poste {
 				banque_dossier = BanqueDossiersHelper.narrow(obj_dos);
 				banque_infraction = BanqueInfractionsHelper.narrow(obj_inf);
 			}
+		
+			System.out.println(banque_dossier.toString());
+			System.out.println(banque_infraction.toString());
 
 			orb.shutdown(true);
 			System.out.println("done. ");

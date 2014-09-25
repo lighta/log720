@@ -36,8 +36,7 @@ public class InfractionImpl extends InfractionPOA {
 	}
 
 	public String _toString() {
-		// TODO Auto-generated method stub
-		return null;	
+		return toString();	
 	}
 
 	@Override

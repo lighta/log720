@@ -42,8 +42,7 @@ public class ReactionImpl extends ReactionPOA {
 	}
 
 	public String _toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return toString();
 	}
 
 	@Override

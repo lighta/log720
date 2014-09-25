@@ -3,7 +3,7 @@ package ca.etsmtl.log720.lab1;
 import org.omg.CosNaming.*;
 
 public class Client_Voiture {
-	public static void main(String args[]) {
+	public static void main(String args[]) {	
 		try {
 			BanqueReactions banque_reaction;
 			BanqueDossiers banque_dossier;
@@ -23,11 +23,27 @@ public class Client_Voiture {
 				org.omg.CORBA.Object obj_inf = nc.resolve(nc.to_name("banque_infraction"));
 				org.omg.CORBA.Object obj_reac = nc.resolve(nc.to_name("banque_reaction"));
 
-				banque_reaction = BanqueReactionsHelper.narrow(obj_dos);
-				banque_dossier = BanqueDossiersHelper.narrow(obj_inf);
-				banque_infraction = BanqueInfractionsHelper.narrow(obj_reac);
+				banque_dossier = BanqueDossiersHelper.narrow(obj_dos);
+				banque_infraction = BanqueInfractionsHelper.narrow(obj_inf);
+				banque_reaction = BanqueReactionsHelper.narrow(obj_reac);
 			}
 
+			System.out.println(banque_reaction.toString());
+			System.out.println(banque_dossier.toString());
+			System.out.println(banque_infraction.toString());
+			
+			
+			// Ajout d'un reaction
+			banque_reaction.ajouterReaction("hello", 1);;
+			Reaction reac = banque_reaction.reactions().getReaction(0);
+			
+			// Description
+			System.out.println("Contenu initial de Description a partir du client: "
+										+ reac.description());
+			System.out.println("Contenu initial de niveau a partir du client: "
+					+ reac.niveau());
+			
+						
 			orb.shutdown(true);
 			System.out.println("done. ");
 

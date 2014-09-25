@@ -1,48 +1,47 @@
 package ca.etsmtl.log720.lab1;
 
-import java.io.*;
-
 import org.omg.CosNaming.*;
+import org.omg.PortableServer.POA;
 
-import ca.etsmtl.log720.lab1.dossier.BanqueDossierImpl;
-import ca.etsmtl.log720.lab1.infraction.BanqueInfractionImpl;
+import ca.etsmtl.log720.lab1.dossier.BanqueDossiersImpl;
+import ca.etsmtl.log720.lab1.infraction.BanqueInfractionsImpl;
 
 public class Server_Poste {
+	protected static org.omg.PortableServer.POA _poa;
+	
+	public static POA getPOA(){
+		return _poa;
+	}
+	
 	public static void main(String[] args) {
 		org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 		try {
-			org.omg.PortableServer.POA poa = org.omg.PortableServer.POAHelper
-					.narrow(orb.resolve_initial_references("RootPOA"));
+			org.omg.PortableServer.Servant servant_dos, servant_inf;
+			org.omg.CORBA.Object obj_dos, obj_inf;
 
-			poa.the_POAManager().activate();
+			// Initialize POA
+			_poa = org.omg.PortableServer.POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+			_poa.the_POAManager().activate();
 
-			org.omg.CORBA.Object obj_dos = poa.servant_to_reference(new BanqueDossierImpl());
-			org.omg.CORBA.Object obj_inf = poa.servant_to_reference(new BanqueInfractionImpl());
-
-			if (args.length == 2) {
-				// write the object banque_dossier reference to args[0] 
-				PrintWriter ps_dos = new PrintWriter(new FileOutputStream(new File(
-						args[0])));
-				ps_dos.println(orb.object_to_string(obj_dos));
-				ps_dos.close();
-				
-				// write the object banque_infraction reference to args[1] 
-				PrintWriter ps_inf = new PrintWriter(new FileOutputStream(new File(
-						args[1])));
-				ps_inf.println(orb.object_to_string(obj_inf));
-				ps_inf.close();
-			} else {
-				// use the naming service
-				NamingContextExt nc = NamingContextExtHelper.narrow(orb
-						.resolve_initial_references("NameService"));
-				nc.rebind(nc.to_name("banque_dossier"), obj_dos);
-				nc.rebind(nc.to_name("banque_infraction"), obj_inf);
-				// obj_inf ??
-			}
-
-			orb.run();
+			// Initialize servant (Remote Object), convert to CORBA reference
+			servant_dos = new BanqueDossiersImpl();
+			obj_dos = _poa.servant_to_reference(servant_dos);
+			servant_inf = new BanqueInfractionsImpl();
+			obj_inf = _poa.servant_to_reference(servant_inf);
+			
+			// Register Rermote Object with naming context
+			NamingContextExt nc = NamingContextExtHelper.narrow(orb
+					.resolve_initial_references("NameService"));
+			NameComponent[] name_dos = new NameComponent[] { new NameComponent(
+					"banque_dossier", "service") };
+			NameComponent[] name_inf = new NameComponent[] { new NameComponent(
+					"banque_infraction", "service") };
+			nc.rebind(name_dos, obj_dos);
+			nc.rebind(name_inf, obj_inf);
+						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		orb.run();
 	}
 }

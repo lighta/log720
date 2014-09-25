@@ -1,78 +1,86 @@
 package ca.etsmtl.log720.lab1.dossier;
 
+import java.util.ArrayList;
+
+import org.omg.PortableServer.POA;
+
 import ca.etsmtl.log720.lab1.CollectionDossierPOA;
 import ca.etsmtl.log720.lab1.Dossier;
+import ca.etsmtl.log720.lab1.DossierHelper;
 import ca.etsmtl.log720.lab1.NoPermisExisteDejaException;
+import ca.etsmtl.log720.lab1.Server_Poste;
 
 public class CollectionDossierImpl extends CollectionDossierPOA {
-	private DossierImpl dossiers[];
-	private int size;
+	private ArrayList<DossierImpl> _list_dossiers;
 	
+	public ArrayList<DossierImpl> getListDossiers() {
+		return _list_dossiers;
+	}
+
 	public CollectionDossierImpl() {
 		super();
-		size = 0;
+		_list_dossiers = new ArrayList<DossierImpl>();
 	}
 
 	public Dossier getDossier(int index) {
-		if(size < index)
+		try {
+			// Trouver le reaction correspondant au parametre "index"
+			DossierImpl dossier = _list_dossiers.get(index);
+			// REcuperer le POA cree dans le serveur
+			POA rootpoa = Server_Poste.getPOA();
+			// Activer l'objet et retourner l'objet CORBA
+			org.omg.CORBA.Object obj = rootpoa.servant_to_reference(dossier);
+			// Retourner un Dossier
+			return DossierHelper.narrow(obj);
+		} catch (Exception e) {
+			System.out.println("Erreur retour de l'objet Dossier : " + e);
 			return null;
-		return dossiers[index]._this();
+		}
 	}
 
 	public int size() {
-		return size;
+		return _list_dossiers.size();
 	}
 	
 	public void ajouterDossier(String nom, String prenom, String noPermis,
 			String noPlaque)  throws NoPermisExisteDejaException {
-		// TODO niveau ??
+		// TODO niveau/id ??
 		int niveau=0;
-		DossierImpl tmp_dos = new DossierImpl(size, nom, noPermis, noPlaque, prenom, niveau);
-		int i=0;
-		while(size>i++){
-			if(dossiers[i].equals(tmp_dos)) //deja present
-					throw new NoPermisExisteDejaException();
-		}	
-		dossiers[size] = tmp_dos;
-		size++;
+		int id=_list_dossiers.size();
+		DossierImpl tmp_dos = new DossierImpl(id, nom, noPermis, noPlaque, prenom, niveau);
+		if(_list_dossiers.contains(tmp_dos))
+			throw new NoPermisExisteDejaException();
+		_list_dossiers.add(tmp_dos);
 	}
 	
 	public void ajouterDossier(DossierImpl dossier)  throws NoPermisExisteDejaException {
-		int i=0;
-		while(size>i++){
-			if(dossiers[i].equals(dossier)) //deja present
-					throw new NoPermisExisteDejaException();
-		}	
-		dossiers[size] = dossier;
-		size++;
+		if(_list_dossiers.contains(dossier))
+			throw new NoPermisExisteDejaException();
+		_list_dossiers.add(dossier);
 	}
 	
 	public void retirerDossier(int index){
-		if(index==0) //nothing to do
-			return;
-		int i= index;
-		while(i < size-1){
-			dossiers[i] = dossiers[i+1];
-			i++;
-		}
-		dossiers[size] = null; //the last one is now 1 index below
-		size--;
+		_list_dossiers.remove(index);
 	}
 	
 	public Dossier trouverDossierParId(int idDossier) {
 		int i=0;
-		while(size > i++){
-			if(dossiers[i].id == idDossier)
-				return getDossier(i);
+		for(DossierImpl cur_dos : _list_dossiers){
+			if(cur_dos.id() == idDossier){
+				return getDossier(i); //get the real dossier from orb
+			}
+			i++;
 		}
 		return null;
 	}
 	
 	public Dossier trouverDossierParPermis(String permis) {
 		int i=0;
-		while(size > i++){
-			if(dossiers[i].noPermis == permis)
-				return getDossier(i);
+		for(DossierImpl cur_dos : _list_dossiers){
+			if(cur_dos.noPermis() == permis){
+				return getDossier(i); //get the real dossier from orb
+			}
+			i++;
 		}
 		return null;
 	}
@@ -81,9 +89,9 @@ public class CollectionDossierImpl extends CollectionDossierPOA {
 		CollectionDossierImpl tmp_collecdos = new CollectionDossierImpl();
 		int i=0;
 		
-		while(size > i++){
+		while(_list_dossiers.size() > i++){
 			boolean match=false;
-			DossierImpl cur = dossiers[i];
+			DossierImpl cur = _list_dossiers.get(i);
 			if(cur==null) //shoudln't ever happen
 				continue;
 			
