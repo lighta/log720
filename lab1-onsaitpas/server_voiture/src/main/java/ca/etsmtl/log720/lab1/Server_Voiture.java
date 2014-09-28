@@ -2,6 +2,7 @@ package ca.etsmtl.log720.lab1;
 
 import org.omg.CosNaming.*;
 import org.omg.PortableServer.POA;
+import org.omg.PortableServer.Servant;
 
 import ca.etsmtl.log720.lab1.reaction.BanqueReactionsImpl;
 
@@ -33,9 +34,19 @@ public class Server_Voiture {
 					"banque_reaction", "service") };
 			nc.rebind(name, o);
 						
+			//init_BanqueReaction(servant_reac);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		orb.run();
+	}
+	
+	public static void init_BanqueReaction(Servant servant_reac){
+		try{
+			((BanqueReactionsImpl) servant_reac).ajouterReaction("vente de crack ", 4);
+			((BanqueReactionsImpl) servant_reac).ajouterReaction("roule sens interdit ", 1);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 }
