@@ -31,7 +31,7 @@ public class Server_Voiture {
 			NamingContextExt nc = NamingContextExtHelper.narrow(orb
 					.resolve_initial_references("NameService"));
 			NameComponent[] name = new NameComponent[] { new NameComponent(
-					"banque_reaction", "service") };
+					"BanqueReactions", "service") };
 			nc.rebind(name, o);
 						
 			//init_BanqueReaction(servant_reac);

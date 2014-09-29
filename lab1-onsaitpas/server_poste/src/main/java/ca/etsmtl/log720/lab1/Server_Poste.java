@@ -33,9 +33,9 @@ public class Server_Poste {
 			NamingContextExt nc = NamingContextExtHelper.narrow(orb
 					.resolve_initial_references("NameService"));
 			NameComponent[] name_dos = new NameComponent[] { new NameComponent(
-					"banque_dossier", "service") };
+					"BanqueDossiers", "service") };
 			NameComponent[] name_inf = new NameComponent[] { new NameComponent(
-					"banque_infraction", "service") };
+					"BanqueInfractions", "service") };
 			nc.rebind(name_dos, obj_dos);
 			nc.rebind(name_inf, obj_inf);
 						

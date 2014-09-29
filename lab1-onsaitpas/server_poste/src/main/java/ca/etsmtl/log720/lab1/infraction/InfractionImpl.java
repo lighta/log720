@@ -3,8 +3,8 @@ package ca.etsmtl.log720.lab1.infraction;
 import ca.etsmtl.log720.lab1.InfractionPOA;
 
 public class InfractionImpl extends InfractionPOA {
-	public static final int NIVEAU_MAX = 100;
-	public static final int NIVEAU_MIN = 3;
+	public static final int NIVEAU_MAX = 10;
+	public static final int NIVEAU_MIN = 1;
 	protected int id;
 	protected String description;
 	protected int niveau;
