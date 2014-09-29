@@ -22,6 +22,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>common</name>
+			<type>2</type>
+			<location>/home/lighta/Documents/ETS/LOG720/git/lab1-onsaitpas/common/src/main/java</location>
+		</link>
+		<link>
 			<name>idl</name>
 			<type>2</type>
 			<location>/home/lighta/Documents/ETS/LOG720/git/lab1-onsaitpas/idl/target/generated-sources/idl</location>

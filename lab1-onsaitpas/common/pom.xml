@@ -16,19 +16,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.etsmtl.log720.exemples.corba.lab1</groupId>
-	<artifactId>server_voiture</artifactId>
-  <version>1.0.1</version>
+	<artifactId>common</artifactId>
+	<version>1.0.1</version>
 	
-	<dependencies>
-		<dependency>
-			<groupId>ca.etsmtl.log720.exemples.corba.lab1</groupId>
-			<artifactId>idl</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>ca.etsmtl.log720.exemples.corba.lab1</groupId>
-			<artifactId>common</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-	</dependencies>
 </project>

@@ -19,9 +19,9 @@ public class Client_Poste {
 						.resolve_initial_references("NameService"));
 				
 				NameComponent[] name_dos = new NameComponent[] { new NameComponent(
-						"BanqueDossiers", "service") };
+						Variables.NAME_BANK_DOS, "service") };
 				NameComponent[] name_inf = new NameComponent[] { new NameComponent(
-						"BanqueInfractions", "service") };
+						Variables.NAME_BANK_INF, "service") };
 				
 				banque_dossier = BanqueDossiersHelper.narrow(nc.resolve(name_dos));
 				banque_infraction = BanqueInfractionsHelper.narrow(nc.resolve(name_inf));

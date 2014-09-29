@@ -29,6 +29,7 @@
 	
 	<modules>
 		<module>idl</module>
+		<module>common</module>
 		<module>client_poste</module>
 		<module>client_voiture</module>
 		<module>server_poste</module>

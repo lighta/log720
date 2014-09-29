@@ -30,9 +30,9 @@ public class Server_Voiture {
 			// Register Rermote Object with naming context
 			NamingContextExt nc = NamingContextExtHelper.narrow(orb
 					.resolve_initial_references("NameService"));
-			NameComponent[] name = new NameComponent[] { new NameComponent(
-					"BanqueReactions", "service") };
-			nc.rebind(name, o);
+			NameComponent[] name_reac = new NameComponent[] { new NameComponent(
+					Variables.NAME_BANK_REAC, "service") };
+			nc.rebind(name_reac, o);
 						
 			//init_BanqueReaction(servant_reac);
 		} catch (Exception e) {

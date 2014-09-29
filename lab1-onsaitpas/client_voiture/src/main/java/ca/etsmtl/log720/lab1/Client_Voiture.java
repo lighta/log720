@@ -21,11 +21,11 @@ public class Client_Voiture {
 				NamingContextExt nc = NamingContextExtHelper.narrow(orb
 						.resolve_initial_references("NameService"));
 				NameComponent[] name_dos = new NameComponent[] { new NameComponent(
-						"BanqueDossiers", "service") };
+						Variables.NAME_BANK_DOS, "service") };
 				NameComponent[] name_inf = new NameComponent[] { new NameComponent(
-						"BanqueInfractions", "service") };
+						Variables.NAME_BANK_INF, "service") };
 				NameComponent[] name_reac = new NameComponent[] { new NameComponent(
-						"BanqueReactions", "service") };
+						Variables.NAME_BANK_REAC, "service") };
 				
 
 				banque_dossier = BanqueDossiersHelper.narrow(nc.resolve(name_dos));
