@@ -24,9 +24,16 @@ public class Server_Poste {
 			_poa.the_POAManager().activate();
 
 			// Initialize servant (Remote Object), convert to CORBA reference
-			servant_dos = new BanqueDossiersImpl();
+			try {
+				servant_dos = (BanqueDossiersImpl) Serialisation.decodeFromFile(Variables.PERSISTANCE_PATH+Variables.NAME_BANK_DOS+".save");
+				servant_inf = (BanqueInfractionsImpl) Serialisation.decodeFromFile(Variables.PERSISTANCE_PATH+Variables.NAME_BANK_INF+".save");
+			} catch(Exception e) {
+				servant_dos = new BanqueDossiersImpl();
+				servant_inf = new BanqueInfractionsImpl();
+			}
+			
+			
 			obj_dos = _poa.servant_to_reference(servant_dos);
-			servant_inf = new BanqueInfractionsImpl();
 			obj_inf = _poa.servant_to_reference(servant_inf);
 			
 			// Register Rermote Object with naming context
@@ -38,6 +45,10 @@ public class Server_Poste {
 					Variables.NAME_BANK_INF, "service") };
 			nc.rebind(name_dos, obj_dos);
 			nc.rebind(name_inf, obj_inf);
+			
+			Serialisation.encodeToFile(servant_dos, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_DOS);
+			Serialisation.encodeToFile(servant_inf, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_INF);
+
 						
 		} catch (Exception e) {
 			e.printStackTrace();

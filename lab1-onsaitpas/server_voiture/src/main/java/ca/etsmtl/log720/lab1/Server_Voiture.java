@@ -24,7 +24,11 @@ public class Server_Voiture {
 			_poa.the_POAManager().activate();
 
 			// Initialize servant (Remote Object), convert to CORBA reference
-			servant_reac = new BanqueReactionsImpl();
+			try {
+				servant_reac = (BanqueReactionsImpl) Serialisation.decodeFromFile(Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC+".save");				
+			} catch(Exception e) {
+				servant_reac = new BanqueReactionsImpl();
+			}
 			o = _poa.servant_to_reference(servant_reac);
 			
 			// Register Rermote Object with naming context
@@ -34,19 +38,20 @@ public class Server_Voiture {
 					Variables.NAME_BANK_REAC, "service") };
 			nc.rebind(name_reac, o);
 						
-			//init_BanqueReaction(servant_reac);
+			init_BanqueReaction(servant_reac);
+			Serialisation.encodeToFile(servant_reac, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		orb.run();
 	}
 	
-//	public static void init_BanqueReaction(Servant servant_reac){
-//		try{
-//			((BanqueReactionsImpl) servant_reac).ajouterReaction("vente de crack ", 4);
-//			((BanqueReactionsImpl) servant_reac).ajouterReaction("roule sens interdit ", 1);
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//	}
+	public static void init_BanqueReaction(Servant servant_reac){
+		try{
+			((BanqueReactionsImpl) servant_reac).ajouterReaction("vente de crack ", 4);
+			((BanqueReactionsImpl) servant_reac).ajouterReaction("roule sens interdit ", 1);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 }
