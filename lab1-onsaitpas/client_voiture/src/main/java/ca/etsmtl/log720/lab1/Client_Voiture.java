@@ -25,7 +25,7 @@ public class Client_Voiture {
 				NameComponent[] name_inf = new NameComponent[] { new NameComponent(
 						"BanqueInfractions", "service") };
 				NameComponent[] name_reac = new NameComponent[] { new NameComponent(
-						"BanqueInfractions", "service") };
+						"BanqueReactions", "service") };
 				
 
 				banque_dossier = BanqueDossiersHelper.narrow(nc.resolve(name_dos));
