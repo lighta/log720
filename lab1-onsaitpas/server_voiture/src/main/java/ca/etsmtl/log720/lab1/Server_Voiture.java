@@ -1,5 +1,7 @@
 package ca.etsmtl.log720.lab1;
 
+import java.io.FileNotFoundException;
+
 import org.omg.CosNaming.*;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.Servant;
@@ -25,8 +27,8 @@ public class Server_Voiture {
 
 			// Initialize servant (Remote Object), convert to CORBA reference
 			try {
-				servant_reac = (BanqueReactionsImpl) Serialisation.decodeFromFile(Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC+".save");				
-			} catch(Exception e) {
+				servant_reac = (BanqueReactionsImpl) Serialisation.decodeFromFile(Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC+Variables.SAVE_EXT);				
+			} catch(FileNotFoundException e) {
 				servant_reac = new BanqueReactionsImpl();
 			}
 			o = _poa.servant_to_reference(servant_reac);
@@ -38,8 +40,8 @@ public class Server_Voiture {
 					Variables.NAME_BANK_REAC, "service") };
 			nc.rebind(name_reac, o);
 						
-			init_BanqueReaction(servant_reac);
-			Serialisation.encodeToFile(servant_reac, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC);
+//			init_BanqueReaction(servant_reac);
+//			Serialisation.encodeToFile(servant_reac, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

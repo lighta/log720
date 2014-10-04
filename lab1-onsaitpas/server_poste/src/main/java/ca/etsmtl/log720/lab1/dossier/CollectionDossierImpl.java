@@ -1,5 +1,6 @@
 package ca.etsmtl.log720.lab1.dossier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.omg.PortableServer.POA;
@@ -10,7 +11,8 @@ import ca.etsmtl.log720.lab1.DossierHelper;
 import ca.etsmtl.log720.lab1.NoPermisExisteDejaException;
 import ca.etsmtl.log720.lab1.Server_Poste;
 
-public class CollectionDossierImpl extends CollectionDossierPOA {
+public class CollectionDossierImpl extends CollectionDossierPOA implements Serializable {
+	private static final long serialVersionUID = -5649986628277676620L;
 	private ArrayList<DossierImpl> _list_dossiers;
 	
 	public ArrayList<DossierImpl> getListDossiers() {

@@ -1,10 +1,12 @@
 package ca.etsmtl.log720.lab1.infraction;
 
-import ca.etsmtl.log720.lab1.InfractionPOA;
+import java.io.Serializable;
 
-public class InfractionImpl extends InfractionPOA {
-	public static final int NIVEAU_MAX = 10;
-	public static final int NIVEAU_MIN = 1;
+import ca.etsmtl.log720.lab1.InfractionPOA;
+import ca.etsmtl.log720.lab1.Variables;
+
+public class InfractionImpl extends InfractionPOA implements Serializable {
+	private static final long serialVersionUID = -2499565175817025746L;
 	protected int id;
 	protected String description;
 	protected int niveau;
@@ -13,7 +15,7 @@ public class InfractionImpl extends InfractionPOA {
 		super();
 		id = 0;
 		description = "";
-		niveau = NIVEAU_MIN;
+		niveau = Variables.NIVEAU_INF_MIN;
 	}
 	
 	public InfractionImpl(int id, String description, int niveau) {

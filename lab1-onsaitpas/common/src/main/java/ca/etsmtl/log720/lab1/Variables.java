@@ -8,4 +8,5 @@ public class Variables {
 	public static final int NIVEAU_INF_MAX = 10;
 	
 	public static final String PERSISTANCE_PATH = "../../persistance/";
+	public static final String SAVE_EXT = ".save";
 }

@@ -1,8 +1,11 @@
 package ca.etsmtl.log720.lab1.dossier;
 
+import java.io.Serializable;
+
 import ca.etsmtl.log720.lab1.DossierPOA;
 
-public class DossierImpl extends DossierPOA {
+public class DossierImpl extends DossierPOA implements Serializable {
+	private static final long serialVersionUID = -6849231354131147657L;
 	int id=0;
 	String nom;
 	String noPermis;

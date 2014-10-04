@@ -1,6 +1,8 @@
 package ca.etsmtl.log720.lab1.infraction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
 import org.omg.PortableServer.POA;
 
 import ca.etsmtl.log720.lab1.CollectionInfractionPOA;
@@ -8,8 +10,10 @@ import ca.etsmtl.log720.lab1.Infraction;
 import ca.etsmtl.log720.lab1.InfractionHelper;
 import ca.etsmtl.log720.lab1.NiveauHorsBornesException;
 import ca.etsmtl.log720.lab1.Server_Poste;
+import ca.etsmtl.log720.lab1.Variables;
 
-public class CollectionInfractionImpl extends CollectionInfractionPOA {
+public class CollectionInfractionImpl extends CollectionInfractionPOA implements Serializable {
+	private static final long serialVersionUID = 5447497548872880000L;
 	private ArrayList<InfractionImpl> _list_infractions;
 	
 	public ArrayList<InfractionImpl> getListInfractions() {
@@ -43,7 +47,7 @@ public class CollectionInfractionImpl extends CollectionInfractionPOA {
 	
 	public void ajouterInfraction(String description, int niveau) 
 			throws NiveauHorsBornesException {
-		if(niveau < InfractionImpl.NIVEAU_MIN || niveau > InfractionImpl.NIVEAU_MAX)
+		if(niveau < Variables.NIVEAU_INF_MIN || niveau > Variables.NIVEAU_INF_MAX)
 			throw new NiveauHorsBornesException();
 		int id = _list_infractions.size(); // TODO what ID do we want ??
 		_list_infractions.add(new InfractionImpl(id, description, niveau));

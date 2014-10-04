@@ -1,5 +1,6 @@
 package ca.etsmtl.log720.lab1.reaction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.omg.PortableServer.POA;
@@ -10,7 +11,8 @@ import ca.etsmtl.log720.lab1.Reaction;
 import ca.etsmtl.log720.lab1.ReactionHelper;
 import ca.etsmtl.log720.lab1.Server_Voiture;
 
-public class CollectionReactionImpl extends CollectionReactionPOA {
+public class CollectionReactionImpl extends CollectionReactionPOA implements Serializable {
+	private static final long serialVersionUID = 6456482369658947777L;
 	private ArrayList<ReactionImpl> _list_reactions;
 	
 	public ArrayList<ReactionImpl> getListReactions() {

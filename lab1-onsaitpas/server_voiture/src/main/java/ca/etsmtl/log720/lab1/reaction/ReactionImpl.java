@@ -1,8 +1,11 @@
 package ca.etsmtl.log720.lab1.reaction;
 
+import java.io.Serializable;
+
 import ca.etsmtl.log720.lab1.ReactionPOA;
 
-public class ReactionImpl extends ReactionPOA {
+public class ReactionImpl extends ReactionPOA implements Serializable {
+	private static final long serialVersionUID = -3149935470865471729L;
 	int id;
 	String description;
 	int niveau;
