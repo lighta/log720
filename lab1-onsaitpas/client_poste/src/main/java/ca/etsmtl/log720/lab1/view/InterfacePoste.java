@@ -27,6 +27,8 @@ public class InterfacePoste extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
+    	infractionsPosteView = new InfractionsPoste();
+    	dossiersView = new Dossiers();
         jMenuItem3 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -84,11 +86,11 @@ public class InterfacePoste extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        new Dossiers().setVisible(true);
+    	dossiersView.setVisible(true);
     }                                          
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        new InfractionsPoste().setVisible(true);
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {   
+    	infractionsPosteView.setVisible(true);
     }                                          
 
     /**
@@ -127,7 +129,9 @@ public class InterfacePoste extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify   
+    public Dossiers dossiersView;
+    public InfractionsPoste infractionsPosteView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

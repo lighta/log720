@@ -1,0 +1,3 @@
+#!/bin/bash
+#retrait de tous les fichier dans le dossier de persistance
+rm ../../persistance/*

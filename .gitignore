@@ -19,3 +19,7 @@ hs_err_pid*
 /RemoteSystemsTempFiles/.project
 /lab1-onsaitpas/.settings
 *.prefs
+/lab1-onsaitpas/persistance/BanqueDossiers
+/lab1-onsaitpas/persistance/BanqueInfractions
+/lab1-onsaitpas/persistance/BanqueReactions
+/lab1-onsaitpas/scripts/bash/_nsdb_root
