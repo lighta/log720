@@ -5,6 +5,9 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
 *
 * @author Steven
@@ -14,8 +17,18 @@ public class InterfaceVoiture extends javax.swing.JFrame {
    /**
     * Creates new form InterfaceVoiture
     */
-   public InterfaceVoiture() {
-       initComponents();
+   public InterfaceVoiture(ActionListener listener) {
+       initComponents(listener);
+   }
+   
+   //for dev
+   private InterfaceVoiture() {
+       initComponents(new ActionListener(){
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}	   
+       });
    }
 
    /**
@@ -25,8 +38,15 @@ public class InterfaceVoiture extends javax.swing.JFrame {
     */
    @SuppressWarnings("unchecked")
    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-   private void initComponents() {
-
+   private void initComponents(ActionListener listener) {
+   	   Infractions infractionsView = new Infractions();
+   	   Recherche rechercheView = new Recherche();
+   	   Reactions reactionView = new Reactions();
+   	   
+	   infractionsView.setVisible(false);
+	   rechercheView.setVisible(false);
+	   reactionView.setVisible(false);
+   	
        jMenuItem3 = new javax.swing.JMenuItem();
        jLabel1 = new javax.swing.JLabel();
        jLabel3 = new javax.swing.JLabel();
@@ -117,15 +137,15 @@ public class InterfaceVoiture extends javax.swing.JFrame {
    }// </editor-fold>                        
 
    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-       new Reactions().setVisible(true);
+       reactionView.setVisible(true);
    }                                          
 
    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-       new Infractions().setVisible(true);
+       infractionsView.setVisible(true);
    }                                          
 
    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-       new Recherche().setVisible(true);
+       rechercheView.setVisible(true);
    }                                          
 
    /**
@@ -174,5 +194,9 @@ public class InterfaceVoiture extends javax.swing.JFrame {
    private javax.swing.JMenuItem jMenuItem2;
    private javax.swing.JMenuItem jMenuItem3;
    private javax.swing.JMenuItem jMenuItem4;
+   
+   public Infractions infractionsView;
+   public Recherche rechercheView;
+   public Reactions reactionView; 
    // End of variables declaration                   
 }

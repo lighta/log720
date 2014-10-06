@@ -1,3 +1,4 @@
 #!/bin/bash
 #retrait de tous les fichier dans le dossier de persistance
 rm ../../persistance/*
+rm _nsdb_root
