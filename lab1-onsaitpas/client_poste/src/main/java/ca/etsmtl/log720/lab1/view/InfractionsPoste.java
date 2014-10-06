@@ -7,8 +7,12 @@ package ca.etsmtl.log720.lab1.view;
 
 import java.awt.event.ActionListener;
 
+import javax.swing.JList;
+
 import ca.etsmtl.log720.lab1.ClientPosteSingleton;
 import ca.etsmtl.log720.lab1.CollectionInfraction;
+import ca.etsmtl.log720.lab1.JIntField;
+import ca.etsmtl.log720.lab1.Variables;
 
 /**
  *
@@ -47,7 +51,7 @@ public class InfractionsPoste extends javax.swing.JFrame {
         jFrame1 = new javax.swing.JFrame();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jList1 = new JList<String>();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -60,59 +64,23 @@ public class InfractionsPoste extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel_desc = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         list1 = new java.awt.List();
-        jLabel12 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jLabel_gravite = new javax.swing.JLabel();
+        jTextField3 = new JIntField(Variables.NIVEAU_INF_MIN, Variables.NIVEAU_INF_MIN, Variables.NIVEAU_INF_MAX+1); //actually 5 but let allow 6 for test
 
-        jFrame1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        jFrame1.setTitle("Réactions");
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Réactions:");
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
             /**
-			 * 
+			 * List of infractions in our views
 			 */
 			private static final long serialVersionUID = 1L;
-			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+			String[] datas = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return datas.length; }
+            public String getElementAt(int i) { return datas[i]; }
         });
         jScrollPane2.setViewportView(jList1);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Ajouter une réaction:");
-
-        jButton1.setText("Ajouter à la liste");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Ajouter au dossier");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Niveau de gravité");
-
-        jLabel5.setText("0");
-
-        jLabel8.setText("SelectedReaction");
-
-        jLabel7.setText("Réaction");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setText("Ajouter la réaction au dossier");
-
-        jLabel3.setText("Description");
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -192,25 +160,15 @@ public class InfractionsPoste extends javax.swing.JFrame {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        //da real code
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Infractions (poste)");
-
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Infractions :");
-
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setText("Ajouter une infraction:");
-
-        jLabel11.setText("Description");
-
-
-        list1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                list1ActionPerformed(evt);
-            }
-        });
-        
-        jLabel12.setText("Gravite (1-5)");
+        jLabel_desc.setText("Description");
+        jLabel_gravite.setText("Gravite ("+Variables.NIVEAU_INF_MIN+"-"+Variables.NIVEAU_INF_MAX+")");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -224,12 +182,12 @@ public class InfractionsPoste extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(329, 329, 329)
-                                .addComponent(jLabel11))
+                                .addComponent(jLabel_desc))
                             .addComponent(jLabel10)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(25, 25, 25)
-                                .addComponent(jLabel12)))
+                                .addComponent(jLabel_gravite)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,11 +206,11 @@ public class InfractionsPoste extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
+                            .addComponent(jLabel_desc)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
+                            .addComponent(jLabel_gravite)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
                         .addComponent(jButton3)
@@ -263,29 +221,15 @@ public class InfractionsPoste extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-    	// Fetch the values from fields
-        String description = jTextField2.getText();
-    }                                        
-
-    private void list1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    
+    public String getDescription(){
+ 	   return jTextField2.getText();
     }
     
-    public String getDescription()
-    {
- 	   String description = jTextField2.getText();
- 	   return description;
-    }
+    public int getGravite(){
+    	//no need to try catch, this jint is overriden to only allow number
+  	   return jTextField3.getValue();
+     }
 
     /**
      * @param args the command line arguments
@@ -329,8 +273,8 @@ public class InfractionsPoste extends javax.swing.JFrame {
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel_desc;
+    private javax.swing.JLabel jLabel_gravite;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -339,11 +283,11 @@ public class InfractionsPoste extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField1; 
+    private javax.swing.JTextField jTextField2; //description txt field
+    private JIntField jTextField3; //gravite txt field, override to only allow number
     public java.awt.List list1;
     // End of variables declaration
     
@@ -354,10 +298,9 @@ public class InfractionsPoste extends javax.swing.JFrame {
 			int i=0;
 			list1.removeAll();
 			//System.out.println("[");
-			while(size_infraction>i){
+			while(size_infraction>i){ // Ajout des infractions a la liste des infractions
 				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
-				// Ajout des infractions a la liste des infractions
-				list1.add(collec_inf.getInfraction(i)._toString());		
+				list1.add(collec_inf.getInfraction(i)._toString());		// TODO makethis morep retty
 				i++;
 			}
 			//System.out.println("]");

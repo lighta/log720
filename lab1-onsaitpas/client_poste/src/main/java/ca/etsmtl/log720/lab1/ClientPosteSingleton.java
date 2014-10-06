@@ -104,14 +104,11 @@ public class ClientPosteSingleton implements ActionListener {
 			}
 		}
 		
-		void ajoutInfraction(String description) {		
-			try {
-				// TODO, currently simulator, put this at IntTextField
-				// Random de 1 a 5 pour la gravite
-				Random rand = new Random();
-				int gravite = rand.nextInt((5 - 1) + 1) + 1;	
+		void ajoutInfraction(String description, int gravite) {		
+			try {	
 				banque_infraction.ajouterInfraction(description, gravite);	
 			} catch (NiveauHorsBornesException e) {
+				// TODO put this graphical
 				System.out.println("Ajout d'infraction impossible, le niveau est hors borne"); 
 			}
 		}
@@ -119,18 +116,19 @@ public class ClientPosteSingleton implements ActionListener {
 
 		//controller of view (when need to talk to orb stuff)
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.println(this.getClass().getName()+" actionPerformed with arg0="+arg0);
+			//System.out.println(this.getClass().getName()+" actionPerformed with arg0="+arg0);
 			final String action = arg0.getActionCommand();
 			switch(Integer.parseInt(action)){ //just to support older jdk
 				case ADD_INFRACTION : {
-					System.out.println("Executing ADD_INFRACTION");
+					//System.out.println("Executing ADD_INFRACTION");
 					String description = view.infractionsPosteView.getDescription();
-					ajoutInfraction(description);
+					int gravite = view.infractionsPosteView.getGravite();
+					ajoutInfraction(description,gravite);
 					refreshListInf();
 					break;
 				}
 				case ADD_DOSSIER : {
-					System.out.println("Executing ADD_DOSSIER");
+					//System.out.println("Executing ADD_DOSSIER");
 					String prenom 	= view.dossiersView.getPrenom();
 	        	    String nom 		= view.dossiersView.getNom();
 	        	    String plaque 	= view.dossiersView.getPlaque();
