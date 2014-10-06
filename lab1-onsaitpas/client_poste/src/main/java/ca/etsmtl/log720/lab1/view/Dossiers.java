@@ -270,14 +270,7 @@ public class Dossiers extends javax.swing.JFrame {
 
        pack();
    }// </editor-fold>                        
-
-   private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	   // Fetch the values from fields
-       String prenom 	= jTextField5.getText();
-       String nom 		= jTextField6.getText();
-       String plaque 	= jTextField7.getText();
-       String permis 	= jTextField8.getText();	   
-   }                                        
+                                 
 
    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
        // setSelectedDossier(selectedItem);

@@ -112,15 +112,18 @@ public class ClientPosteSingleton implements ActionListener {
 
 		//controller of view (when need to talk to orb stuff)
 		public void actionPerformed(ActionEvent arg0) {
+			System.out.println(this.getClass().getName()+" actionPerformed with arg0="+arg0);
 			final String action = arg0.getActionCommand();
 			switch(Integer.parseInt(action)){ //just to support older jdk
 				case ADD_INFRACTION : {
+					System.out.println("Executing ADD_INFRACTION");
 					String description = view.infractionsPosteView.getDescription();
 					ajoutInfraction(description);
 					refreshListInf();
 					break;
 				}
 				case ADD_DOSSIER : {
+					System.out.println("Executing ADD_DOSSIER");
 					String prenom 	= view.dossiersView.getPrenom();
 	        	    String nom 		= view.dossiersView.getNom();
 	        	    String plaque 	= view.dossiersView.getPlaque();

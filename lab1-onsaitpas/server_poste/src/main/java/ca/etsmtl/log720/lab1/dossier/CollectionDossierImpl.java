@@ -96,19 +96,19 @@ public class CollectionDossierImpl extends CollectionDossierPOA implements Seria
 				continue;
 			
 			if (noPlaque != null) { //match by plaque
-				if (cur.noPlaque != null && noPlaque.equals(cur.noPlaque)){
+				if (cur.noPlaque != null && noPlaque.contains(cur.noPlaque)){
 					match=true;
 				}
 				else continue;
 			}
 			if (nom != null) { //match by name
-				if (cur.nom != null && nom.equals(cur.nom)){
+				if (cur.nom != null && nom.contains(cur.nom)){
 					match=true;
 				}
 				else continue;
 			}
 			if (prenom != null) { //match by 1st name
-				if (cur.prenom != null && prenom.equals(cur.prenom)){
+				if (cur.prenom != null && prenom.contains(cur.prenom)){
 					match=true;
 				}
 				else continue;
