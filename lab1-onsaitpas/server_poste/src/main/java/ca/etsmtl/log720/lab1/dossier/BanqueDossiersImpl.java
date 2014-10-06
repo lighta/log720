@@ -90,10 +90,8 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 		try {
 			Serialisation.encodeToFile(this, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_DOS+Variables.SAVE_EXT);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

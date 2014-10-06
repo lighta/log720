@@ -41,7 +41,7 @@ public class Server_Voiture {
 			nc.rebind(name_reac, o);
 						
 //			init_BanqueReaction(servant_reac);
-//			Serialisation.encodeToFile(servant_reac, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC);
+			Serialisation.encodeToFile(servant_reac, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_REAC+Variables.SAVE_EXT);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

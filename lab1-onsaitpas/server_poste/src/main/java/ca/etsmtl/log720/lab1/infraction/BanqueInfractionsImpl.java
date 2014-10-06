@@ -18,7 +18,7 @@ import ca.etsmtl.log720.lab1.Variables;
 
 public class BanqueInfractionsImpl extends BanqueInfractionsPOA implements Serializable {
 	private static final long serialVersionUID = 8579409292318180001L;
-	CollectionInfractionImpl _CollectionInfractions;
+	private CollectionInfractionImpl _CollectionInfractions;
 	
 	public BanqueInfractionsImpl() {
 		super();
@@ -41,13 +41,36 @@ public class BanqueInfractionsImpl extends BanqueInfractionsPOA implements Seria
 	}
 
 	public CollectionInfraction trouverInfractionsParDossier(Dossier mydossier) {
-		CollectionInfractionImpl list_infraction = new CollectionInfractionImpl();
+		CollectionInfractionImpl collec_infraction = new CollectionInfractionImpl();
+		
 		int i=0;
-		while(_CollectionInfractions.size() < i++){
-		//	infractions.getInfraction(i)
-			;  // TODO ajouter infractions qui fit dossiers
+		int list_infractions_id[] = mydossier.getListeInfraction();
+		while(list_infractions_id.length < i){
+			Infraction infrac = _CollectionInfractions.getInfraction(i);
+			try {
+				collec_infraction.ajouterInfraction(infrac.description(), infrac.niveau());
+			} catch (NiveauHorsBornesException e) {
+				// shoudln't happen invalid infraction was in bank
+				e.printStackTrace();
+			}
+			i++;
 		}
-		return (CollectionInfraction) list_infraction;
+		
+		try {
+			// Recuperer le POA cree dans le serveur
+			POA rootpoa = Server_Poste.getPOA();
+			// Activer l'objet et retourne l'objet CORBA
+			org.omg.CORBA.Object obj = rootpoa.servant_to_reference(collec_infraction);
+			// Retourner une Collection d'infraction
+			return CollectionInfractionHelper.narrow(obj);
+		} catch (Exception e) {
+			System.out.println("Erreur retour de l'objet CollectionInfraction : "	+ e);
+			return null;
+		}
+	}
+
+	public CollectionInfractionImpl get_CollectionInfractions() {
+		return _CollectionInfractions;
 	}
 
 	public Infraction trouverInfractionParId(int idInfraction) {
@@ -73,10 +96,8 @@ public class BanqueInfractionsImpl extends BanqueInfractionsPOA implements Seria
 		try {
 			Serialisation.encodeToFile(this, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_INF+Variables.SAVE_EXT);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

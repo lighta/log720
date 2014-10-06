@@ -46,10 +46,8 @@ public class CollectionDossierImpl extends CollectionDossierPOA implements Seria
 	
 	public void ajouterDossier(String nom, String prenom, String noPermis,
 			String noPlaque)  throws NoPermisExisteDejaException {
-		// TODO niveau/id ??
-		int niveau=0;
 		int id=_list_dossiers.size();
-		DossierImpl tmp_dos = new DossierImpl(id, nom, noPermis, noPlaque, prenom, niveau);
+		DossierImpl tmp_dos = new DossierImpl(id, nom, noPermis, noPlaque, prenom);
 		if(_list_dossiers.contains(tmp_dos))
 			throw new NoPermisExisteDejaException();
 		_list_dossiers.add(tmp_dos);

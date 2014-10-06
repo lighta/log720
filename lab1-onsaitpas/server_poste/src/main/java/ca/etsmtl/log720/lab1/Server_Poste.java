@@ -51,13 +51,12 @@ public class Server_Poste {
 			nc.rebind(name_dos, obj_dos);
 			nc.rebind(name_inf, obj_inf);
 			
-//			Serialisation.encodeToFile(servant_dos, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_DOS);
-//			Serialisation.encodeToFile(servant_inf, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_INF);		
+			Serialisation.encodeToFile(servant_dos, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_DOS+Variables.SAVE_EXT);
+			Serialisation.encodeToFile(servant_inf, Variables.PERSISTANCE_PATH+Variables.NAME_BANK_INF+Variables.SAVE_EXT);		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		orb.run();
 	}
-	
 	
 }

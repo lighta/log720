@@ -21,7 +21,7 @@ public class Serialisation {
 		 out.writeObject(object);
 		 out.close();
 		 fileOut.close();
-		 System.out.printf("Serialisation de l'objet dans "+fileName);
+		 System.out.println("Serialisation de l'objet dans "+fileName);
     }
 	
 	/**

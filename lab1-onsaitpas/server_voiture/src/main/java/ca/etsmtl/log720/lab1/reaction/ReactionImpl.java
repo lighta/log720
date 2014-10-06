@@ -25,13 +25,6 @@ public class ReactionImpl extends ReactionPOA implements Serializable {
 	}
 
 
-	public ReactionImpl(String description, int niveau) {
-		super();
-		this.description = description;
-		this.niveau = niveau;
-	}
-
-
 	public int id() {
 		return id;
 	}

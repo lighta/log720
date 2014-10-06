@@ -3,6 +3,9 @@ package ca.etsmtl.log720.lab1.dossier;
 import java.io.Serializable;
 
 import ca.etsmtl.log720.lab1.DossierPOA;
+import ca.etsmtl.log720.lab1.Serialisation;
+import ca.etsmtl.log720.lab1.Variables;
+import ca.etsmtl.log720.lab1.infraction.BanqueInfractionsImpl;
 
 public class DossierImpl extends DossierPOA implements Serializable {
 	private static final long serialVersionUID = -6849231354131147657L;
@@ -26,14 +29,14 @@ public class DossierImpl extends DossierPOA implements Serializable {
 	}
 	
 	public DossierImpl(int id, String nom, String noPermis, String noPlaque,
-			String prenom, int niveau) {
+			String prenom) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.noPermis = noPermis;
 		this.noPlaque = noPlaque;
 		this.prenom = prenom;
-		this.niveau = niveau;
+		this.niveau = 0; //by default niveau=0, sera maj lors d'une infraction
 	}
 	
 	public DossierImpl(String nom, String prenom) {
@@ -77,12 +80,27 @@ public class DossierImpl extends DossierPOA implements Serializable {
 	public void ajouterReactionAListe(int idReaction) {
 		list_reaction[size_reaction] = idReaction;
 		size_reaction++;
-		
+	}
+	
+	private void updateNiveau(int idInfraction){
+		//v1 recuperation par serialisation =(
+		BanqueInfractionsImpl banqueInfractions;
+		try {
+			banqueInfractions = (BanqueInfractionsImpl) Serialisation.decodeFromFile(Variables.PERSISTANCE_PATH+Variables.NAME_BANK_INF+Variables.SAVE_EXT);
+		} catch (Exception e) {
+			System.out.println("Couldn't fetch banqueinfraction so couldn't update niveau dossier");
+			return;	
+		}
+		int niveauInfraction =  banqueInfractions.get_CollectionInfractions().trouverInfractionParId(idInfraction).niveau();	
+		if(this.niveau < niveauInfraction){
+			this.niveau = niveauInfraction;
+		}
 	}
 
 	public void ajouterInfractionAListe(int idInfraction) {
 		list_infraction[size_infraction] = idInfraction;
 		size_infraction++;
+		updateNiveau(idInfraction);
 	}
 
 	public String _toString() {

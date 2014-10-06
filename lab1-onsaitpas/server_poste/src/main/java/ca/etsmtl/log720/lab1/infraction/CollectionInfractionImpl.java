@@ -49,7 +49,7 @@ public class CollectionInfractionImpl extends CollectionInfractionPOA implements
 			throws NiveauHorsBornesException {
 		if(niveau < Variables.NIVEAU_INF_MIN || niveau > Variables.NIVEAU_INF_MAX)
 			throw new NiveauHorsBornesException();
-		int id = _list_infractions.size(); // TODO what ID do we want ??
+		int id = _list_infractions.size(); //by default infraction_id = new index
 		_list_infractions.add(new InfractionImpl(id, description, niveau));
 	}
 	

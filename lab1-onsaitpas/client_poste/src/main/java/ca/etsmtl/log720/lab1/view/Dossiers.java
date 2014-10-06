@@ -5,16 +5,32 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.event.ActionListener;
+
+import ca.etsmtl.log720.lab1.ClientPosteSingleton;
+import ca.etsmtl.log720.lab1.CollectionDossier;
+
 /**
 *
 * @author Steven
 */
 public class Dossiers extends javax.swing.JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ActionListener listener;
    /**
     * Creates new form Dossiers
+    * @param listener 
     */
-   public Dossiers() {
+   public Dossiers(ActionListener listener) {
+       initComponents();
+       this.listener = listener;
+   }
+   
+   private Dossiers() {
        initComponents();
    }
 
@@ -62,7 +78,11 @@ public class Dossiers extends javax.swing.JFrame {
        jLabel1.setText("Recherche: ");
 
        jList1.setModel(new javax.swing.AbstractListModel() {
-           String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+           /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
            public int getSize() { return strings.length; }
            public Object getElementAt(int i) { return strings[i]; }
        });
@@ -167,11 +187,8 @@ public class Dossiers extends javax.swing.JFrame {
        jLabel10.setText("Ajouter un dossier:");
 
        jButton3.setText("Ajouter un dossier");
-       jButton3.addActionListener(new java.awt.event.ActionListener() {
-           public void actionPerformed(java.awt.event.ActionEvent evt) {
-               jButton3ActionPerformed(evt);
-           }
-       });
+       jButton3.addActionListener(listener);
+       jButton3.setActionCommand(String.valueOf(ClientPosteSingleton.ADD_DOSSIER));
 
        jLabel7.setText("Nom :");
 
@@ -259,7 +276,7 @@ public class Dossiers extends javax.swing.JFrame {
        String prenom 	= jTextField5.getText();
        String nom 		= jTextField6.getText();
        String plaque 	= jTextField7.getText();
-       String permis 	= jTextField8.getText();
+       String permis 	= jTextField8.getText();	   
    }                                        
 
    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -352,5 +369,24 @@ public class Dossiers extends javax.swing.JFrame {
    private javax.swing.JTextField jTextField7;
    private javax.swing.JTextField jTextField8;
    public java.awt.List list1;
-   // End of variables declaration                   
+   // End of variables declaration    
+   
+	public void refresh(CollectionDossier collec_doc){
+		int size_dossiers = collec_doc.size();
+		//System.out.println("size_dossiers="+size_dossiers);
+		if(size_dossiers>0){
+			int i=0;
+			list1.removeAll();
+			//System.out.println("[");
+			while(size_dossiers>i){
+			//	System.out.println("\tdos num="+i+": {"+collec_doc.getDossier(i)._toString()+"}");
+				// Ajout des dossiers a la liste des dossiers
+				
+				list1.add(collec_doc.getDossier(i)._toString());
+				i++;
+			}
+			//System.out.println("]");
+		}
+		repaint();
+	}
 }

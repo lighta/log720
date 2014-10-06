@@ -5,17 +5,28 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Steven
  */
 public class InterfacePoste extends javax.swing.JFrame {
 
-    /**
+	private static final long serialVersionUID = 5636803445186464359L;
+	ActionListener listener; //listener for action
+	/**
      * Creates new form InterfaceVoiture
      */
-    public InterfacePoste() {
+    public InterfacePoste(ActionListener listener) {
         initComponents();
+        this.listener = listener;
+    }
+    
+  //only for dev mode
+    private InterfacePoste() {
+        initComponents();
+        this.listener = null; //only for dev mode
     }
 
     /**
@@ -27,8 +38,9 @@ public class InterfacePoste extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-    	infractionsPosteView = new InfractionsPoste();
-    	dossiersView = new Dossiers();
+    	infractionsPosteView = new InfractionsPoste(listener);
+    	dossiersView = new Dossiers(listener);
+    	
         jMenuItem3 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();

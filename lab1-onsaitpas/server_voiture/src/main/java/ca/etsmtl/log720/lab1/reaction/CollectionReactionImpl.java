@@ -45,7 +45,7 @@ public class CollectionReactionImpl extends CollectionReactionPOA implements Ser
 	}
 	
 	public void ajouterReaction(String reaction, int gravite) {
-		_list_reactions.add(new ReactionImpl(reaction,gravite));
+		_list_reactions.add(new ReactionImpl(_list_reactions.size(),reaction,gravite));
 	}
 	
 	public void retirerReaction(int index){
