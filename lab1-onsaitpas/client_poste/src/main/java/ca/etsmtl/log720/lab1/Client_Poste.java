@@ -12,13 +12,6 @@ public class Client_Poste {
 		
 		BanqueDossiers banque_dossier;
 		BanqueInfractions banque_infraction;
-		
-		// Launch interface
-		final InterfacePoste view = new InterfacePoste(client_post);
-		view.setVisible(true);
-		
-		// Set the singleton view
-		client_post.setView(view);
 					
 		try {
 			org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
@@ -42,7 +35,7 @@ public class Client_Poste {
 				client_post.setBanqueInfractions(banque_infraction);
 			}
 			
-			while(view.isVisible()){ // TODO actually I fucking want is not close
+			while(client_post.getView().isVisible()){ // TODO actually I fucking want is not close
 				client_post.refresh(); //fill the list with default data
 				try {
 				    Thread.sleep(Variables.REFRESH_CLIENT_POST*1000);                 //1000 milliseconds is one second.

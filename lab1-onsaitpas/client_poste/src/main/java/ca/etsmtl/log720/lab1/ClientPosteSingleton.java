@@ -17,7 +17,19 @@ public class ClientPosteSingleton implements ActionListener {
 		public final static int ADD_DOSSIER = 101;
 		
 	
-		private ClientPosteSingleton() { }
+		private ClientPosteSingleton() { 
+			// Launch interface
+			view = new InterfacePoste((ActionListener) this);
+			view.setVisible(true);
+			
+			view.dossiersView.jButton3.setText("Ajouter un dossier");
+			view.dossiersView.jButton3.addActionListener(this);
+			view.dossiersView.jButton3.setActionCommand(String.valueOf(ClientPosteSingleton.ADD_DOSSIER));
+			
+			view.infractionsPosteView.jButton3.setText("Ajouter a la liste");
+			view.infractionsPosteView.jButton3.addActionListener(this);
+			view.infractionsPosteView.jButton3.setActionCommand(String.valueOf(ClientPosteSingleton.ADD_INFRACTION));
+		}
 	 
 		private static class SingletonHolder { 
 			private static final ClientPosteSingleton INSTANCE = new ClientPosteSingleton();
@@ -32,11 +44,6 @@ public class ClientPosteSingleton implements ActionListener {
 		public void setArgs(String[] arguments)
 		{
 			args = arguments;
-		}
-		
-		public void setView(InterfacePoste iView)
-		{
-			view = iView;
 		}
 		
 		public void setBanqueInfractions(BanqueInfractions banqueInfractions)

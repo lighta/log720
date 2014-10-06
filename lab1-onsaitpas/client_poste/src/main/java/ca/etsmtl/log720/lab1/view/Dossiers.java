@@ -5,6 +5,7 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import ca.etsmtl.log720.lab1.ClientPosteSingleton;
@@ -20,18 +21,21 @@ public class Dossiers extends javax.swing.JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ActionListener listener;
    /**
     * Creates new form Dossiers
     * @param listener 
     */
    public Dossiers(ActionListener listener) {
-       initComponents();
-       this.listener = listener;
+       initComponents(listener);
    }
    
+   //TEST dev case
    private Dossiers() {
-       initComponents();
+       initComponents(new ActionListener(){
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+		}
+       });
    }
 
    /**
@@ -41,7 +45,7 @@ public class Dossiers extends javax.swing.JFrame {
     */
    @SuppressWarnings("unchecked")
    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-   private void initComponents() {
+   private void initComponents(ActionListener listener) {
 
        jFrame1 = new javax.swing.JFrame();
        jLabel1 = new javax.swing.JLabel();
@@ -185,10 +189,6 @@ public class Dossiers extends javax.swing.JFrame {
 
        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
        jLabel10.setText("Ajouter un dossier:");
-
-       jButton3.setText("Ajouter un dossier");
-       jButton3.addActionListener(listener);
-       jButton3.setActionCommand(String.valueOf(ClientPosteSingleton.ADD_DOSSIER));
 
        jLabel7.setText("Nom :");
 
@@ -336,7 +336,7 @@ public class Dossiers extends javax.swing.JFrame {
 
    // Variables declaration - do not modify                     
    private javax.swing.JButton jButton1;
-   public javax.swing.JButton jButton3;
+   public javax.swing.JButton jButton3; //add dossier
    private javax.swing.JButton jButton4;
    private javax.swing.JFrame jFrame1;
    private javax.swing.JLabel jLabel1;

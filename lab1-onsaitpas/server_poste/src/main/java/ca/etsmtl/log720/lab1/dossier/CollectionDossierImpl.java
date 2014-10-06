@@ -48,8 +48,11 @@ public class CollectionDossierImpl extends CollectionDossierPOA implements Seria
 			String noPlaque)  throws NoPermisExisteDejaException {
 		int id=_list_dossiers.size();
 		DossierImpl tmp_dos = new DossierImpl(id, nom, noPermis, noPlaque, prenom);
-		if(_list_dossiers.contains(tmp_dos))
-			throw new NoPermisExisteDejaException();
+		for(DossierImpl cur_dos : _list_dossiers){
+			if(cur_dos.noPermis().compareTo(noPermis) == 0){
+				throw new NoPermisExisteDejaException();
+			}
+		}
 		_list_dossiers.add(tmp_dos);
 	}
 	

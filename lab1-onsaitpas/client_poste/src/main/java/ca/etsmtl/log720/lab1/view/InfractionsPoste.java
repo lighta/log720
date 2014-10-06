@@ -203,9 +203,6 @@ public class InfractionsPoste extends javax.swing.JFrame {
 
         jLabel11.setText("Description");
 
-        jButton3.setText("Ajouter a la liste");
-        jButton3.addActionListener(listener);
-        jButton3.setActionCommand(String.valueOf(ClientPosteSingleton.ADD_INFRACTION));
 
         list1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,7 +325,7 @@ public class InfractionsPoste extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    public javax.swing.JButton jButton3;
+    public javax.swing.JButton jButton3; //ajout infraction
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
