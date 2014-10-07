@@ -35,20 +35,17 @@ public class Client_Poste {
 				client_post.setBanqueInfractions(banque_infraction);
 			}
 			
-			while(client_post.getView().isVisible()){ // TODO actually I fucking want is not close
+			while(client_post.getView().isVisible()){
 				client_post.refresh(); //fill the list with default data
 				try {
 				    Thread.sleep(Variables.REFRESH_CLIENT_POST*1000);                 //1000 milliseconds is one second.
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
-			}
-			// TODO donot put default close on JFrame, we need to go through here !
-			
-			
+			}		
 			orb.shutdown(true);
 			System.out.println("done. ");
-
+			System.exit(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

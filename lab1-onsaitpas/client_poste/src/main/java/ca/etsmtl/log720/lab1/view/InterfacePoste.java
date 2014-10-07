@@ -50,7 +50,7 @@ public class InterfacePoste extends javax.swing.JFrame {
 
         jMenuItem3.setText("jMenuItem3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Client Poste de police");

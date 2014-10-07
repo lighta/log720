@@ -80,9 +80,7 @@ public class ClientVoitureSingleton implements ActionListener {
 		public void refresh(){
 			refreshListInf();
 			refreshListReac();
-		}
-		
-
+		}		
 		
 		private void add_reaction_to_list() {	
 			;

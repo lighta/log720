@@ -41,19 +41,18 @@ public class Client_Voiture {
 					
 			//test_basic(banque_reaction, banque_dossier, banque_infraction);
 			
-			while(client_voiture.getView().isVisible()){ // TODO actually I fucking want is not close
+			while(client_voiture.getView().isVisible()){
 				client_voiture.refresh(); //fill the list with default data
 				try {
-				    Thread.sleep(Variables.REFRESH_CLIENT_POST*1000);                 //1000 milliseconds is one second.
+				    Thread.sleep(Variables.REFRESH_CLIENT_VOITURE*1000);                 //1000 milliseconds is one second.
 				} catch(InterruptedException ex) {
 				    Thread.currentThread().interrupt();
 				}
 			}
-			// TODO donot put default close on JFrame, we need to go through here !
 						
 			orb.shutdown(true);
 			System.out.println("done. ");
-
+			System.exit(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
