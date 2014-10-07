@@ -64,7 +64,7 @@ public class Dossiers extends javax.swing.JFrame {
        jButton4 = new javax.swing.JButton();
        jLabel9 = new javax.swing.JLabel();
        jLabel10 = new javax.swing.JLabel();
-       jButton3 = new javax.swing.JButton();
+       jB_addDos = new javax.swing.JButton();
        jLabel7 = new javax.swing.JLabel();
        jTextField5 = new javax.swing.JTextField();
        jLabel8 = new javax.swing.JLabel();
@@ -197,6 +197,11 @@ public class Dossiers extends javax.swing.JFrame {
        jLabel12.setText("Numero de plaque :");
 
        jLabel13.setText("Numero de permis :");
+       
+   		jB_addDos.setText("Ajouter un dossier");
+   		jB_addDos.addActionListener(listener);
+   		jB_addDos.setActionCommand(String.valueOf(ClientPosteSingleton.ADD_DOSSIER));
+
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
        getContentPane().setLayout(layout);
@@ -214,7 +219,7 @@ public class Dossiers extends javax.swing.JFrame {
                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                    .addGap(351, 351, 351)
-                                   .addComponent(jButton3))
+                                   .addComponent(jB_addDos))
                                .addGroup(layout.createSequentialGroup()
                                    .addGap(0, 337, Short.MAX_VALUE)
                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -262,7 +267,7 @@ public class Dossiers extends javax.swing.JFrame {
                            .addComponent(jLabel13)
                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                        .addGap(32, 32, 32)
-                       .addComponent(jButton3)
+                       .addComponent(jB_addDos)
                        .addGap(0, 123, Short.MAX_VALUE))
                    .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .addContainerGap())
@@ -336,7 +341,7 @@ public class Dossiers extends javax.swing.JFrame {
 
    // Variables declaration - do not modify                     
    private javax.swing.JButton jButton1;
-   public javax.swing.JButton jButton3; //add dossier
+   private javax.swing.JButton jB_addDos; //add dossier
    private javax.swing.JButton jButton4;
    private javax.swing.JFrame jFrame1;
    private javax.swing.JLabel jLabel1;
@@ -361,7 +366,7 @@ public class Dossiers extends javax.swing.JFrame {
    private javax.swing.JTextField jTextField6;
    private javax.swing.JTextField jTextField7;
    private javax.swing.JTextField jTextField8;
-   public java.awt.List list1;
+   private java.awt.List list1;
    // End of variables declaration    
    
 	public void refresh(CollectionDossier collec_doc){

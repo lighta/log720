@@ -19,14 +19,14 @@ public class InterfacePoste extends javax.swing.JFrame {
      * Creates new form InterfaceVoiture
      */
     public InterfacePoste(ActionListener listener) {
-        initComponents();
-        this.listener = listener;
+    	this.listener = listener;
+        initComponents();      
     }
     
   //only for dev mode
     private InterfacePoste() {
-        initComponents();
         this.listener = null; //only for dev mode
+        initComponents();
     }
 
     /**

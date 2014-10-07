@@ -5,6 +5,15 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultListModel;
+
+import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
+import ca.etsmtl.log720.lab1.CollectionInfraction;
+import ca.etsmtl.log720.lab1.CollectionReaction;
+
 /**
  *
  * @author Steven
@@ -14,8 +23,17 @@ public class Reactions extends javax.swing.JFrame {
     /**
      * Creates new form Reactions
      */
-    public Reactions() {
-        initComponents();
+	private Reactions() {
+        initComponents(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+        });
+    }
+	
+    public Reactions(ActionListener _listener) {
+        initComponents(_listener);
     }
 
     /**
@@ -25,15 +43,15 @@ public class Reactions extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    private void initComponents(ActionListener _listener) {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jB_addList_Reaction = new javax.swing.JButton();
+        jB_addList_Dossier = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -42,6 +60,7 @@ public class Reactions extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        list_reaction = new DefaultListModel<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Réactions");
@@ -59,19 +78,15 @@ public class Reactions extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Ajouter une reaction:");
 
-        jButton1.setText("Ajouter a la liste");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jB_addList_Reaction.setText("Ajouter a la liste");
+        jB_addList_Reaction.addActionListener(_listener);
+        jB_addList_Reaction.setActionCommand(String.valueOf(ClientVoitureSingleton.ADD_REACTION_LIST));
 
-        jButton2.setText("Ajouter au dossier");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+
+        jB_addList_Dossier.setText("Ajouter au dossier");
+        jB_addList_Dossier.addActionListener(_listener);
+        jB_addList_Dossier.setActionCommand(String.valueOf(ClientVoitureSingleton.ADD_REACTION_TO_DOS));
+
 
         jLabel4.setText("Niveau de gravite");
 
@@ -99,7 +114,7 @@ public class Reactions extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(jB_addList_Reaction)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(232, 232, 232))
                     .addGroup(layout.createSequentialGroup()
@@ -114,7 +129,7 @@ public class Reactions extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(117, 117, 117)
-                            .addComponent(jButton2)
+                            .addComponent(jB_addList_Dossier)
                             .addGap(233, 233, 233))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(31, 31, 31)
@@ -149,7 +164,7 @@ public class Reactions extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jB_addList_Reaction)
                 .addContainerGap(260, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -172,7 +187,7 @@ public class Reactions extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel5))
                             .addGap(18, 18, 18)
-                            .addComponent(jButton2))
+                            .addComponent(jB_addList_Dossier))
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(20, Short.MAX_VALUE)))
         );
@@ -181,14 +196,6 @@ public class Reactions extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>                        
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
 
     /**
      * @param args the command line arguments
@@ -226,8 +233,8 @@ public class Reactions extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jB_addList_Reaction;
+    private javax.swing.JButton jB_addList_Dossier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -241,5 +248,22 @@ public class Reactions extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    // End of variables declaration                   
+    private DefaultListModel<String> list_reaction;
+    // End of variables declaration
+    
+    public void refresh(CollectionReaction collec_reac){
+    	int size_reac = collec_reac.size();
+		//System.out.println("size_infraction="+size_infraction);
+		if(size_reac>0){
+			int i=0;
+			list_reaction.removeAllElements();
+			//System.out.println("[");
+			while(size_reac>i){ // Ajout des infractions a la liste des infractions
+				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
+				list_reaction.addElement(collec_reac.getReaction(i)._toString()); // TODO makethis morep retty
+				i++;
+			}
+			//System.out.println("]");
+		}
+    }
 }

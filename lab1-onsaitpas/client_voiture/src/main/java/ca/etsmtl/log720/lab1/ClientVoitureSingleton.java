@@ -7,12 +7,11 @@ import java.util.Random;
 import ca.etsmtl.log720.lab1.view.InterfaceVoiture;
 
 public class ClientVoitureSingleton implements ActionListener {
-		String[] args;
-		BanqueReactions banque_reaction;
-		BanqueInfractions banque_infraction;
-		BanqueDossiers banque_dossier;
-
-		InterfaceVoiture view;
+		private String[] args;
+		private BanqueReactions banque_reaction;
+		private BanqueInfractions banque_infraction;
+		private BanqueDossiers banque_dossier;
+		private InterfaceVoiture view;
 		
 		//action listener commandmap for listener
 		// [100-199] is reserved for ClientPosteSingleton
@@ -27,14 +26,6 @@ public class ClientVoitureSingleton implements ActionListener {
 			// Launch interface
 			view = new InterfaceVoiture(this);
 			view.setVisible(true);
-			
-//			view.dossiersView.jButton3.setText("Ajouter un dossier");
-//			view.dossiersView.jButton3.addActionListener(this);
-//			view.dossiersView.jButton3.setActionCommand(String.valueOf(ClientVoitureSingleton.ADD_DOSSIER));
-//			
-//			view.infractionsPosteView.jButton3.setText("Ajouter a la liste");
-//			view.infractionsPosteView.jButton3.addActionListener(this);
-//			view.infractionsPosteView.jButton3.setActionCommand(String.valueOf(ClientVoitureSingleton.ADD_INFRACTION));
 		}
 	 
 		private static class SingletonHolder { 

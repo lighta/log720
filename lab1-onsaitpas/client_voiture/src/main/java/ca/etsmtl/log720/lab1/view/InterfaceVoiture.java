@@ -13,22 +13,20 @@ import java.awt.event.ActionListener;
 * @author Steven
 */
 public class InterfaceVoiture extends javax.swing.JFrame {
-
+	private ActionListener listener;
    /**
     * Creates new form InterfaceVoiture
     */
    public InterfaceVoiture(ActionListener listener) {
-       initComponents(listener);
+	   this.listener = listener;
+       initComponents();
+       
    }
    
    //for dev
    private InterfaceVoiture() {
-       initComponents(new ActionListener(){
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}	   
-       });
+	   this.listener = null;
+       initComponents();      
    }
 
    /**
@@ -38,14 +36,10 @@ public class InterfaceVoiture extends javax.swing.JFrame {
     */
    @SuppressWarnings("unchecked")
    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-   private void initComponents(ActionListener listener) {
-   	   Infractions infractionsView = new Infractions();
-   	   Recherche rechercheView = new Recherche();
-   	   Reactions reactionView = new Reactions();
-   	   
-	   infractionsView.setVisible(false);
-	   rechercheView.setVisible(false);
-	   reactionView.setVisible(false);
+   private void initComponents() {
+   	   infractionsView = new Infractions(listener);
+   	   rechercheView = new Recherche(listener);
+   	   reactionView = new Reactions(listener);
    	
        jMenuItem3 = new javax.swing.JMenuItem();
        jLabel1 = new javax.swing.JLabel();

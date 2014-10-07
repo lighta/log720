@@ -5,6 +5,15 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultListModel;
+
+import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
+import ca.etsmtl.log720.lab1.CollectionInfraction;
+
 /**
  *
  * @author Steven
@@ -14,8 +23,17 @@ public class Infractions extends javax.swing.JFrame {
     /**
      * Creates new form Infractions
      */
-    public Infractions() {
-        initComponents();
+    private Infractions() {
+        initComponents(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+        });
+    }
+    
+    public Infractions(ActionListener _listener) {
+        initComponents(_listener);
     }
 
     /**
@@ -25,8 +43,7 @@ public class Infractions extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
-
+    private void initComponents(ActionListener _listener) {
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
@@ -35,16 +52,13 @@ public class Infractions extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-
+        jB_add_infToDos = new javax.swing.JButton();
+        list_infractions = new DefaultListModel<String>();
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Infractions");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setModel(list_infractions);
         jScrollPane2.setViewportView(jList1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -61,12 +75,10 @@ public class Infractions extends javax.swing.JFrame {
 
         jLabel5.setText("0");
 
-        jButton2.setText("Ajouter au dossier");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jB_add_infToDos.setText("Ajouter au dossier");
+        jB_add_infToDos.addActionListener(_listener);
+        jB_add_infToDos.setActionCommand(String.valueOf(ClientVoitureSingleton.ADD_INFRACTION_TO_DOS));
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,7 +107,7 @@ public class Infractions extends javax.swing.JFrame {
                                 .addGap(75, 75, 75))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(86, 86, 86)
-                                .addComponent(jButton2)
+                                .addComponent(jB_add_infToDos)
                                 .addGap(215, 215, 215)))))
                 .addContainerGap())
         );
@@ -120,16 +132,12 @@ public class Infractions extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(jB_add_infToDos)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
 
     /**
      * @param args the command line arguments
@@ -167,7 +175,7 @@ public class Infractions extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jB_add_infToDos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -176,5 +184,22 @@ public class Infractions extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane2;
+    private DefaultListModel<String> list_infractions;
     // End of variables declaration
+    
+    public void refresh(CollectionInfraction collec_inf){
+    	int size_infraction = collec_inf.size();
+		//System.out.println("size_infraction="+size_infraction);
+		if(size_infraction>0){
+			int i=0;
+			list_infractions.removeAllElements();
+			//System.out.println("[");
+			while(size_infraction>i){ // Ajout des infractions a la liste des infractions
+				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
+				list_infractions.addElement(collec_inf.getInfraction(i)._toString()); // TODO makethis morep retty
+				i++;
+			}
+			//System.out.println("]");
+		}
+    }
 }

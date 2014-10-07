@@ -5,6 +5,15 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultListModel;
+
+import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
+import ca.etsmtl.log720.lab1.CollectionDossier;
+import ca.etsmtl.log720.lab1.CollectionInfraction;
+
 /**
 *
 * @author Steven
@@ -14,8 +23,17 @@ public class Recherche extends javax.swing.JFrame {
    /**
     * Creates new form Recherche
     */
-   public Recherche() {
-       initComponents();
+   private Recherche() {
+       initComponents(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+       });
+   }
+	
+   public Recherche(ActionListener _listener) {
+       initComponents(_listener);
    }
 
    /**
@@ -25,8 +43,7 @@ public class Recherche extends javax.swing.JFrame {
     */
    @SuppressWarnings("unchecked")
    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-   private void initComponents() {
-
+   private void initComponents(ActionListener _listener) {
        jLabel1 = new javax.swing.JLabel();
        jScrollPane1 = new javax.swing.JScrollPane();
        jList1 = new javax.swing.JList();
@@ -39,8 +56,9 @@ public class Recherche extends javax.swing.JFrame {
        jTextField3 = new javax.swing.JTextField();
        jLabel5 = new javax.swing.JLabel();
        jTextField4 = new javax.swing.JTextField();
-       jButton1 = new javax.swing.JButton();
-       jButton3 = new javax.swing.JButton();
+       jB_searchDos = new javax.swing.JButton();
+       jB_selectDos = new javax.swing.JButton();
+       list_dossier = new DefaultListModel<String>();
 
        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
        setTitle("Recherche");
@@ -66,14 +84,13 @@ public class Recherche extends javax.swing.JFrame {
 
        jLabel5.setText("Numero de permis :");
 
-       jButton1.setText("Rechercher");
+       jB_searchDos.setText("Rechercher");
+       jB_searchDos.addActionListener(_listener);
+       jB_searchDos.setActionCommand(String.valueOf(ClientVoitureSingleton.SEARCH_DOS));
 
-       jButton3.setText("Selectionner le dossier");
-       jButton3.addActionListener(new java.awt.event.ActionListener() {
-           public void actionPerformed(java.awt.event.ActionEvent evt) {
-               jButton3ActionPerformed(evt);
-           }
-       });
+       jB_selectDos.setText("Selectionner le dossier");
+       jB_selectDos.addActionListener(_listener);
+       jB_selectDos.setActionCommand(String.valueOf(ClientVoitureSingleton.SELECT_DOS));
 
        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
        getContentPane().setLayout(layout);
@@ -100,11 +117,11 @@ public class Recherche extends javax.swing.JFrame {
                        .addComponent(jLabel5)
                        .addGap(18, 18, 18)
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addComponent(jButton1)
+                           .addComponent(jB_searchDos)
                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))))
                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                   .addComponent(jButton3)
+                   .addComponent(jB_selectDos)
                    .addComponent(jLabel6)
                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
                .addContainerGap())
@@ -135,22 +152,17 @@ public class Recherche extends javax.swing.JFrame {
                            .addComponent(jLabel5)
                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                        .addGap(34, 34, 34)
-                       .addComponent(jButton1))
+                       .addComponent(jB_searchDos))
                    .addGroup(layout.createSequentialGroup()
                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
                .addGap(18, 18, 18)
-               .addComponent(jButton3)
+               .addComponent(jB_selectDos)
                .addContainerGap(43, Short.MAX_VALUE))
        );
 
        pack();
    }// </editor-fold>                        
-
-   private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-       // setSelectedDossier(selectedItem);
-       dispose();
-   }                                        
 
    /**
     * @param args the command line arguments
@@ -188,8 +200,8 @@ public class Recherche extends javax.swing.JFrame {
    }
 
    // Variables declaration - do not modify                     
-   private javax.swing.JButton jButton1;
-   private javax.swing.JButton jButton3;
+   private javax.swing.JButton jB_searchDos;
+   private javax.swing.JButton jB_selectDos;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
@@ -202,5 +214,22 @@ public class Recherche extends javax.swing.JFrame {
    private javax.swing.JTextField jTextField2;
    private javax.swing.JTextField jTextField3;
    private javax.swing.JTextField jTextField4;
-   // End of variables declaration                   
+   private DefaultListModel<String> list_dossier;
+   // End of variables declaration 
+   
+   public void refresh(CollectionDossier collec_dos){
+		int size_dos = collec_dos.size();
+		//System.out.println("size_infraction="+size_infraction);
+		if(size_dos>0){
+			int i=0;
+			list_dossier.removeAllElements();
+			//System.out.println("[");
+			while(size_dos>i){ // Ajout des infractions a la liste des infractions
+				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
+				list_dossier.addElement(collec_dos.getDossier(i)._toString());		// TODO makethis morep retty
+				i++;
+			}
+			//System.out.println("]");
+		}
+	}
 }

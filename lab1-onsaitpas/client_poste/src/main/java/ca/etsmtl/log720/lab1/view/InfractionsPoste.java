@@ -5,6 +5,7 @@
  */
 package ca.etsmtl.log720.lab1.view;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JList;
@@ -24,19 +25,20 @@ public class InfractionsPoste extends javax.swing.JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	ActionListener listener;
 	/**
      * Creates new form InfractionsPoste
      */
     public InfractionsPoste(ActionListener listener) {
-    	initComponents();
-    	this.listener = listener;
+    	initComponents(listener);	
 	}
 
     //used for direct view (dev)
 	private InfractionsPoste() {
-		initComponents();
-		this.listener = null; //no action possible
+		initComponents(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+	       });		
 	}
 
 	/**
@@ -46,8 +48,7 @@ public class InfractionsPoste extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
-
+    private void initComponents(ActionListener listener) {
         jFrame1 = new javax.swing.JFrame();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -66,7 +67,7 @@ public class InfractionsPoste extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel_desc = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        jB_addToLis = new javax.swing.JButton();
         list1 = new java.awt.List();
         jLabel_gravite = new javax.swing.JLabel();
         jTextField3 = new JIntField(Variables.NIVEAU_INF_MIN, Variables.NIVEAU_INF_MIN, Variables.NIVEAU_INF_MAX+1); //actually 5 but let allow 6 for test
@@ -166,10 +167,16 @@ public class InfractionsPoste extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("Infractions :");
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        
         jLabel10.setText("Ajouter une infraction:");
         jLabel_desc.setText("Description");
         jLabel_gravite.setText("Gravite ("+Variables.NIVEAU_INF_MIN+"-"+Variables.NIVEAU_INF_MAX+")");
 
+		jB_addToLis.setText("Ajouter a la liste");
+		jB_addToLis.addActionListener(listener);
+		jB_addToLis.setActionCommand(String.valueOf(ClientPosteSingleton.ADD_INFRACTION));
+
+		
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,7 +198,7 @@ public class InfractionsPoste extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)
+                            .addComponent(jB_addToLis)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
@@ -213,7 +220,7 @@ public class InfractionsPoste extends javax.swing.JFrame {
                             .addComponent(jLabel_gravite)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(33, 33, 33)
-                        .addComponent(jButton3)
+                        .addComponent(jB_addToLis)
                         .addGap(0, 204, Short.MAX_VALUE))
                     .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -269,7 +276,7 @@ public class InfractionsPoste extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    public javax.swing.JButton jButton3; //ajout infraction
+    private javax.swing.JButton jB_addToLis; //ajout infraction
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
