@@ -7,3 +7,5 @@ set CLIENT_VOITURE=ca.etsmtl.log720.lab1.Client_Voiture
 set MY_CLASSPATH=..\..\idl\target\classes;..\..\common\target\classes;%MY_CLASSPATH%
 set MY_CLASSPATH=..\..\server_poste\target\classes;..\..\server_voiture\target\classes;%MY_CLASSPATH%
 set MY_CLASSPATH=..\..\client_poste\target\classes;..\..\client_voiture\target\classes;%MY_CLASSPATH%
+::build the persistance dir folder
+if not exist "..\..\persistance" mkdir ..\..\persistance
