@@ -80,7 +80,7 @@ public class Client_Voiture {
 			}
 			
 			System.out.println("Test searching by id="+id);
-			Dossier dos_john2 = banque_dossier.trouverDossierParId(id-1);	
+			Dossier dos_john2 = banque_dossier.trouverDossierParId(1);	
 			if(dos_john2 ==null){
 				System.out.println("Recherche par ID as fail");
 			} else {
@@ -95,19 +95,63 @@ public class Client_Voiture {
 				System.out.println("Success");
 			}
 			
-			System.out.println("Test search by plaque");
-			CollectionDossier collec_dos = banque_dossier.trouverDossiersParPlaque("JeMeSouvienS");
-			int nb_res = collec_dos.size();
-			if(nb_res == 0){
-				System.out.println("No result found");
+			try {
+				banque_dossier.ajouterDossier("john2", "do2", "1234", "JeMeTest");
+				id++;
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			else {
-				int i=0;
-				while(nb_res > i){
-					System.out.println("Result["+i+"]"+collec_dos.getDossier(i)._toString());
-					i++;
+			try {
+				banque_dossier.ajouterDossier("notmatch", "fail", "hello", "Testme");
+				id++;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			{ //test scope
+				System.out.println("Test search by plaque");
+				CollectionDossier collec_dos = banque_dossier.trouverDossiersParPlaque("JeMe"); //should return2
+				if(collec_dos != null ){
+					int nb_res = collec_dos.size();
+					if(nb_res == 0){
+						System.out.println("No result found");
+					}
+					else {
+						int i=0;
+						while(nb_res > i){
+							System.out.println("Result["+i+"] "+collec_dos.getDossier(i)._toString());
+							i++;
+						}
+					}
 				}
 			}
+			{ //test scope
+				System.out.println("Test search by nom,prenom");
+				CollectionDossier collec_dos = banque_dossier.trouverDossiersParNom("jo","d"); //should return 2
+				if(collec_dos != null ){
+					int nb_res = collec_dos.size();
+					if(nb_res == 0){
+						System.out.println("No result found");
+					}
+					else {
+						int i=0;
+						while(nb_res > i){
+							System.out.println("Result["+i+"] "+collec_dos.getDossier(i)._toString());
+							i++;
+						}
+					}
+				}
+			}
+			
+			
+			try {
+				System.out.println("Test update niveau john2");
+				banque_infraction.ajouterInfraction("proxenetisme", 4);
+		//		dos_john2.ajouterInfractionAListe(0);
+				System.out.println("john2 should now have niveau=4 on dossier\n\tdos_john2="+dos_john2._toString()); //
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 	

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.omg.PortableServer.POA;
 
 import ca.etsmtl.log720.lab1.CollectionInfractionPOA;
+import ca.etsmtl.log720.lab1.Dossier;
 import ca.etsmtl.log720.lab1.Infraction;
 import ca.etsmtl.log720.lab1.InfractionHelper;
 import ca.etsmtl.log720.lab1.NiveauHorsBornesException;
@@ -50,7 +51,12 @@ public class CollectionInfractionImpl extends CollectionInfractionPOA implements
 		if(niveau < Variables.NIVEAU_INF_MIN || niveau > Variables.NIVEAU_INF_MAX)
 			throw new NiveauHorsBornesException();
 		int id = _list_infractions.size(); //by default infraction_id = new index
-		_list_infractions.add(new InfractionImpl(id, description, niveau));
+		InfractionImpl tmp_inf = new InfractionImpl(id, description, niveau);
+		if(_list_infractions.contains(tmp_inf)){
+			System.out.println("List_Infraction already contains this obj \n\t\t"+tmp_inf);
+			return;
+		}
+		_list_infractions.add(tmp_inf);
 	}
 	
 	public void retirerInfraction(int index){
@@ -65,6 +71,18 @@ public class CollectionInfractionImpl extends CollectionInfractionPOA implements
 			i++;
 		}
 		return null;
+	}
+	
+	CollectionInfractionImpl trouverInfractionsParDossier(Dossier myDossier){
+		int tab_infractionID[] = myDossier.getListeInfraction();
+		CollectionInfractionImpl col_inf = new CollectionInfractionImpl();
+		for(InfractionImpl cur_inf: _list_infractions){
+			for(int id: tab_infractionID){
+				if(id == cur_inf.id())
+					col_inf.getListInfractions().add(cur_inf);
+			}
+		}
+		return col_inf;
 	}
 
 	@Override

@@ -53,6 +53,10 @@ public class CollectionDossierImpl extends CollectionDossierPOA implements Seria
 				throw new NoPermisExisteDejaException();
 			}
 		}
+		if(_list_dossiers.contains(tmp_dos)){
+			System.out.println("List_dossier already contains this obj \n\t\t"+tmp_dos);
+			return;
+		}
 		_list_dossiers.add(tmp_dos);
 	}
 	
@@ -90,25 +94,24 @@ public class CollectionDossierImpl extends CollectionDossierPOA implements Seria
 	
 	public CollectionDossierImpl matches(String nom, String prenom, String noPlaque){
 		CollectionDossierImpl tmp_collecdos = new CollectionDossierImpl();
-		int i=0;
 		
-		for(DossierImpl cur : _list_dossiers){
+		for(DossierImpl cur : _list_dossiers){ //loop search by regex
 			boolean match=false;
 			
 			if (noPlaque != null) { //match by plaque
-				if (cur.noPlaque != null && noPlaque.contains(cur.noPlaque)){
+				if (cur.noPlaque != null && cur.noPlaque.matches("(?i).*"+noPlaque+".*")){
 					match=true;
 				}
 				else continue;
 			}
 			if (nom != null) { //match by name
-				if (cur.nom != null && nom.contains(cur.nom)){
+				if (cur.nom != null && cur.nom.matches("(?i).*"+nom+".*")){
 					match=true;
 				}
 				else continue;
 			}
 			if (prenom != null) { //match by 1st name
-				if (cur.prenom != null && prenom.contains(cur.prenom)){
+				if (cur.prenom != null && cur.prenom.matches("(?i).*"+prenom+".*")){
 					match=true;
 				}
 				else continue;

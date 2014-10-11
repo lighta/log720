@@ -45,7 +45,12 @@ public class CollectionReactionImpl extends CollectionReactionPOA implements Ser
 	}
 	
 	public void ajouterReaction(String reaction, int gravite) {
-		_list_reactions.add(new ReactionImpl(_list_reactions.size(),reaction,gravite));
+		ReactionImpl reac = new ReactionImpl(_list_reactions.size(),reaction,gravite);
+		if(_list_reactions.contains(reac)){
+			System.out.println("List_reaction already contains this obj \n\t\t"+reac);
+			return;
+		}
+		_list_reactions.add(reac);
 	}
 	
 	public void retirerReaction(int index){
@@ -53,7 +58,7 @@ public class CollectionReactionImpl extends CollectionReactionPOA implements Ser
 	}
 	
 	CollectionReactionImpl trouverReactionsParDossier(Dossier myDossier){
-		int tab_infractionID[] = myDossier.getListeInfraction();
+		int tab_infractionID[] = myDossier.getListeReaction();
 		CollectionReactionImpl col_reac = new CollectionReactionImpl();
 		for(ReactionImpl cur_reac: _list_reactions){
 			for(int id: tab_infractionID){

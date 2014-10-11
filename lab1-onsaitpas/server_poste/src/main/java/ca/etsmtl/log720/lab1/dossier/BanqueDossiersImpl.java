@@ -10,7 +10,6 @@ import ca.etsmtl.log720.lab1.BanqueDossiersPOA;
 import ca.etsmtl.log720.lab1.CollectionDossier;
 import ca.etsmtl.log720.lab1.CollectionDossierHelper;
 import ca.etsmtl.log720.lab1.Dossier;
-import ca.etsmtl.log720.lab1.DossierHelper;
 import ca.etsmtl.log720.lab1.InvalidIdException;
 import ca.etsmtl.log720.lab1.NoPermisExisteDejaException;
 import ca.etsmtl.log720.lab1.Serialisation;
