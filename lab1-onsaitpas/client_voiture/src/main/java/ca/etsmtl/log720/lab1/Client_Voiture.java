@@ -80,7 +80,7 @@ public class Client_Voiture {
 			}
 			
 			System.out.println("Test searching by id="+id);
-			Dossier dos_john2 = banque_dossier.trouverDossierParId(1);	
+			Dossier dos_john2 = banque_dossier.trouverDossierParId(0);	
 			if(dos_john2 ==null){
 				System.out.println("Recherche par ID as fail");
 			} else {
@@ -145,13 +145,68 @@ public class Client_Voiture {
 			
 			try {
 				System.out.println("Test update niveau john2");
-				banque_infraction.ajouterInfraction("proxenetisme", 4);
-		//		dos_john2.ajouterInfractionAListe(0);
+				banque_infraction.ajouterInfraction("proxenetisme", 4); //id0
+				banque_infraction.ajouterInfraction("infrac2", 6); //id1
+				banque_infraction.ajouterInfraction("infrac3", 2); //id2
+				banque_infraction.ajouterInfraction("nodisplay", 2); //id3
+				
+				dos_john2.ajouterInfractionAListe(0);
 				System.out.println("john2 should now have niveau=4 on dossier\n\tdos_john2="+dos_john2._toString()); //
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
+			{
+				dos_john2.ajouterInfractionAListe(1);
+				dos_john2.ajouterInfractionAListe(2);
+				
+				System.out.println("Test list infraction by dossier");
+				CollectionInfraction colloc_inf = banque_infraction.trouverInfractionsParDossier(dos_john2);
+				if(colloc_inf != null ){
+					int nb_res = colloc_inf.size();
+					if(nb_res == 0){
+						System.out.println("No result found");
+					}
+					else {
+						int i=0;
+						while(nb_res > i){
+							System.out.println("Result["+i+"] "+colloc_inf.getInfraction(i)._toString());
+							i++;
+						}
+					}
+				}
+			}
+			
+			try {
+				System.out.println("Test ajout de reaction");
+				banque_reaction.ajouterReaction("test1", 2);
+				banque_reaction.ajouterReaction("test2", 2);
+				banque_reaction.ajouterReaction("test3", 2);
+				banque_reaction.ajouterReaction("notdisplay", 2);
+				
+				for(int i=0; i<3; i++)
+					dos_john2.ajouterReactionAListe(i);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			{
+				System.out.println("Test list reaction by dossier");
+				CollectionReaction colloc_reac = banque_reaction.trouverReactionsParDossier(dos_john2);
+				if(colloc_reac != null ){
+					int nb_res = colloc_reac.size();
+					if(nb_res == 0){
+						System.out.println("No result found");
+					}
+					else {
+						int i=0;
+						while(nb_res > i){
+							System.out.println("Result["+i+"] "+colloc_reac.getReaction(i)._toString());
+							i++;
+						}
+					}
+				}
+			}
 		}
 	}
 	

@@ -1,6 +1,6 @@
 #!/bin/bash
 #retrait de tous les fichier dans le dossier de persistance
-[[ -f ../../persistance/* ]] && rm ../../persistance/*
+rm -f ../../persistance/*
 #clean _nsdb_root in case naming was launched locally
 [[ -f _nsdb_root ]] && rm _nsdb_root
 echo "Clean executed sucessfully"

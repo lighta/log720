@@ -1,6 +1,7 @@
 package ca.etsmtl.log720.lab1.dossier;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import ca.etsmtl.log720.lab1.DossierPOA;
 import ca.etsmtl.log720.lab1.Serialisation;
@@ -15,18 +16,8 @@ public class DossierImpl extends DossierPOA implements Serializable {
 	String noPlaque;
 	String prenom;
 	int niveau=0;
-	int list_infraction[]; //infractions ID
-	int size_infraction=0;
-	int list_reaction[]; //reaction ID
-	int size_reaction=0;
-	
-	public DossierImpl() {
-		super();
-		this.nom = "";
-		this.noPermis = "";
-		this.noPlaque = "";
-		this.prenom = "";
-	}
+	private ArrayList<Integer> list_infraction; //infractions ID
+	private ArrayList<Integer> list_reaction; //reaction ID
 	
 	public DossierImpl(int id, String nom, String noPermis, String noPlaque,
 			String prenom) {
@@ -37,12 +28,16 @@ public class DossierImpl extends DossierPOA implements Serializable {
 		this.noPlaque = noPlaque;
 		this.prenom = prenom;
 		this.niveau = 0; //by default niveau=0, sera maj lors d'une infraction
+		list_infraction = new ArrayList<Integer>(); //infractions ID
+		list_reaction = new ArrayList<Integer>(); //reaction ID
 	}
 	
 	public DossierImpl(String nom, String prenom) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
+		list_infraction = new ArrayList<Integer>(); //infractions ID
+		list_reaction = new ArrayList<Integer>(); //reaction ID
 	}
 
 	public int id() {
@@ -69,17 +64,26 @@ public class DossierImpl extends DossierPOA implements Serializable {
 		return niveau;
 	}
 
+	private int[] ArrayListToInt(ArrayList<Integer> al){ //not that pretty but to avoid lib dependancy
+		int tmp[] = new int[al.size()], i=0;
+		for(int cur : al){
+			tmp[i] = cur;
+			i++;
+		}
+		return tmp;
+	}
+	
 	public int[] getListeInfraction() {
-		return list_infraction;
+		return ArrayListToInt(list_infraction);
 	}
 
 	public int[] getListeReaction() {
-		return list_reaction;
+		return ArrayListToInt(list_reaction);
 	}
 
 	public void ajouterReactionAListe(int idReaction) {
-		list_reaction[size_reaction] = idReaction;
-		size_reaction++;
+		System.out.println("Adding reaction id="+idReaction+" to dossier");
+		list_reaction.add(idReaction);
 	}
 	
 	private void updateNiveau(int idInfraction){
@@ -98,8 +102,8 @@ public class DossierImpl extends DossierPOA implements Serializable {
 	}
 
 	public void ajouterInfractionAListe(int idInfraction) {
-		list_infraction[size_infraction] = idInfraction;
-		size_infraction++;
+		System.out.println("Adding infraction id="+idInfraction+" to dossier");
+		list_infraction.add(idInfraction);
 		updateNiveau(idInfraction);
 	}
 
