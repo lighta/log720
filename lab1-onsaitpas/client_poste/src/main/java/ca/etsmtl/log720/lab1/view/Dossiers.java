@@ -8,6 +8,8 @@ package ca.etsmtl.log720.lab1.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import ca.etsmtl.log720.lab1.ClientPosteSingleton;
 import ca.etsmtl.log720.lab1.CollectionDossier;
 
@@ -301,6 +303,11 @@ public class Dossiers extends javax.swing.JFrame {
    {
 	   String permis = jTextField8.getText();
 	   return permis;
+   }
+   
+   public void showCustomMessage(String message)
+   {
+	   JOptionPane.showMessageDialog(jFrame1, message);
    }
    
    

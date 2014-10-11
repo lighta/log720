@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import ca.etsmtl.log720.lab1.ClientPosteSingleton;
 import ca.etsmtl.log720.lab1.CollectionInfraction;
@@ -237,6 +238,11 @@ public class InfractionsPoste extends javax.swing.JFrame {
     	//no need to try catch, this jint is overriden to only allow number
   	   return jTextField3.getValue();
      }
+    
+    public void showCustomMessage(String message)
+    {
+    	JOptionPane.showMessageDialog(jFrame1, message);
+    }
 
     /**
      * @param args the command line arguments

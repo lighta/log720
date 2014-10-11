@@ -92,7 +92,8 @@ public class ClientPosteSingleton implements ActionListener {
 				banque_dossier.ajouterDossier(prenom, nom, plaque, permis);	
 			} catch (NoPermisExisteDejaException e) {
 				// TODO put this graphical
-				System.out.println("Ajout de dossier impossible, le num de permis existe deja"); 
+				String message = "Ajout de dossier impossible, le num de permis existe deja";
+				view.dossiersView.showCustomMessage(message);
 			}
 		}
 		
@@ -101,7 +102,8 @@ public class ClientPosteSingleton implements ActionListener {
 				banque_infraction.ajouterInfraction(description, gravite);	
 			} catch (NiveauHorsBornesException e) {
 				// TODO put this graphical
-				System.out.println("Ajout d'infraction impossible, le niveau est hors borne"); 
+				String message = "Ajout d'infraction impossible, le niveau est hors borne";
+				view.infractionsPosteView.showCustomMessage(message);
 			}
 		}
 
