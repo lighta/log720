@@ -2,6 +2,7 @@ package ca.etsmtl.log720.lab1;
 
 import org.omg.CosNaming.*;
 
+
 public class Client_Voiture {
 	public static void main(String args[]) {
 		ClientVoitureSingleton client_voiture = ClientVoitureSingleton.getInstance();
@@ -40,6 +41,7 @@ public class Client_Voiture {
 			}
 					
 			//test_basic(banque_reaction, banque_dossier, banque_infraction);
+			test_Dossier(banque_reaction, banque_dossier, banque_infraction);
 			
 			while(client_voiture.getView().isVisible()){
 				client_voiture.refresh(); //fill the list with default data
@@ -55,6 +57,57 @@ public class Client_Voiture {
 			System.exit(0);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	static void test_Dossier(BanqueReactions banque_reaction, BanqueDossiers banque_dossier, BanqueInfractions banque_infraction){
+		int id = banque_dossier.dossiers().size();
+		System.out.println("Taille dossiers in bank size="+id);
+		try {
+			banque_dossier.ajouterDossier("john", "do", "123456", "JeMeSouvienS");
+			id++;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {			
+			System.out.println("Test searching by permis");
+			Dossier dos_john = banque_dossier.trouverDossierParPermis("123456");
+			if(dos_john ==null){
+				System.out.println("Recherche par permis as fail");
+			}
+			else {
+				System.out.println("dos_john="+dos_john._toString());
+			}
+			
+			System.out.println("Test searching by id="+id);
+			Dossier dos_john2 = banque_dossier.trouverDossierParId(id-1);	
+			if(dos_john2 ==null){
+				System.out.println("Recherche par ID as fail");
+			} else {
+				System.out.println("dos_john2="+dos_john2._toString());
+			}
+				
+			System.out.println("Test equals, dos_john, dos_john2");
+			if(dos_john.equals(dos_john2) == false){
+				System.out.println("La recherche par Permis doesn't match");
+			} 
+			else {
+				System.out.println("Success");
+			}
+			
+			System.out.println("Test search by plaque");
+			CollectionDossier collec_dos = banque_dossier.trouverDossiersParPlaque("JeMeSouvienS");
+			int nb_res = collec_dos.size();
+			if(nb_res == 0){
+				System.out.println("No result found");
+			}
+			else {
+				int i=0;
+				while(nb_res > i){
+					System.out.println("Result["+i+"]"+collec_dos.getDossier(i)._toString());
+					i++;
+				}
+			}
 		}
 	}
 	

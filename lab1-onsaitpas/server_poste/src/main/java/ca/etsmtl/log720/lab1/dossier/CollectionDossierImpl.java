@@ -80,7 +80,7 @@ public class CollectionDossierImpl extends CollectionDossierPOA implements Seria
 	public Dossier trouverDossierParPermis(String permis) {
 		int i=0;
 		for(DossierImpl cur_dos : _list_dossiers){
-			if(cur_dos.noPermis() == permis){
+			if(cur_dos.noPermis().compareToIgnoreCase(permis) == 0){
 				return getDossier(i); //get the real dossier from orb
 			}
 			i++;
@@ -92,11 +92,8 @@ public class CollectionDossierImpl extends CollectionDossierPOA implements Seria
 		CollectionDossierImpl tmp_collecdos = new CollectionDossierImpl();
 		int i=0;
 		
-		while(_list_dossiers.size() > i++){
+		for(DossierImpl cur : _list_dossiers){
 			boolean match=false;
-			DossierImpl cur = _list_dossiers.get(i);
-			if(cur==null) //shoudln't ever happen
-				continue;
 			
 			if (noPlaque != null) { //match by plaque
 				if (cur.noPlaque != null && noPlaque.contains(cur.noPlaque)){

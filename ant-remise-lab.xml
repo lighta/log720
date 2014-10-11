@@ -65,9 +65,11 @@ MAJ: 2011-Oct-07
   <property name="nom.archive"
     value="${cours}-${session}-lab${no.lab}-equipe${equipe}"/>
   <property name="fichier.directives"
-    value="${racine.projet.mvn}/LISEZMOI.html"/>
+    value="${racine.projet.mvn}/LISEZMOI.**"/>
   <property name="fichier.rapport"
     value="${racine.projet.mvn}/${nom.archive}.pdf"/>
+  <property name="fichier.rapport_alt"
+    value="${racine.projet.mvn}/${nom.archive}.doc**"/>
   <property name="dest.temp" value="${racine.temp}/${nom.archive}"/>
 
   <!--
@@ -104,6 +106,7 @@ MAJ: 2011-Oct-07
       <fileset file="${racine.projet.mvn}/pom.xml"/>
       <fileset file="${fichier.directives}"/>
       <fileset file="${fichier.rapport}"/>
+      <fileset file="${fichier.rapport_alt}"/>
     </copy>
   </target>
 

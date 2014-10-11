@@ -10,6 +10,7 @@ import ca.etsmtl.log720.lab1.BanqueDossiersPOA;
 import ca.etsmtl.log720.lab1.CollectionDossier;
 import ca.etsmtl.log720.lab1.CollectionDossierHelper;
 import ca.etsmtl.log720.lab1.Dossier;
+import ca.etsmtl.log720.lab1.DossierHelper;
 import ca.etsmtl.log720.lab1.InvalidIdException;
 import ca.etsmtl.log720.lab1.NoPermisExisteDejaException;
 import ca.etsmtl.log720.lab1.Serialisation;
@@ -39,18 +40,32 @@ public class BanqueDossiersImpl extends BanqueDossiersPOA implements Serializabl
 			return null;
 		}
 	}
+	
+	private CollectionDossier CollecImplToReal(CollectionDossierImpl _CollectionDossiers) {
+		try {
+			// Recuperer le POA cree dans le serveur
+			POA rootpoa = Server_Poste.getPOA();
+			// Activer l'objet et retourne l'objet CORBA
+			org.omg.CORBA.Object obj = rootpoa.servant_to_reference(_CollectionDossiers);
+			// Retourner une Collection de dossiers
+			return CollectionDossierHelper.narrow(obj);
+		} catch (Exception e) {
+			System.out.println("Erreur retour de l'objet CollectionDossier : "	+ e);
+			return null;
+		}
+	}
 
 	public CollectionDossier trouverDossiersParPlaque(String plaque) {
 		CollectionDossierImpl tmp_listdos = _CollectionDossiers.matches(null,null,plaque);
 		if(tmp_listdos.size()>0)
-			return tmp_listdos._this();
+			return CollecImplToReal(tmp_listdos);
 		return null;
 	}
 
 	public CollectionDossier trouverDossiersParNom(String nom, String prenom) {
 		CollectionDossierImpl tmp_listdos = _CollectionDossiers.matches(nom,prenom,null);
 		if(tmp_listdos.size()>0)
-			return tmp_listdos._this();
+			return CollecImplToReal(tmp_listdos);
 		return null;
 	}
 

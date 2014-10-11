@@ -4,8 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
 import org.omg.PortableServer.POA;
 
+import ca.etsmtl.log720.lab1.BanqueDossiersHelper;
 import ca.etsmtl.log720.lab1.BanqueInfractionsPOA;
 import ca.etsmtl.log720.lab1.CollectionInfraction;
 import ca.etsmtl.log720.lab1.CollectionInfractionHelper;
@@ -41,31 +44,41 @@ public class BanqueInfractionsImpl extends BanqueInfractionsPOA implements Seria
 	}
 
 	public CollectionInfraction trouverInfractionsParDossier(Dossier mydossier) {
-		CollectionInfractionImpl collec_infraction = new CollectionInfractionImpl();
+		// Recuperer le POA et NC cree dans le serveur
+		NamingContextExt nc = Server_Poste.getNC();
+		POA rootpoa = Server_Poste.getPOA();
 		
-		int i=0;
-		int list_infractions_id[] = mydossier.getListeInfraction();
-		while(list_infractions_id.length < i){
-			Infraction infrac = _CollectionInfractions.getInfraction(i);
-			try {
-				collec_infraction.ajouterInfraction(infrac.description(), infrac.niveau());
-			} catch (NiveauHorsBornesException e) {
-				// shoudln't happen invalid infraction was in bank
-				e.printStackTrace();
+		String name_dos_inf_collec = "dos_inf:"+mydossier.id(); //dynamic namefor collection
+		NameComponent[] name_dosinf = new NameComponent[] { new NameComponent(name_dos_inf_collec,"service") };
+		
+		try { //try if the collection already created
+			return CollectionInfractionHelper.narrow(nc.resolve(name_dosinf));
+		} catch (Exception e0){	
+			int i=0;
+			CollectionInfractionImpl collec_infraction = new CollectionInfractionImpl();
+			int list_infractions_id[] = mydossier.getListeInfraction();
+			while(list_infractions_id.length < i){
+				Infraction infrac = _CollectionInfractions.getInfraction(i);
+				try {
+					collec_infraction.ajouterInfraction(infrac.description(), infrac.niveau());
+				} catch (NiveauHorsBornesException e) {
+					// shoudln't happen invalid infraction was in bank
+					e.printStackTrace();
+				}
+				i++;
 			}
-			i++;
-		}
-		
-		try {
-			// Recuperer le POA cree dans le serveur
-			POA rootpoa = Server_Poste.getPOA();
-			// Activer l'objet et retourne l'objet CORBA
-			org.omg.CORBA.Object obj = rootpoa.servant_to_reference(collec_infraction);
-			// Retourner une Collection d'infraction
-			return CollectionInfractionHelper.narrow(obj);
-		} catch (Exception e) {
-			System.out.println("Erreur retour de l'objet CollectionInfraction : "	+ e);
-			return null;
+			
+			try {
+				// Activer l'objet et retourne l'objet CORBA
+				org.omg.CORBA.Object obj = rootpoa.servant_to_reference(collec_infraction);
+				//registring it for later use
+				nc.rebind(name_dosinf, obj);
+				// Retourner une Collection d'infraction
+				return CollectionInfractionHelper.narrow(obj);
+			} catch (Exception e) {
+				System.out.println("Erreur retour de l'objet CollectionInfraction : "	+ e);
+				return null;
+			}
 		}
 	}
 
