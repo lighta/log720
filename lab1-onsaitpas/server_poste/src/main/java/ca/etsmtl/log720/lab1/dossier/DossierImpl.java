@@ -3,8 +3,14 @@ package ca.etsmtl.log720.lab1.dossier;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.omg.CosNaming.NameComponent;
+import org.omg.CosNaming.NamingContextExt;
+
+import ca.etsmtl.log720.lab1.BanqueInfractions;
+import ca.etsmtl.log720.lab1.BanqueInfractionsHelper;
 import ca.etsmtl.log720.lab1.DossierPOA;
 import ca.etsmtl.log720.lab1.Serialisation;
+import ca.etsmtl.log720.lab1.Server_Poste;
 import ca.etsmtl.log720.lab1.Variables;
 import ca.etsmtl.log720.lab1.infraction.BanqueInfractionsImpl;
 
@@ -87,15 +93,18 @@ public class DossierImpl extends DossierPOA implements Serializable {
 	}
 	
 	private void updateNiveau(int idInfraction){
-		//v1 recuperation par serialisation =(
-		BanqueInfractionsImpl banqueInfractions;
-		try {
-			banqueInfractions = (BanqueInfractionsImpl) Serialisation.decodeFromFile(Variables.PERSISTANCE_PATH+Variables.NAME_BANK_INF+Variables.SAVE_EXT);
-		} catch (Exception e) {
+		BanqueInfractions banqueInfractions;
+		try  { //then if not found try by orb
+			NameComponent[] name_inf = new NameComponent[] { new NameComponent(Variables.NAME_BANK_INF, "service") };
+			NamingContextExt nc = Server_Poste.getNC();
+			banqueInfractions = BanqueInfractionsHelper.narrow(nc.resolve(name_inf));		
+		}
+		catch (Exception e) {
 			System.out.println("Couldn't fetch banqueinfraction so couldn't update niveau dossier");
 			return;	
 		}
-		int niveauInfraction =  banqueInfractions.get_CollectionInfractions().trouverInfractionParId(idInfraction).niveau();	
+		
+		int niveauInfraction =  banqueInfractions.trouverInfractionParId(idInfraction).niveau();	
 		if(this.niveau < niveauInfraction){
 			this.niveau = niveauInfraction;
 		}

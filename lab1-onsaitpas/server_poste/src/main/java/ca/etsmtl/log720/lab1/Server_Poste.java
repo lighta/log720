@@ -10,15 +10,20 @@ import ca.etsmtl.log720.lab1.infraction.BanqueInfractionsImpl;
 
 public class Server_Poste {
 	protected static org.omg.PortableServer.POA _poa;
+	protected static NamingContextExt nc;
 	
 	public static POA getPOA(){
 		return _poa;
 	}
 	
+	public static NamingContextExt getNC(){
+		return nc;
+	}
+	
 	public static void main(String[] args) {
 		org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 		try {
-			NamingContextExt nc;
+			
 			org.omg.PortableServer.Servant servant_dos, servant_inf;
 			org.omg.CORBA.Object obj_dos, obj_inf;
 			NameComponent[] name_dos, name_inf;

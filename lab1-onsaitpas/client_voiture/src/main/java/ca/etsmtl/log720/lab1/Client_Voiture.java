@@ -41,6 +41,8 @@ public class Client_Voiture {
 			}
 					
 			//test_basic(banque_reaction, banque_dossier, banque_infraction);
+			test_Infraction(banque_infraction);
+			test_Reaction(banque_reaction);
 			test_Dossier(banque_reaction, banque_dossier, banque_infraction);
 			
 			while(client_voiture.getView().isVisible()){
@@ -142,14 +144,9 @@ public class Client_Voiture {
 				}
 			}
 			
-			
+			//NOTE this need test_infraction to be filled before
 			try {
-				System.out.println("Test update niveau john2");
-				banque_infraction.ajouterInfraction("proxenetisme", 4); //id0
-				banque_infraction.ajouterInfraction("infrac2", 6); //id1
-				banque_infraction.ajouterInfraction("infrac3", 2); //id2
-				banque_infraction.ajouterInfraction("nodisplay", 2); //id3
-				
+				System.out.println("Test update niveau john2");			
 				dos_john2.ajouterInfractionAListe(0);
 				System.out.println("john2 should now have niveau=4 on dossier\n\tdos_john2="+dos_john2._toString()); //
 			} catch (Exception e) {
@@ -178,12 +175,7 @@ public class Client_Voiture {
 			}
 			
 			try {
-				System.out.println("Test ajout de reaction");
-				banque_reaction.ajouterReaction("test1", 2);
-				banque_reaction.ajouterReaction("test2", 2);
-				banque_reaction.ajouterReaction("test3", 2);
-				banque_reaction.ajouterReaction("notdisplay", 2);
-				
+				System.out.println("Test ajout de reaction dans dossier");
 				for(int i=0; i<3; i++)
 					dos_john2.ajouterReactionAListe(i);
 			} catch (Exception e) {
@@ -207,6 +199,61 @@ public class Client_Voiture {
 					}
 				}
 			}
+		}
+	}
+	
+	static void test_Infraction(BanqueInfractions banque_infraction) {
+		try {
+			CollectionInfraction collec_inf = banque_infraction.infractions();
+			
+			System.out.println("Test ajout dans banque infraction init size="+collec_inf.size());
+			banque_infraction.ajouterInfraction("proxenetisme", 4); //id0
+			banque_infraction.ajouterInfraction("infrac2", 6); //id1
+			banque_infraction.ajouterInfraction("infrac3", 2); //id2
+			banque_infraction.ajouterInfraction("nodisplay", 2); //id3	
+
+			int nb_res = collec_inf.size();
+			System.out.println("Fin ajout (should be +4) size="+nb_res);
+			if(nb_res > 0){
+				int i=0;
+				while(nb_res > i){
+					System.out.println("Result["+i+"] "+collec_inf.getInfraction(i)._toString());
+					i++;
+				}
+			}
+			
+			System.out.println("Test trouverInfractionParId");
+			Infraction tmp_inf = banque_infraction.trouverInfractionParId(2);
+			System.out.println("Infraction_id(2)="+tmp_inf._toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	static void test_Reaction(BanqueReactions banque_reaction) {
+		try {
+			CollectionReaction collec_reac = banque_reaction.reactions();
+			System.out.println("Test ajout dans banque reaction init size="+collec_reac.size());
+			banque_reaction.ajouterReaction("test1", 2);
+			banque_reaction.ajouterReaction("test2", 2);
+			banque_reaction.ajouterReaction("test3", 2);
+			banque_reaction.ajouterReaction("notdisplay", 2);
+			
+			int nb_res = collec_reac.size();
+			System.out.println("Fin ajout (should be +4) size="+nb_res);
+			if(nb_res > 0){
+				int i=0;
+				while(nb_res > i){
+					System.out.println("Result["+i+"] "+collec_reac.getReaction(i)._toString());
+					i++;
+				}
+			}
+			
+			System.out.println("Test trouverInfractionParId");
+			Reaction tmp_reac = banque_reaction.trouverReactionParId(3);
+			System.out.println("Infraction_id(2)="+tmp_reac._toString());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
