@@ -3,6 +3,7 @@ package ca.etsmtl.log720.lab1;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import java.util.Scanner;
 
 import ca.etsmtl.log720.lab1.view.InterfaceVoiture;
 
@@ -12,6 +13,7 @@ public class ClientVoitureSingleton implements ActionListener {
 		private BanqueInfractions banque_infraction;
 		private BanqueDossiers banque_dossier;
 		private InterfaceVoiture view;
+		private Dossier currentDossier;
 		
 		//action listener commandmap for listener
 		// [100-199] is reserved for ClientPosteSingleton
@@ -65,6 +67,11 @@ public class ClientVoitureSingleton implements ActionListener {
 		{
 			return view;
 		}
+		
+		public BanqueDossiers getBanqueDossiers()
+		{
+			return banque_dossier;
+		}
 
 		
 		private void refreshListInf(){
@@ -80,7 +87,7 @@ public class ClientVoitureSingleton implements ActionListener {
 		public void refresh(){
 			refreshListInf();
 			refreshListReac();
-		}		
+		}	
 		
 		private void add_reaction_to_list() {	
 			;
@@ -88,14 +95,54 @@ public class ClientVoitureSingleton implements ActionListener {
 		private void add_reaction_to_dos() {	
 			;
 		}
-		private void add_infraction_to_dos() {	
-			;
+		private void add_infraction_to_dos(String currentInfraction) {	
+			System.out.println("Setting new infraction: "+currentInfraction);
+			
+			BanqueDossiers banque_dossier = ClientVoitureSingleton.getInstance().getBanqueDossiers();		
+			try {
+				System.out.println("CURRENT DOSSIER:"+currentDossier._toString());
+				// Search the string to retrieve the infraction ID
+				String[] selectedInfractionArr = currentInfraction.split(",");
+				
+				Scanner in = new Scanner(selectedInfractionArr[0]).useDelimiter("[^0-9]+");
+				int idInfraction = in.nextInt();
+				
+				// Assign the currently selected dossier
+				currentDossier.ajouterInfractionAListe(idInfraction);
+				
+				// Display the selected dossier on main menu
+				view.showCurrentDossier(currentDossier._toString());
+				
+				// Return to main menu
+				view.infractionsView.dispose();
+					
+			} catch (Exception e) {
+				System.err.println(e);
+				//String message = "Ajout de dossier impossible, le num de permis existe deja";
+				//view.dossiersView.showCustomMessage(message);
+			}
+			
 		}
-		private void search_dos() {	
-			;
+		
+		private void search_dos(String prenom, String nom, String plaque, String permis) {	
+			BanqueDossiers banque_dossier = ClientVoitureSingleton.getInstance().getBanqueDossiers();
+			CollectionDossier collec_dos = banque_dossier.dossiers(); //avoid refetch
+			view.rechercheView.refresh(collec_dos);
 		}
 		private void select_dos() {	
-			;
+			String selectedDossierString = view.rechercheView.getSelectedDossier();
+			
+			// Search the string to retrieve the ID
+			String[] selectedDossierArr = selectedDossierString.split(",");
+			Scanner in = new Scanner(selectedDossierArr[0]).useDelimiter("[^0-9]+");
+			int selectedDossierID = in.nextInt();
+			
+			// Assign the currently selected dossier and return to main menu
+			currentDossier = banque_dossier.trouverDossierParId(selectedDossierID);
+			view.rechercheView.dispose();
+			
+			// Display the selected dossier on main menu
+			view.showCurrentDossier(currentDossier._toString());
 		}
 
 
@@ -116,12 +163,17 @@ public class ClientVoitureSingleton implements ActionListener {
 				}
 				case ADD_INFRACTION_TO_DOS :{
 					System.out.println("Executing ADD_INFRACTION_TO_DOS");
-					add_infraction_to_dos();
+					String currentInfraction = view.infractionsView.getCurrentInfraction();
+					add_infraction_to_dos(currentInfraction);
 					break;
 				}
 				case SEARCH_DOS :{
 					System.out.println("Executing SEARCH_DOS");
-					search_dos();
+					String prenom 	= view.rechercheView.getPrenom();
+	        	    String nom 		= view.rechercheView.getNom();
+	        	    String plaque 	= view.rechercheView.getPlaque();
+	        	    String permis 	= view.rechercheView.getPermis();
+					search_dos(prenom, nom, plaque, permis);
 					break;
 				}
 				case SELECT_DOS :{

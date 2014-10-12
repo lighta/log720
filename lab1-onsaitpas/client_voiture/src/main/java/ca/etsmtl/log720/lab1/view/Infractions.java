@@ -45,21 +45,21 @@ public class Infractions extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents(ActionListener _listener) {
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jL_list_infractions = new java.awt.List();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        selectedInfraction = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jB_add_infToDos = new javax.swing.JButton();
-        list_infractions = new DefaultListModel<String>();
+        //list_infractions = new DefaultListModel<String>();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Infractions");
 
-        jList1.setModel(list_infractions);
-        jScrollPane2.setViewportView(jList1);
+        //jL_list_infractions.setModel(list_infractions);
+        jScrollPane2.setViewportView(jL_list_infractions);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Infractions");
@@ -69,7 +69,7 @@ public class Infractions extends javax.swing.JFrame {
 
         jLabel7.setText("Infraction");
 
-        jLabel8.setText("SelectedInfraction");
+        selectedInfraction.setText("SelectedInfraction");
 
         jLabel4.setText("Niveau de gravite");
 
@@ -78,7 +78,14 @@ public class Infractions extends javax.swing.JFrame {
         jB_add_infToDos.setText("Ajouter au dossier");
         jB_add_infToDos.addActionListener(_listener);
         jB_add_infToDos.setActionCommand(String.valueOf(ClientVoitureSingleton.ADD_INFRACTION_TO_DOS));
-
+        
+        jL_list_infractions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	currentInfraction = jL_list_infractions.getSelectedItem();
+            	selectedInfraction.setText(currentInfraction);
+            }
+        });
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,8 +96,8 @@ public class Infractions extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addComponent(jL_list_infractions, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -98,47 +105,55 @@ public class Infractions extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(selectedInfraction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(75, 75, 75))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(86, 86, 86)
-                                .addComponent(jB_add_infToDos)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(86, 86, 86)
+                                        .addComponent(jB_add_infToDos)))
                                 .addGap(215, 215, 215)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(19, 19, 19)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
                         .addComponent(jLabel6)
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel8))
+                            .addComponent(selectedInfraction))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
-                        .addComponent(jB_add_infToDos)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jB_add_infToDos))
+                    .addComponent(jL_list_infractions, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>
 
+    
+    
+    
+    public String getCurrentInfraction()
+    {
+ 	   return currentInfraction;
+    }
+
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -175,28 +190,29 @@ public class Infractions extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
+    private String currentInfraction;
     private javax.swing.JButton jB_add_infToDos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JList jList1;
+    private javax.swing.JLabel selectedInfraction;
+    private java.awt.List jL_list_infractions;
     private javax.swing.JScrollPane jScrollPane2;
-    private DefaultListModel<String> list_infractions;
+    //private DefaultListModel<String> list_infractions;
     // End of variables declaration
     
     public void refresh(CollectionInfraction collec_inf){
     	int size_infraction = collec_inf.size();
-		//System.out.println("size_infraction="+size_infraction);
+		System.out.println("size_infraction="+size_infraction);
 		if(size_infraction>0){
 			int i=0;
-			list_infractions.removeAllElements();
+			jL_list_infractions.removeAll();
 			//System.out.println("[");
 			while(size_infraction>i){ // Ajout des infractions a la liste des infractions
 				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
-				list_infractions.addElement(collec_inf.getInfraction(i)._toString()); // TODO makethis morep retty
+				jL_list_infractions.add(collec_inf.getInfraction(i)._toString()); // TODO makethis morep retty
 				i++;
 			}
 			//System.out.println("]");

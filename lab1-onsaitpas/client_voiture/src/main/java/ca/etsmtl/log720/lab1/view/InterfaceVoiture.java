@@ -8,6 +8,8 @@ package ca.etsmtl.log720.lab1.view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
+
 /**
 *
 * @author Steven
@@ -44,11 +46,11 @@ public class InterfaceVoiture extends javax.swing.JFrame {
        jMenuItem3 = new javax.swing.JMenuItem();
        jLabel1 = new javax.swing.JLabel();
        jLabel3 = new javax.swing.JLabel();
-       jLabel4 = new javax.swing.JLabel();
+       jL_currentDossier = new javax.swing.JLabel();
        jMenuBar1 = new javax.swing.JMenuBar();
        jMenu2 = new javax.swing.JMenu();
        jMenuItem1 = new javax.swing.JMenuItem();
-       jMenuItem2 = new javax.swing.JMenuItem();
+       jMItem_infractions = new javax.swing.JMenuItem();
        jMenu1 = new javax.swing.JMenu();
        jMenuItem4 = new javax.swing.JMenuItem();
 
@@ -62,8 +64,8 @@ public class InterfaceVoiture extends javax.swing.JFrame {
        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
        jLabel3.setText("Dossier selectionne :");
 
-       jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-       jLabel4.setText("---");
+       jL_currentDossier.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+       jL_currentDossier.setText("---");
 
        jMenu2.setText("Fichier");
 
@@ -75,13 +77,13 @@ public class InterfaceVoiture extends javax.swing.JFrame {
        });
        jMenu2.add(jMenuItem1);
 
-       jMenuItem2.setText("Infractions");
-       jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+       jMItem_infractions.setText("Infractions");
+       jMItem_infractions.addActionListener(new java.awt.event.ActionListener() {
            public void actionPerformed(java.awt.event.ActionEvent evt) {
-               jMenuItem2ActionPerformed(evt);
+               jMItem_infractionsActionPerformed(evt);
            }
        });
-       jMenu2.add(jMenuItem2);
+       jMenu2.add(jMItem_infractions);
 
        jMenuBar1.add(jMenu2);
 
@@ -109,10 +111,10 @@ public class InterfaceVoiture extends javax.swing.JFrame {
                        .addGap(270, 270, 270)
                        .addComponent(jLabel1))
                    .addGroup(layout.createSequentialGroup()
-                       .addGap(284, 284, 284)
+                       .addGap(30, 30, 30)
                        .addComponent(jLabel3)
                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                       .addComponent(jLabel4)))
+                       .addComponent(jL_currentDossier)))
                .addContainerGap(302, Short.MAX_VALUE))
        );
        layout.setVerticalGroup(
@@ -120,27 +122,32 @@ public class InterfaceVoiture extends javax.swing.JFrame {
            .addGroup(layout.createSequentialGroup()
                .addGap(94, 94, 94)
                .addComponent(jLabel1)
-               .addGap(68, 68, 68)
+               .addGap(70, 70, 70)
                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                    .addComponent(jLabel3)
-                   .addComponent(jLabel4))
-               .addContainerGap(206, Short.MAX_VALUE))
+                   .addComponent(jL_currentDossier))
+               .addContainerGap(204, Short.MAX_VALUE))
        );
 
        pack();
-   }// </editor-fold>                        
+   }// </editor-fold>            
 
-   private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+   private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                       
        reactionView.setVisible(true);
    }                                          
 
-   private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+   private void jMItem_infractionsActionPerformed(java.awt.event.ActionEvent evt) {                                           
        infractionsView.setVisible(true);
    }                                          
 
    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {                                           
        rechercheView.setVisible(true);
-   }                                          
+   }
+   
+   public void showCurrentDossier(String currentDossier)
+   {
+	   jL_currentDossier.setText(currentDossier);
+   }
 
    /**
     * @param args the command line arguments
@@ -180,12 +187,12 @@ public class InterfaceVoiture extends javax.swing.JFrame {
    // Variables declaration - do not modify                     
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel3;
-   private javax.swing.JLabel jLabel4;
+   private javax.swing.JLabel jL_currentDossier;
    private javax.swing.JMenu jMenu1;
    private javax.swing.JMenu jMenu2;
    private javax.swing.JMenuBar jMenuBar1;
    private javax.swing.JMenuItem jMenuItem1;
-   private javax.swing.JMenuItem jMenuItem2;
+   private javax.swing.JMenuItem jMItem_infractions;
    private javax.swing.JMenuItem jMenuItem3;
    private javax.swing.JMenuItem jMenuItem4;
    

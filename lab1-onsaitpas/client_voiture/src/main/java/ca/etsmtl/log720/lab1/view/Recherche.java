@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.etsmtl.log720.lab1.view;
 
 import java.awt.event.ActionEvent;
@@ -46,32 +41,25 @@ public class Recherche extends javax.swing.JFrame {
    private void initComponents(ActionListener _listener) {
        jLabel1 = new javax.swing.JLabel();
        jScrollPane1 = new javax.swing.JScrollPane();
-       jList1 = new javax.swing.JList();
+       list_dossier = new java.awt.List();
        jLabel6 = new javax.swing.JLabel();
        jLabel2 = new javax.swing.JLabel();
-       jTextField1 = new javax.swing.JTextField();
+       jTF_nom = new javax.swing.JTextField();
        jLabel3 = new javax.swing.JLabel();
-       jTextField2 = new javax.swing.JTextField();
+       jTF_prenom = new javax.swing.JTextField();
        jLabel4 = new javax.swing.JLabel();
-       jTextField3 = new javax.swing.JTextField();
+       jTF_plaque = new javax.swing.JTextField();
        jLabel5 = new javax.swing.JLabel();
-       jTextField4 = new javax.swing.JTextField();
+       jTF_permis = new javax.swing.JTextField();
        jB_searchDos = new javax.swing.JButton();
        jB_selectDos = new javax.swing.JButton();
-       list_dossier = new DefaultListModel<String>();
+       //list_dossier = new DefaultListModel<String>();
 
        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
        setTitle("Recherche");
 
        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
        jLabel1.setText("Recherche: ");
-
-       jList1.setModel(new javax.swing.AbstractListModel() {
-           String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-           public int getSize() { return strings.length; }
-           public Object getElementAt(int i) { return strings[i]; }
-       });
-       jScrollPane1.setViewportView(jList1);
 
        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
        jLabel6.setText("Resultats de la recherche");
@@ -102,7 +90,7 @@ public class Recherche extends javax.swing.JFrame {
                    .addGroup(layout.createSequentialGroup()
                        .addComponent(jLabel4)
                        .addGap(18, 18, 18)
-                       .addComponent(jTextField3))
+                       .addComponent(jTF_plaque))
                    .addComponent(jLabel1)
                    .addGroup(layout.createSequentialGroup()
                        .addGap(51, 51, 51)
@@ -111,20 +99,20 @@ public class Recherche extends javax.swing.JFrame {
                            .addComponent(jLabel2))
                        .addGap(18, 18, 18)
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                           .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-                           .addComponent(jTextField1)))
+                           .addComponent(jTF_prenom, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                           .addComponent(jTF_nom)))
                    .addGroup(layout.createSequentialGroup()
                        .addComponent(jLabel5)
                        .addGap(18, 18, 18)
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                            .addComponent(jB_searchDos)
-                           .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))))
+                           .addComponent(jTF_permis, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))))
                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                    .addComponent(jB_selectDos)
                    .addComponent(jLabel6)
-                   .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addContainerGap())
+                   .addComponent(list_dossier, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addGap(25, 25, 25))
        );
        layout.setVerticalGroup(
            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,31 +126,62 @@ public class Recherche extends javax.swing.JFrame {
                        .addGap(38, 38, 38)
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                            .addComponent(jLabel2)
-                           .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                           .addComponent(jTF_nom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                        .addGap(18, 18, 18)
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                            .addComponent(jLabel3)
-                           .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                           .addComponent(jTF_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                        .addGap(18, 18, 18)
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                            .addComponent(jLabel4)
-                           .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                           .addComponent(jTF_plaque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                            .addComponent(jLabel5)
-                           .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                           .addComponent(jTF_permis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                        .addGap(34, 34, 34)
                        .addComponent(jB_searchDos))
                    .addGroup(layout.createSequentialGroup()
                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                       .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
-               .addGap(18, 18, 18)
+                       .addComponent(list_dossier, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)))
+               .addGap(19, 19, 19)
                .addComponent(jB_selectDos)
                .addContainerGap(43, Short.MAX_VALUE))
        );
 
        pack();
-   }// </editor-fold>                        
+   }// </editor-fold>          
+   
+   
+   
+   public String getPrenom()
+   {
+	   String prenom = jTF_nom.getText();
+	   return prenom;
+   }
+   public String getNom()
+   {
+	   String nom = jTF_prenom.getText();
+	   return nom;
+   }
+   public String getPlaque()
+   {
+	   String plaque = jTF_plaque.getText();
+	   return plaque;
+   }
+   public String getPermis()
+   {
+	   String permis = jTF_permis.getText();
+	   return permis;
+   }
+   
+   public String getSelectedDossier()
+   {
+	   return list_dossier.getSelectedItem();
+   }
+   
+   
+   
 
    /**
     * @param args the command line arguments
@@ -208,13 +227,13 @@ public class Recherche extends javax.swing.JFrame {
    private javax.swing.JLabel jLabel4;
    private javax.swing.JLabel jLabel5;
    private javax.swing.JLabel jLabel6;
-   private javax.swing.JList jList1;
+   private java.awt.List list_dossier;
    private javax.swing.JScrollPane jScrollPane1;
-   private javax.swing.JTextField jTextField1;
-   private javax.swing.JTextField jTextField2;
-   private javax.swing.JTextField jTextField3;
-   private javax.swing.JTextField jTextField4;
-   private DefaultListModel<String> list_dossier;
+   private javax.swing.JTextField jTF_nom;
+   private javax.swing.JTextField jTF_prenom;
+   private javax.swing.JTextField jTF_plaque;
+   private javax.swing.JTextField jTF_permis;
+   //private DefaultListModel<String> list_dossier;
    // End of variables declaration 
    
    public void refresh(CollectionDossier collec_dos){
@@ -222,14 +241,17 @@ public class Recherche extends javax.swing.JFrame {
 		//System.out.println("size_infraction="+size_infraction);
 		if(size_dos>0){
 			int i=0;
-			list_dossier.removeAllElements();
+			list_dossier.removeAll();
 			//System.out.println("[");
-			while(size_dos>i){ // Ajout des infractions a la liste des infractions
-				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
-				list_dossier.addElement(collec_dos.getDossier(i)._toString());		// TODO makethis morep retty
-				i++;
+			while(size_dos>i){
+				//	System.out.println("\tdos num="+i+": {"+collec_doc.getDossier(i)._toString()+"}");
+					// Ajout des dossiers a la liste des dossiers
+					
+					list_dossier.add(collec_dos.getDossier(i)._toString());
+					i++;
+				}
+				//System.out.println("]");
 			}
-			//System.out.println("]");
-		}
+			repaint();
 	}
 }
