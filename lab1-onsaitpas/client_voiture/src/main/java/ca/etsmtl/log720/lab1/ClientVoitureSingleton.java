@@ -89,11 +89,41 @@ public class ClientVoitureSingleton implements ActionListener {
 			refreshListReac();
 		}	
 		
-		private void add_reaction_to_list() {	
-			;
+		private void add_reaction_to_list(String description, int gravite) {	
+			try {	
+				banque_reaction.ajouterReaction(description, gravite);	
+			} catch (Exception e) {
+				// TODO put this graphical
+				String message = "Ajout d'infraction impossible, le niveau est hors borne";
+				view.reactionView.showCustomMessage(message);
+			}
 		}
-		private void add_reaction_to_dos() {	
-			;
+		private void add_reaction_to_dos(String currentReaction) {	
+			System.out.println("Setting new infraction: "+currentReaction);
+			
+			BanqueDossiers banque_dossier = ClientVoitureSingleton.getInstance().getBanqueDossiers();		
+			try {
+				System.out.println("CURRENT DOSSIER:"+currentDossier._toString());
+				// Search the string to retrieve the infraction ID
+				String[] selectedReactionArr = currentReaction.split(",");
+				
+				Scanner in = new Scanner(selectedReactionArr[0]).useDelimiter("[^0-9]+");
+				int idReaction = in.nextInt();
+				
+				// Assign the currently selected dossier
+				currentDossier.ajouterReactionAListe(idReaction);
+				
+				// Display the selected dossier on main menu
+				view.showCurrentDossier(currentDossier._toString());
+				
+				// Return to main menu
+				view.reactionView.dispose();
+					
+			} catch (Exception e) {
+				System.err.println(e);
+				//String message = "Ajout de dossier impossible, le num de permis existe deja";
+				//view.dossiersView.showCustomMessage(message);
+			}
 		}
 		private void add_infraction_to_dos(String currentInfraction) {	
 			System.out.println("Setting new infraction: "+currentInfraction);
@@ -153,12 +183,16 @@ public class ClientVoitureSingleton implements ActionListener {
 			switch(Integer.parseInt(action)){ //just to support older jdk
 				case ADD_REACTION_LIST :{
 					System.out.println("Executing ADD_REACTION_LIST");
-					add_reaction_to_list();
+					String description = view.reactionView.getDescription();
+					int gravite = view.reactionView.getGravite();
+					add_reaction_to_list(description,gravite);
+					refreshListReac();
 					break;
 				}
 				case ADD_REACTION_TO_DOS :{
 					System.out.println("Executing ADD_REACTION_TO_DOS");
-					add_reaction_to_dos();
+					String currentReaction = view.reactionView.getCurrentReaction();
+					add_reaction_to_dos(currentReaction);
 					break;
 				}
 				case ADD_INFRACTION_TO_DOS :{

@@ -7,8 +7,10 @@ package ca.etsmtl.log720.lab1.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
 import ca.etsmtl.log720.lab1.CollectionInfraction;
@@ -47,33 +49,26 @@ public class Reactions extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jL_list_reactions = new java.awt.List();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jT_description = new javax.swing.JTextField();
         jB_addList_Reaction = new javax.swing.JButton();
         jB_addList_Dossier = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jL_niveauGravite = new javax.swing.JLabel();
+        jL_selectedReaction = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jT_gravite = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        list_reaction = new DefaultListModel<String>();
+        //list_reaction = new DefaultListModel<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Réactions");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Reactions:");
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList1);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Ajouter une reaction:");
@@ -90,9 +85,9 @@ public class Reactions extends javax.swing.JFrame {
 
         jLabel4.setText("Niveau de gravite");
 
-        jLabel5.setText("0");
+        jL_niveauGravite.setText("0");
 
-        jLabel8.setText("SelectedReaction");
+        jL_selectedReaction.setText("SelectedReaction");
 
         jLabel7.setText("Reaction");
 
@@ -102,20 +97,40 @@ public class Reactions extends javax.swing.JFrame {
         jLabel3.setText("Description");
 
         jLabel9.setText("Gravite (1-5)");
+        
+        
+        
+        
+        
+        jL_list_reactions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	currentReaction = jL_list_reactions.getSelectedItem();
+            	jL_selectedReaction.setText(currentReaction);
+            	
+            	// Search the string to retrieve the gravite
+    			String[] selectedReactionArr = currentReaction.split(",");
+    			Scanner in = new Scanner(selectedReactionArr[2]).useDelimiter("[^0-9]+");
+    			int selectedReactionGravite = in.nextInt();
+    			jL_niveauGravite.setText(Integer.toString(selectedReactionGravite));
+            }
+        });
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(364, 364, 364)
+                .addContainerGap()
+                .addComponent(jL_list_reactions, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jB_addList_Reaction)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jT_gravite, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(232, 232, 232))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -123,9 +138,8 @@ public class Reactions extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addGap(223, 223, 223)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(117, 117, 117)
@@ -140,15 +154,15 @@ public class Reactions extends javax.swing.JFrame {
                                         .addComponent(jLabel4))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jL_selectedReaction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel5)
+                                            .addComponent(jL_niveauGravite)
                                             .addGap(0, 0, Short.MAX_VALUE))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(295, 295, 295))
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jT_description, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addGap(75, 75, 75))))
@@ -158,14 +172,18 @@ public class Reactions extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(jLabel3)
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addComponent(jB_addList_Reaction)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jL_list_reactions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jT_gravite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18)
+                        .addComponent(jB_addList_Reaction)
+                        .addGap(0, 250, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -173,29 +191,48 @@ public class Reactions extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(jLabel2))
                     .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(136, 136, 136)
-                            .addComponent(jLabel6)
-                            .addGap(20, 20, 20)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel8))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addGap(18, 18, 18)
-                            .addComponent(jB_addList_Dossier))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(20, Short.MAX_VALUE)))
+                    .addComponent(jT_description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(136, 136, 136)
+                    .addComponent(jLabel6)
+                    .addGap(20, 20, 20)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jL_selectedReaction))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jL_niveauGravite))
+                    .addGap(18, 18, 18)
+                    .addComponent(jB_addList_Dossier)
+                    .addContainerGap(79, Short.MAX_VALUE)))
         );
 
         getAccessibleContext().setAccessibleName("Reactions");
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>             
+    
+    
+    
+    public String getDescription(){
+  	   return jT_description.getText();
+     }
+     
+     public int getGravite(){
+     	//no need to try catch, this jint is overriden to only allow number
+   	   return Integer.parseInt(jT_gravite.getText());
+      }
+     
+     public void showCustomMessage(String message)
+     {
+     	JOptionPane.showMessageDialog(this, message);
+     }
+    
+     public String getCurrentReaction()
+     {
+  	   return currentReaction;
+     }
+    
 
     /**
      * @param args the command line arguments
@@ -232,35 +269,36 @@ public class Reactions extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify    
+    private String currentReaction;
     private javax.swing.JButton jB_addList_Reaction;
     private javax.swing.JButton jB_addList_Dossier;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jL_niveauGravite;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jL_selectedReaction;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
+    private java.awt.List jL_list_reactions;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private DefaultListModel<String> list_reaction;
+    private javax.swing.JTextField jT_description;
+    private javax.swing.JTextField jT_gravite;
+    //private DefaultListModel<String> list_reaction;
     // End of variables declaration
     
     public void refresh(CollectionReaction collec_reac){
     	int size_reac = collec_reac.size();
-		//System.out.println("size_infraction="+size_infraction);
+		//System.out.println("size_infraction="+size_reac);
 		if(size_reac>0){
 			int i=0;
-			list_reaction.removeAllElements();
+			jL_list_reactions.removeAll();
 			//System.out.println("[");
 			while(size_reac>i){ // Ajout des infractions a la liste des infractions
 				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
-				list_reaction.addElement(collec_reac.getReaction(i)._toString()); // TODO makethis morep retty
+				jL_list_reactions.add(collec_reac.getReaction(i)._toString()); // TODO makethis morep retty
 				i++;
 			}
 			//System.out.println("]");

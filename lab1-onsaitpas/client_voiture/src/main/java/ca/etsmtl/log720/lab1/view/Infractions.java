@@ -8,6 +8,7 @@ package ca.etsmtl.log720.lab1.view;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
 
@@ -51,7 +52,7 @@ public class Infractions extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         selectedInfraction = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jL_niveauGravite = new javax.swing.JLabel();
         jB_add_infToDos = new javax.swing.JButton();
         //list_infractions = new DefaultListModel<String>();
         
@@ -73,7 +74,7 @@ public class Infractions extends javax.swing.JFrame {
 
         jLabel4.setText("Niveau de gravite");
 
-        jLabel5.setText("0");
+        jL_niveauGravite.setText("0");
 
         jB_add_infToDos.setText("Ajouter au dossier");
         jB_add_infToDos.addActionListener(_listener);
@@ -83,6 +84,12 @@ public class Infractions extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	currentInfraction = jL_list_infractions.getSelectedItem();
             	selectedInfraction.setText(currentInfraction);
+            	
+            	// Search the string to retrieve the gravite
+    			String[] selectedInfractionArr = currentInfraction.split(",");
+    			Scanner in = new Scanner(selectedInfractionArr[2]).useDelimiter("[^0-9]+");
+    			int selectedInfractionGravite = in.nextInt();
+    			jL_niveauGravite.setText(Integer.toString(selectedInfractionGravite));
             }
         });
         
@@ -107,7 +114,7 @@ public class Infractions extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(selectedInfraction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
+                                        .addComponent(jL_niveauGravite)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +141,7 @@ public class Infractions extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(jL_niveauGravite))
                         .addGap(18, 18, 18)
                         .addComponent(jB_add_infToDos))
                     .addComponent(jL_list_infractions, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,7 +201,7 @@ public class Infractions extends javax.swing.JFrame {
     private javax.swing.JButton jB_add_infToDos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jL_niveauGravite;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel selectedInfraction;
@@ -205,7 +212,7 @@ public class Infractions extends javax.swing.JFrame {
     
     public void refresh(CollectionInfraction collec_inf){
     	int size_infraction = collec_inf.size();
-		System.out.println("size_infraction="+size_infraction);
+		//System.out.println("size_infraction="+size_infraction);
 		if(size_infraction>0){
 			int i=0;
 			jL_list_infractions.removeAll();
