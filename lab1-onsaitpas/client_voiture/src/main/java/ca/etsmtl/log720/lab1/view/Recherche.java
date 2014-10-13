@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
 import ca.etsmtl.log720.lab1.CollectionDossier;
 import ca.etsmtl.log720.lab1.CollectionInfraction;
+import ca.etsmtl.log720.lab1.Dossier;
 
 /**
 *
@@ -156,12 +157,12 @@ public class Recherche extends javax.swing.JFrame {
    
    public String getPrenom()
    {
-	   String prenom = jTF_nom.getText();
+	   String prenom = jTF_prenom.getText();
 	   return prenom;
    }
    public String getNom()
    {
-	   String nom = jTF_prenom.getText();
+	   String nom = jTF_nom.getText();
 	   return nom;
    }
    public String getPlaque()
@@ -254,4 +255,11 @@ public class Recherche extends javax.swing.JFrame {
 			}
 			repaint();
 	}
+   
+   	public void refreshSingle(Dossier dos)
+   	{
+   		list_dossier.removeAll();
+		list_dossier.add(dos._toString());
+		repaint();
+   	}
 }

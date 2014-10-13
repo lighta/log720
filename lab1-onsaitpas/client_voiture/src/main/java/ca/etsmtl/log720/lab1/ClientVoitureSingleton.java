@@ -154,10 +154,36 @@ public class ClientVoitureSingleton implements ActionListener {
 			
 		}
 		
-		private void search_dos(String prenom, String nom, String plaque, String permis) {	
-			BanqueDossiers banque_dossier = ClientVoitureSingleton.getInstance().getBanqueDossiers();
-			CollectionDossier collec_dos = banque_dossier.dossiers(); //avoid refetch
-			view.rechercheView.refresh(collec_dos);
+		private void search_dos(String prenom, String nom, String plaque, String permis) 
+		{
+			// Full search (empty fields)
+			if ( prenom.isEmpty() && prenom.isEmpty() && plaque.isEmpty() && permis.isEmpty() )
+			{
+				BanqueDossiers banque_dossier = ClientVoitureSingleton.getInstance().getBanqueDossiers();
+				CollectionDossier collec_dos = banque_dossier.dossiers(); //avoid refetch
+				view.rechercheView.refresh(collec_dos);
+			}
+			
+			// Search by nom/prenom
+			else if ( !prenom.isEmpty() && !nom.isEmpty() && plaque.isEmpty() && permis.isEmpty() )
+			{
+				CollectionDossier searched_dossier = banque_dossier.trouverDossiersParNom(nom, prenom);
+				view.rechercheView.refresh(searched_dossier);
+			}
+			
+			// Search by plaque
+			else if ( prenom.isEmpty() && nom.isEmpty() && !plaque.isEmpty() && permis.isEmpty() )
+			{
+				CollectionDossier searched_dossier = banque_dossier.trouverDossiersParPlaque(plaque);
+				view.rechercheView.refresh(searched_dossier);
+			}
+			
+			// Searh by permis
+			else if (prenom.isEmpty() && nom.isEmpty() && plaque.isEmpty() && !permis.isEmpty() )
+			{
+				Dossier searched_dossier = banque_dossier.trouverDossierParPermis(permis);
+				view.rechercheView.refreshSingle(searched_dossier);
+			}
 		}
 		private void select_dos() {	
 			String selectedDossierString = view.rechercheView.getSelectedDossier();
