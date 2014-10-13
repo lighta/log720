@@ -55,7 +55,7 @@ public class CollectionInfractionImpl extends CollectionInfractionPOA implements
 		/*if(_list_infractions.contains(tmp_inf)){
 			System.out.println("List_Infraction already contains this obj \n\t\t"+tmp_inf);
 			return;
-		}*/
+		} //on autorize pour les dossiers ayant x meme inf */
 		_list_infractions.add(tmp_inf);
 	}
 	
