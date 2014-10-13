@@ -119,10 +119,9 @@ public class ClientVoitureSingleton implements ActionListener {
 				// Return to main menu
 				view.reactionView.dispose();
 					
-			} catch (Exception e) {
-				System.err.println(e);
-				//String message = "Ajout de dossier impossible, le num de permis existe deja";
-				//view.dossiersView.showCustomMessage(message);
+			} catch (NullPointerException npe) {
+				String message = "Impossible d'ajouter une reaction \n\n Veuillez vous assurer de selectionner une reaction \n Veuillez vous assurer d'avoir un dossier actif";
+				view.infractionsView.showCustomMessage(message);
 			}
 		}
 		private void add_infraction_to_dos(String currentInfraction) {	
@@ -146,10 +145,9 @@ public class ClientVoitureSingleton implements ActionListener {
 				// Return to main menu
 				view.infractionsView.dispose();
 					
-			} catch (Exception e) {
-				System.err.println(e);
-				//String message = "Ajout de dossier impossible, le num de permis existe deja";
-				//view.dossiersView.showCustomMessage(message);
+			} catch (NullPointerException npe) {
+				String message = "Impossible d'ajouter une infraction \n\n Veuillez vous assurer de selectionner une infraction \n Veuillez vous assurer d'avoir un dossier actif";
+				view.infractionsView.showCustomMessage(message);
 			}
 			
 		}
@@ -161,28 +159,56 @@ public class ClientVoitureSingleton implements ActionListener {
 			{
 				BanqueDossiers banque_dossier = ClientVoitureSingleton.getInstance().getBanqueDossiers();
 				CollectionDossier collec_dos = banque_dossier.dossiers(); //avoid refetch
-				view.rechercheView.refresh(collec_dos);
+				
+				// No result found handling
+				if ( collec_dos.size() > 1 )
+				{
+					view.rechercheView.refresh(collec_dos);
+				}
+				else
+				{
+					String message = "Aucun resultat trouve!";
+					view.rechercheView.showCustomMessage(message);
+				}
 			}
 			
 			// Search by nom/prenom
 			else if ( !prenom.isEmpty() && !nom.isEmpty() && plaque.isEmpty() && permis.isEmpty() )
 			{
-				CollectionDossier searched_dossier = banque_dossier.trouverDossiersParNom(nom, prenom);
-				view.rechercheView.refresh(searched_dossier);
+				// No result found catching
+				try{
+					CollectionDossier searched_dossier = banque_dossier.trouverDossiersParNom(nom, prenom);
+					view.rechercheView.refresh(searched_dossier);
+				}catch (NullPointerException npe){
+					String message = "Aucun resultat trouve!";
+					view.rechercheView.showCustomMessage(message);
+				}
 			}
 			
 			// Search by plaque
 			else if ( prenom.isEmpty() && nom.isEmpty() && !plaque.isEmpty() && permis.isEmpty() )
 			{
-				CollectionDossier searched_dossier = banque_dossier.trouverDossiersParPlaque(plaque);
-				view.rechercheView.refresh(searched_dossier);
+				// No result found catching
+				try{
+					CollectionDossier searched_dossier = banque_dossier.trouverDossiersParPlaque(plaque);
+					view.rechercheView.refresh(searched_dossier);
+				}catch (NullPointerException npe){
+					String message = "Aucun resultat trouve!";
+					view.rechercheView.showCustomMessage(message);
+				}
 			}
 			
-			// Searh by permis
+			// Search by permis
 			else if (prenom.isEmpty() && nom.isEmpty() && plaque.isEmpty() && !permis.isEmpty() )
 			{
-				Dossier searched_dossier = banque_dossier.trouverDossierParPermis(permis);
-				view.rechercheView.refreshSingle(searched_dossier);
+				// No result found catching
+				try{
+					Dossier searched_dossier = banque_dossier.trouverDossierParPermis(permis);
+					view.rechercheView.refreshSingle(searched_dossier);
+				}catch (NullPointerException npe){
+					String message = "Aucun resultat trouve!";
+					view.rechercheView.showCustomMessage(message);
+				}
 			}
 		}
 		private void select_dos() {	

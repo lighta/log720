@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
 import ca.etsmtl.log720.lab1.CollectionDossier;
@@ -182,7 +183,10 @@ public class Recherche extends javax.swing.JFrame {
    }
    
    
-   
+   public void showCustomMessage(String message)
+   {
+	   JOptionPane.showMessageDialog(null, message);
+   }
 
    /**
     * @param args the command line arguments

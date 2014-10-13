@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
 import ca.etsmtl.log720.lab1.CollectionInfraction;
@@ -159,6 +160,11 @@ public class Infractions extends javax.swing.JFrame {
  	   return currentInfraction;
     }
 
+    
+    public void showCustomMessage(String message)
+    {
+ 	   JOptionPane.showMessageDialog(null, message);
+    }
     
     
     /**
