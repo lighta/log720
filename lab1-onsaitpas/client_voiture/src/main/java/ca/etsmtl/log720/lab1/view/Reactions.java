@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
 import ca.etsmtl.log720.lab1.CollectionInfraction;
 import ca.etsmtl.log720.lab1.CollectionReaction;
+import ca.etsmtl.log720.lab1.JIntField;
+import ca.etsmtl.log720.lab1.Variables;
 
 /**
  *
@@ -60,7 +62,7 @@ public class Reactions extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jT_gravite = new javax.swing.JTextField();
+        jT_gravite = new JIntField(1, Variables.NIVEAU_REAC_MIN, Variables.NIVEAU_REAC_MAX);
         jLabel9 = new javax.swing.JLabel();
         //list_reaction = new DefaultListModel<String>();
 
@@ -96,7 +98,7 @@ public class Reactions extends javax.swing.JFrame {
 
         jLabel3.setText("Description");
 
-        jLabel9.setText("Gravite (1-5)");
+        jLabel9.setText("Gravite ("+Variables.NIVEAU_REAC_MIN+"-"+Variables.NIVEAU_REAC_MAX+")");
         
         
         

@@ -6,6 +6,8 @@ public class Variables {
 	public static final String NAME_BANK_INF = "BanqueInfractions";
 	public static final int NIVEAU_INF_MIN = 1;
 	public static final int NIVEAU_INF_MAX = 10;
+	public static final int NIVEAU_REAC_MIN = 1;
+	public static final int NIVEAU_REAC_MAX = 10;
 	
 	public static final int REFRESH_CLIENT_POST = 5; //refresh intervalle for cleint post
 	public static final int REFRESH_CLIENT_VOITURE = 5; //refresh intervalle for cleint voiture

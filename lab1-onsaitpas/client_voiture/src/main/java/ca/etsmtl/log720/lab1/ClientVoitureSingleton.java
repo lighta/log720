@@ -155,7 +155,7 @@ public class ClientVoitureSingleton implements ActionListener {
 		private void search_dos(String prenom, String nom, String plaque, String permis) 
 		{
 			// Full search (empty fields)
-			if ( prenom.isEmpty() && prenom.isEmpty() && plaque.isEmpty() && permis.isEmpty() )
+			if ( prenom.isEmpty() && nom.isEmpty() && plaque.isEmpty() && permis.isEmpty() )
 			{
 				BanqueDossiers banque_dossier = ClientVoitureSingleton.getInstance().getBanqueDossiers();
 				CollectionDossier collec_dos = banque_dossier.dossiers(); //avoid refetch
@@ -173,7 +173,7 @@ public class ClientVoitureSingleton implements ActionListener {
 			}
 			
 			// Search by nom/prenom
-			else if ( !prenom.isEmpty() && !nom.isEmpty() && plaque.isEmpty() && permis.isEmpty() )
+			else if ( plaque.isEmpty() && permis.isEmpty() )
 			{
 				// No result found catching
 				try{
