@@ -46,10 +46,10 @@ public class CollectionReactionImpl extends CollectionReactionPOA implements Ser
 	
 	public void ajouterReaction(String reaction, int gravite) {
 		ReactionImpl reac = new ReactionImpl(_list_reactions.size(),reaction,gravite);
-		if(_list_reactions.contains(reac)){
+		/*if(_list_reactions.contains(reac)){
 			System.out.println("List_reaction already contains this obj \n\t\t"+reac);
 			return;
-		}
+		} //on autorize pour les dossiers ayant x meme reaction */
 		_list_reactions.add(reac);
 	}
 	

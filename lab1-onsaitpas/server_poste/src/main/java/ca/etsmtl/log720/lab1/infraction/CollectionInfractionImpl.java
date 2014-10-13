@@ -52,10 +52,10 @@ public class CollectionInfractionImpl extends CollectionInfractionPOA implements
 			throw new NiveauHorsBornesException();
 		int id = _list_infractions.size(); //by default infraction_id = new index
 		InfractionImpl tmp_inf = new InfractionImpl(id, description, niveau);
-		if(_list_infractions.contains(tmp_inf)){
+		/*if(_list_infractions.contains(tmp_inf)){
 			System.out.println("List_Infraction already contains this obj \n\t\t"+tmp_inf);
 			return;
-		}
+		}*/
 		_list_infractions.add(tmp_inf);
 	}
 	
