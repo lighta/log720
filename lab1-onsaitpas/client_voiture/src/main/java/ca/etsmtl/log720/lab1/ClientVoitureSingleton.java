@@ -116,6 +116,10 @@ public class ClientVoitureSingleton implements ActionListener {
 				// Display the selected dossier on main menu
 				view.showCurrentDossier(currentDossier._toString());
 				
+				// Get the reactions and refresh
+				CollectionReaction collec_reac = banque_reaction.trouverReactionsParDossier(currentDossier);
+				view.refreshReactions(collec_reac);
+				
 				// Return to main menu
 				view.reactionView.dispose();
 					
@@ -141,6 +145,10 @@ public class ClientVoitureSingleton implements ActionListener {
 				
 				// Display the selected dossier on main menu
 				view.showCurrentDossier(currentDossier._toString());
+				
+				// Get the infractions and refresh
+				CollectionInfraction collec_inf = banque_infraction.trouverInfractionsParDossier(currentDossier);
+				view.refreshInfractions(collec_inf);
 				
 				// Return to main menu
 				view.infractionsView.dispose();
@@ -211,6 +219,7 @@ public class ClientVoitureSingleton implements ActionListener {
 				}
 			}
 		}
+		
 		private void select_dos() {	
 			String selectedDossierString = view.rechercheView.getSelectedDossier();
 			
@@ -225,6 +234,14 @@ public class ClientVoitureSingleton implements ActionListener {
 			
 			// Display the selected dossier on main menu
 			view.showCurrentDossier(currentDossier._toString());
+			
+			// Get the infractions/reactions
+			CollectionInfraction collec_inf = banque_infraction.trouverInfractionsParDossier(currentDossier);
+			CollectionReaction collec_reac = banque_reaction.trouverReactionsParDossier(currentDossier);
+			
+			// Refresh the views
+			view.refreshInfractions(collec_inf);
+			view.refreshReactions(collec_reac);
 		}
 
 

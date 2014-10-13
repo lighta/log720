@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import ca.etsmtl.log720.lab1.ClientVoitureSingleton;
+import ca.etsmtl.log720.lab1.CollectionInfraction;
+import ca.etsmtl.log720.lab1.CollectionReaction;
 
 /**
 *
@@ -55,6 +57,8 @@ public class InterfaceVoiture extends javax.swing.JFrame {
        jMItem_infractions = new javax.swing.JMenuItem();
        jMenu1 = new javax.swing.JMenu();
        jMenuItem4 = new javax.swing.JMenuItem();
+       list1 = new java.awt.List();
+       list2 = new java.awt.List();
 
        jMenuItem3.setText("jMenuItem3");
 
@@ -107,32 +111,45 @@ public class InterfaceVoiture extends javax.swing.JFrame {
        getContentPane().setLayout(layout);
        layout.setHorizontalGroup(
            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+               .addGap(22, 22, 22)
+               .addComponent(list2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+               .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addGap(34, 34, 34))
            .addGroup(layout.createSequentialGroup()
                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                    .addGroup(layout.createSequentialGroup()
                        .addGap(270, 270, 270)
                        .addComponent(jLabel1))
                    .addGroup(layout.createSequentialGroup()
-                       .addGap(30, 30, 30)
+                       .addContainerGap()
                        .addComponent(jLabel3)
                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                        .addComponent(jL_currentDossier)))
-               .addContainerGap(302, Short.MAX_VALUE))
+               .addContainerGap())
        );
        layout.setVerticalGroup(
            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
            .addGroup(layout.createSequentialGroup()
                .addGap(94, 94, 94)
                .addComponent(jLabel1)
-               .addGap(70, 70, 70)
-               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                   .addComponent(jLabel3)
-                   .addComponent(jL_currentDossier))
-               .addContainerGap(204, Short.MAX_VALUE))
+               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                   .addGroup(layout.createSequentialGroup()
+                       .addGap(53, 53, 53)
+                       .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                           .addComponent(jLabel3)
+                           .addComponent(jL_currentDossier))
+                       .addGap(38, 38, 38)
+                       .addComponent(list2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                   .addGroup(layout.createSequentialGroup()
+                       .addGap(117, 117, 117)
+                       .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)))
+               .addContainerGap())
        );
 
        pack();
-   }// </editor-fold>    
+   }// </editor-fold>
    
    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                       
        reactionView.setVisible(true);
@@ -197,9 +214,54 @@ public class InterfaceVoiture extends javax.swing.JFrame {
    private javax.swing.JMenuItem jMItem_infractions;
    private javax.swing.JMenuItem jMenuItem3;
    private javax.swing.JMenuItem jMenuItem4;
+   private java.awt.List list1;
+   private java.awt.List list2;
    
    public Infractions infractionsView;
    public Recherche rechercheView;
    public Reactions reactionView; 
-   // End of variables declaration                   
+   // End of variables declaration  
+   
+   
+   public void refreshInfractions(CollectionInfraction collec_inf){
+	   if ( collec_inf==null )
+	   {
+		   list1.removeAll();
+		   return;
+	   }
+	   	int size_inf = collec_inf.size();
+			//System.out.println("size_infraction="+size_reac);
+			if(size_inf>0){
+				int i=0;
+				list1.removeAll();
+				//System.out.println("[");
+				while(size_inf>i){ // Ajout des infractions a la liste des infractions
+					//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
+					list1.add(collec_inf.getInfraction(i)._toString()); // TODO makethis morep retty
+					i++;
+				}
+				//System.out.println("]");
+			}
+   }
+   
+   public void refreshReactions(CollectionReaction collec_reac){
+	   if ( collec_reac==null )
+	   {
+		   list2.removeAll();
+		   return;
+	   }
+   		int size_reac = collec_reac.size();
+		//System.out.println("size_infraction="+size_reac);
+		if(size_reac>0){
+			int i=0;
+			list2.removeAll();
+			//System.out.println("[");
+			while(size_reac>i){ // Ajout des infractions a la liste des infractions
+				//System.out.println("\tinf num="+i+": {"+banque_infraction.infractions().getInfraction(i)._toString()+"}");	
+				list2.add(collec_reac.getReaction(i)._toString()); // TODO makethis morep retty
+				i++;
+			}
+			//System.out.println("]");
+		}
+   }
 }
