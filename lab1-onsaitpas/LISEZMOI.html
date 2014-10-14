@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Grid - Exemple CORBA en Java avec modules Maven</TITLE>
+</HEAD>
+<BODY>
+<p>Ce projet est une solution d'implementation pour le systeme distribue d'un poste de police 
+ avec differentes voitures. Ce project utiliseras des objets distant via une implémentation de CORBA en java.</p>
+<p>Ce projet est livré avec différents scripts maven, bash et DOS qui permettent
+  de le compiler et l'exécuter sur les trois plate-formes supportées dans les
+  laboratoires du département, soit PC sous MS Windows (XP ou 7), PC sous Linux
+  et Mac sous MacOS X.</p>
+  
+<h2>Pré-requis</h2>
+<p>Le projet tel que livré ici est presque autonome. Les seuls prérequis sont que:</p>
+<ul>
+  <li>un compilateur java doit être sur le chemin d'accès ("path");</li>
+  <li>l'outil Maven doit être sur le chemin d'accès ("path");</li>
+  <li>une distribution de jacorb bien configurée doit être accessible.</li>
+</ul>
+
+<h2>Particularités de l'exemple</h2>
+<p>Bien que vous puissiez manipuler ce projet dans votre IDE favori, il est 
+  aussi possible de le compiler et l'exécuter à la ligne de commande. La compilation
+  est réalisée via Apache Maven. Un script de compilation pom.xml est fourni. Ce
+  script utilise une hiérarchie de POM parents pour faire son travail. Comme certains
+  POM sont stockés sur le site web du cours, <b>une connexion Internet est requise
+  pour compiler</b>.
+  La commande de compilation est : <b>mvn compile</b>
+</p>
+
+<p>Ce projet exploite les modules maven, et sépare l'application en six
+  modules:</p>
+<ul>
+  <li>un module contenant uniquement l'IDL;</li>
+  <li>un module contenant les librairies disponible a tous les autres module (common)</li>
+  <li>un module contenant uniquement l'application serveur pour le poste (serveur_poste) et ses <em>servants</em>;</li>
+  <li>un module contenant uniquement le client pour le poste (client_poste).</li>
+  <li>un module contenant uniquement l'application serveur pour la voiture (serveur_voiture) et ses <em>servants</em>;</li>
+  <li>un module contenant uniquement le client pour la voiture (client_voiture).</li>
+</ul>
+<p>Les modules serveur et client dépendent des module IDL et common. Ces dépendances
+  sont définies au niveau de leurs POM respectifs.</p>
+  
+<h2>Compilation du projet en ciblant jacorb</h2>
+<ul>
+  <li>se déplacer à l'endroit où se trouve le fichier pom.xml dans cette
+    archive (en principe au même niveau que les présentes directives);</li>
+  <li>lancer <tt><b>mvn compile</b></tt> (par défaut, le compilateur IDL est
+    exécuté, puis l'ensemble du code java est compilé).</li>  
+</ul>
+
+<h2>Compilation du projet en ciblant l'ORB du SDK java</h2>
+<ul>
+  <li>se déplacer à l'endroit où se trouve le fichier pom.xml dans cette
+    archive (en principe au même niveau que les présentes directives);</li>
+  <li>lancer <tt><b>mvn compile -P jdk</b></tt> (par défaut, le compilateur IDL
+    est exécuté, puis l'ensemble du code java est compilé).</li>  
+</ul>
+  
+<h2>Exécution du projet avec jacorb</h2>
+<ul>
+  <li>ouvrir cinq coquilles (shell) selon votre plate-forme (DOS pour Windows,
+    bash pour Unix, Linux et MacOS);
+  <li>se déplacer (dans vos cinq coquilles) dans le répertoire qui contient les
+    scripts pour votre plate-forme (<tt><b>scripts/dos</b></tt> pour Windows,
+    <tt><b>scripts/bash</b></tt> pour Unix, Linux et MacOS);</li>
+  <li>régler correctement les paramètres de <tt><b>run.properties[.bat]</b></tt>
+    (surtout le port utilisé pour le NamingService);</li>
+  <li>lancer <tt><b>naming</b></tt> dans une première coquille;</li>
+  <li>lancer <tt><b>server_post</b></tt> dans une seconde coquille;</li>
+  <li>lancer <tt><b>server_voit</b></tt> dans une troisième coquille;</li>
+  <li>lancer <tt><b>client_post</b></tt> dans une quatrième coquille;</li>
+  <li>lancer <tt><b>client_voit</b></tt> dans une cinquième coquille;</li>
+</ul>
+
+<h2>Exécution de l'exemple avec l'ORB du SDK java</h2>
+<p>Utiliser la même démarche que pour jacorb, mais en utilisant les scripts
+  <tt><b>naming-sun</b></tt>, <tt><b>server_post-sun</b></tt>, <tt><b>server_voit-sun</b></tt>, 
+  <tt><b>client_voit-sun</b></tt> et <tt><b>client_post-sun</b></tt>.</p>
+
+<h2>Nettoyage du projet</h2>
+<p>ouvrir une coquille (shell) selon votre plate-forme (DOS pour Windows,
+    bash pour Unix, Linux et MacOS) et executer le script <b>clean</b>
+</p>
+
+<h2>Intégration avec eclipse et m2e</h2>
+<p>Ce projet doit être importé dans eclipse comme <strong>projet maven</strong>.
+  Le plugin maven pour eclipse, m2e, indique une erreur de gestion du plugin
+<tt>idl-maven-plugin</tt>. Ça fonctionne quand même.</p>
+
+<p>Pour que ce projet compile correctement dans eclipse, vous devez:
+<ul>
+  <li>ajouter le projet <tt>idl</tt> dans le &quot;build path&quot; des
+    projets <tt>server_poste</tt>, <tt>client_poste</tt>, <tt>server_voiture</tt> et <tt>client_voiture</tt>;</li>
+  <li>ajouter des répertoires sources liés (&quot;Linked sources&quot;) à 
+    <tt>idl/target/generated-sources/idl</tt> et <tt>common/src/main/java</tt> dans ces quatres projets.</li>
+</ul></p>    
+<p>Ces deux modifications s'effectuent via le &quot;build path&quot; eclipse.</p>
+
+<p>Par Steven Pelletier et Moreau Max<br>
+École de technologie supérieure<br>
+MÀJ 2014-Oct-13</p>
+</BODY>
+</HTML>  

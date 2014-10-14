@@ -44,7 +44,7 @@ UTILISATION:
    
 Par Roger Champagne, ing., Ph. D.
 MAJ: 2011-Oct-07
-
+MAJ: 2014-Oct-08 (Rajout de mvn clean, Moreau Max)
 -->
 <project name="ant-remise-lab" default="zip" basedir=".">
   <property name="no.lab" value="1"/> <!-- Numero du lab -->
@@ -58,7 +58,7 @@ MAJ: 2011-Oct-07
   <property name="modules.a.inclure"
     value="client_poste/,client_voiture/,server_poste/,server_voiture/,common/,idl/,scripts/"/>
   <property name="cours" value="log720"/> <!-- Sigle du cours -->
-  <property name="session" value="A11"/>  <!-- Acronyme ETS pour sessions -->
+  <property name="session" value="A14"/>  <!-- Acronyme ETS pour sessions -->
 
   <!-- Endroit ou sont copies les fichiers pour creer l'archive de remise -->
   <property name="racine.temp" value="./remise"/>
