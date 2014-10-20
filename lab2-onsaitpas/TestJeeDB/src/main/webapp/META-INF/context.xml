@@ -13,12 +13,8 @@
 	<!-- username and password: dB username and password for dB connections -->
 	<!-- driverClassName: Class name for the JDBC driver -->
 	<!-- url: The JDBC connection url for connecting to your dB. -->
-	 <Resource name="jdbc/TestJeeDB" auth="Container" type="javax.sql.DataSource"
-		maxActive="100" maxIdle="30" maxWait="10000" username="lighta"
-		password="*" driverClassName="org.postgresql.Driver"
-		url="jdbc:postgresql://localhost:5432/log720_20123_onsaitpas"/>
-	<Resource name="jdbc/TestJeeDB2" auth="Container" type="javax.sql.DataSource"
-		maxActive="100" maxIdle="30" maxWait="10000" username="lighta"
-		password="*" driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://localhost:3306/log720_20123_onsaitpas"/>
+	<Resource name="jdbc/TestJeeDB" auth="Container" type="javax.sql.DataSource"
+		maxActive="100" maxIdle="30" maxWait="10000" username="aj47630"
+		password="Log7203" driverClassName="org.postgresql.Driver"
+		url="jdbc:postgresql://log720.logti.etsmtl.ca:5432/log720_20143_14"/>
 </Context>

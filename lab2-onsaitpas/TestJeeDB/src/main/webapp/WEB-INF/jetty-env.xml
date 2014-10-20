@@ -5,20 +5,14 @@
 	<New id="TestJeeDB" class="org.eclipse.jetty.plus.jndi.Resource">
 	<Arg></Arg>
 	<Arg>jdbc/TestJeeDB</Arg>
-	<!-- <Arg>jdbc/TestJeeDB2</Arg> -->
 	<Arg>
 	<New class="org.postgresql.ds.PGSimpleDataSource">
-		<Set name="User">lighta</Set>
-		<Set name="Password">*</Set>
-		<Set name="DatabaseName">log720_20123_onsaitpas</Set>
-		<Set name="ServerName">localhost</Set>
+		<Set name="User">aj47630</Set>
+		<Set name="Password">Log7203</Set>
+		<Set name="DatabaseName">log720_20143_14</Set>
+		<Set name="ServerName">log720.logti.etsmtl.ca</Set>
 		<Set name="PortNumber">5432</Set>
 	</New>
-	<!-- <New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
-		<Set name="Url">jdbc:mysql://localhost:3306/log720_20123_onsaitpas</Set>
-		<Set name="User">lighta</Set>
-		<Set name="Password">*</Set>
-	</New> -->
 	</Arg>
 	</New>
 </Configure>
