@@ -17,4 +17,8 @@
 		maxActive="100" maxIdle="30" maxWait="10000" username="lighta"
 		password="*" driverClassName="org.postgresql.Driver"
 		url="jdbc:postgresql://localhost:5432/log720_20123_onsaitpas"/>
+	<Resource name="jdbc/TestJeeDB2" auth="Container" type="javax.sql.DataSource"
+		maxActive="100" maxIdle="30" maxWait="10000" username="lighta"
+		password="*" driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/log720_20123_onsaitpas"/>
 </Context>
