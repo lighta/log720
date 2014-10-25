@@ -2,83 +2,36 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ca.etsmtl.log720.Tutoriel_lab2</groupId>
-  <artifactId>TestJeeDB</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-
-  <name>TestJeeDB2</name>
-  <url>http://maven.apache.org</url>
+	<repositories>
+		<repository>
+			<id>log720</id>
+			<url>https://cours.etsmtl.ca/log720/m2</url>
+		</repository>
+	</repositories>
+	
+	<parent> 
+		<groupId>ca.etsmtl.log720.exemples.servlets_jsp</groupId> 
+		<artifactId>Tutoriel_lab2</artifactId> 
+		<version>1.0</version> 
+	</parent> 
+	
+	<version>1.0</version> 
+	<groupId>ca.etsmtl.log720.Tutoriel_lab2</groupId>
+	<artifactId>TestJeeDB</artifactId>
+	<packaging>war</packaging>
 
   <dependencies>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.1</version>
-      <scope>provided</scope>
-    </dependency>
 	<!-- <dependency> 
 		<groupId>org.postgresql</groupId> 
 		<artifactId>postgresql</artifactId> 
 		<version>9.3-1100-jdbc41</version> 
 	</dependency> -->
 	<dependency>
-		<groupId>mysql</groupId>
-		<artifactId>mysql-connector-java</artifactId>
-		<version>5.1.32</version>
-	</dependency>
-	<dependency>
 		<groupId>postgresql</groupId>
 		<artifactId>postgresql</artifactId>
 		<version>9.0-801.jdbc4</version>
 	</dependency>
-	<dependency>
-		<groupId>taglibs</groupId>
-		<artifactId>standard</artifactId>
-		<version>1.1.2</version>
-		<scope>runtime</scope>
-	</dependency>
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>jstl</artifactId>
-		<version>1.1.2</version>
-		<scope>runtime</scope>
-	</dependency>
   </dependencies>
-
-	<profiles>
-		<profile>
-			<id>tomcat-deploy</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<phase>install</phase>
-								<configuration>
-									<target>
-										<copy file="${basedir}/target/${project.artifactId}.war" todir="${env.CATALINA_BASE}/webapps/" />
-									</target>
-								</configuration>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 	
   <build>
 	<!-- La ligne suivante evite d'avoir -SNAPSHOT, etc, comme suffixe au nom de l'archive WAR -->
@@ -86,21 +39,9 @@
 	<plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>2.0.2</version>
+			<artifactId>maven-war-plugin</artifactId>
 			<configuration>
-				<source>1.6</source>
-				<target>1.6</target>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty-maven-plugin</artifactId>
-			<version>8.0.0.M3</version>
-			<configuration>
-				<webAppConfig>
-					<contextPath>/${project.artifactId}</contextPath>
-				</webAppConfig>
+				<outputDirectory>${env.CATALINA_BASE}/webapps</outputDirectory>
 			</configuration>
 		</plugin>
 	</plugins>

@@ -25,5 +25,19 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.0-801.jdbc4</version>
 		</dependency>
-	</dependencies> 
+	</dependencies>
+	
+	<build>
+		<!-- La ligne suivante evite d'avoir -SNAPSHOT, etc, comme suffixe au nom de l'archive WAR -->
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${env.CATALINA_BASE}/webapps</outputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
