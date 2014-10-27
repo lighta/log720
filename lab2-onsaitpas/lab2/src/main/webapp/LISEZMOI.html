@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Exemple page JSP protégée de Tomcat 6 mouture ÉTS LOG720</TITLE>
+</HEAD>
+
+<BODY>
+<p>Cet exemple simple montre comment protéger les ressources d'une application Web
+JEE (dans ce cas-ci une seule page JSP) en forçant les usagers de l'application
+à s'authentifier (en mode FORM) et en s'assurant que chaque usager est associé à
+l'un des rôles requis pour accéder à cette application.</p>
+
+<p>L'exemple original de Tomcat a été restructuré de telle sorte que login.jsp
+et error.jsp ne soient pas directement accessibles par les clients. Un POM
+maven a également été créé pour cette application, et le fichier web.xml d'origine
+(utilisé par TOUS les exemples Tomcat) a été réduit à un fichier destiné
+uniquement à cet exemple.</p>
+
+<h2>Pré-requis</h2>
+
+<p>L'exemple utilise une "base de données" d'usagers définie dans le fichier
+$CATALINA_BASE/conf/tomcat-users.xml qui est livré par défaut avec la distribution
+de Tomcat 6. Pour pouvoir utiliser l'exemple, ce fichier doit définir l'un des rôles
+exigés (tomcat, role1) et au moins un usager doit être associé à ce rôle.
+<strong>VOUS DEVEZ MODIFIER CE FICHIER POUR QUE L'EXEMPLE FONCTIONNE.</strong></p>
+
+<p>La "base de données" d'usagers $CATALINA_BASE/conf/tomcat-users.xml est une
+ressource JNDI "UserDatabase" définie dans $CATALINA_BASE/conf/server.xml.
+Elle est utilisée pour définir un "UserDatabaseRealm" (domaine de sécurité) dans ce
+même fichier $CATALINA_BASE/conf/server.xml. <strong>VOUS N'AVEZ PAS À MODIFIER
+CE FICHIER.</strong></p>
+
+<p>L'exemple tel que livré ici est entièrement autonome. Aucune librairie ou autre
+ressource externe n'est requise, à part la configuration de Tomcat décrite plus haut.
+Pour compiler et déployer cette application, les seuls prérequis sont que:</p>
+
+<ul>
+  <li>un compilateur java doit être sur le chemin d'accès ("path").</li>
+  <li>l'outil maven doit être sur le chemin d'accès ("path");</li>
+  <li>votre fichier de configuration maven (settings.xml) doit définir le dépôt
+    maven localisé sur le site web du cours afin que maven trouve le POM parent.</li>
+</ul>
+
+<h2>Pour exécuter l'exemple à partir d'une console DOS:</h2>
+
+<ul>
+  <li>éditer le fichier $CATALINA_BASE/conf/tomcat-users.xml afin qu'il reflète
+    les prérequis indiqués plus haut</li>
+  <li>lancer <tt><b>mvn package</b></tt></li>
+  <li>copier le fichier WAR produit par maven (dans target) dans
+    $CATALINA_BASE/webapps</li>
+  <li>(re)démarrer Tomcat</li>
+  <li>pointer votre fureteur au
+    <a href="http://localhost:8080/equipe14-log720-A11-lab2/index.jsp"
+      target="_blank">http://localhost:8080/equipe14-log720-A11-lab2/index.jsp</a></li>
+  <li>entrer les informations associées à un usager autorisé (selon votre
+    tomcat-users.xml)</li>
+  <li>expérimenter (bouton "back" du fureteur, "logout", ...)</li>
+</ul>
+
+<p>Par Roger Champagne, ing., Ph. D.<br>
+École de technologie supérieure<br>
+MÀJ 2011-Oct-20</p>
+</BODY>
+</HTML>  
