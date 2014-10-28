@@ -9,8 +9,14 @@
 	select id, description, niveau from infraction
 </sql:query>
 
+<%
+  if (request.getParameter("logoff") != null) {
+    session.invalidate();
+    response.sendRedirect("MainView.jsp");
+    return;
+  }
+%>
 <html>
-
 <head>
 	<title>WebApp - Role</title>
 	
@@ -54,6 +60,16 @@
 </head>
 
 <body>
+	
+	You are logged in as remote user
+	<b><%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(request.getRemoteUser()) %></b>
+	in session <b><%= session.getId() %></b><br><br>
+	You can log off by clicking
+	<a href='<%= response.encodeURL("MainView.jsp?logoff=true") %>'><b>here</b></a>.<br>
+	This should cause you to be returned to the logon page after the redirect
+	that is performed.
+
+
 	<div id="main" style="width:1300px; text-align:center; margin: 0 auto;">
 		<div id="leftpanel" style="width:30%; min-height:500px; float:left; background-color:#DDD8EB;">
 			<h2>Infractions</h2>

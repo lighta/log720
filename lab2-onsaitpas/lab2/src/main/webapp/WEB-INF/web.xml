@@ -9,7 +9,7 @@
     <display-name>Lab2</display-name>
     <web-resource-collection>
       <web-resource-name>Protected Area</web-resource-name>
-      <url-pattern>/MainView.html</url-pattern>
+      <url-pattern>/MainView.jsp</url-pattern>
       <http-method>DELETE</http-method>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
@@ -22,7 +22,7 @@
   </security-constraint>
   <login-config>
     <auth-method>FORM</auth-method>
-    <realm-name>Example Form-Based Authentication Area</realm-name>
+    <realm-name>Lab2 Form-Based Authentication Area</realm-name>
     <form-login-config>
       <form-login-page>/WEB-INF/login.jsp</form-login-page>
       <form-error-page>/WEB-INF/error.jsp</form-error-page>
