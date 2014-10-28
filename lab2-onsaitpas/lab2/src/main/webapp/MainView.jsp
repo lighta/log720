@@ -1,0 +1,109 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<sql:query var="rs_dos" dataSource="jdbc/lab2">
+	select id, nom, prenom, nopermis, noplaque from dossier
+</sql:query>
+<sql:query var="rs_inf" dataSource="jdbc/lab2">
+	select id, description, niveau from infraction
+</sql:query>
+
+<html>
+
+<head>
+	<title>WebApp - Role</title>
+	
+	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	
+	<style type="text/css">
+	.infractionsTable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+	.infractionsTable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+	.infractionsTable tr {background-color:#d4e3e5;}
+	.infractionsTable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+	.infractionsTable tr:hover {background-color:#ffffff;}
+	
+	.dossiersTable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+	.dossiersTable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+	.dossiersTable tr {background-color:#d4e3e5;}
+	.dossiersTable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+	.dossiersTable tr:hover {background-color:#ffffff;}
+	</style>
+	
+	
+	
+	 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+	$( document ).ready(function() {
+	
+		$(".infractionsTable td").click(function(){
+			//alert($(this).text());
+			$('input[name=selectedInf]').val($(this).text());
+		});
+		
+		$(".dossiersTable td").click(function(){
+			//alert($(this).text());
+			$('input[name=selectedDos]').val($(this).text());
+		});
+		
+	});
+	</script>
+</head>
+
+<body>
+	<div id="main" style="width:1300px; text-align:center; margin: 0 auto;">
+		<div id="leftpanel" style="width:30%; min-height:500px; float:left; background-color:#DDD8EB;">
+			<h2>Infractions</h2>
+			<form name="addInfraction" action="" method="get">
+					<input type="submit" value="Add Infraction">
+			</form>
+			
+			<table class="infractionsTable" border="1">
+				<tr><th>Liste infractions</th></tr>
+				<c:forEach var="row" items="${rs_inf.rows}">
+				<tr><td>Id ${row.id}<br />
+				Description ${row.description}<br />
+				Niveau ${row.niveau}</td>
+				</c:forEach>
+			</table>
+		</div>
+		
+		<div id="middlepanel" style="width:30%;min-height:500px; float:left; background-color:#ADDEC5;">
+			<h2>Dossier</h2>
+			<form name="addDossier" action="" method="get">
+					<input type="submit" value="Add Infraction">
+			</form>
+			
+			<table class="dossiersTable" border="1">
+				<tr><th>Liste dossiers</th></tr>
+				<c:forEach var="row" items="${rs_dos.rows}">
+				<tr><td>Id ${row.id}<br />
+				Nom ${row.nom}<br />
+				Prenom ${row.prenom}<br />
+				noPermis ${row.nopermis}<br />
+				noPlaque ${row.noplaque}</td>
+				</c:forEach>
+			</table>
+		</div>
+		
+		<div id="rightpanel" style="width:30%; min-height:500px; float:left; background-color:#BAF7A3;">
+			<div id="buttons" style="margin-top:20px;">
+				<form name="add" action="" method="get">
+				Selected Infraction: <input type="text" name="selectedInf" value="" readonly><br/><br/>
+				Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
+				<br/>
+					<input type="submit" value="Add Infraction to Dossier">
+				</form>
+				<br/><br/>
+				<form name="viewDossier" action="" method="get">
+					<input type="submit" value="View Dossier">
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
