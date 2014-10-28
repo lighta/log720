@@ -17,13 +17,13 @@
   }
 %>
 <html>
+
 <head>
 	<title>WebApp - Role</title>
 	
-	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-	<link rel="stylesheet" href="/resources/demos/style.css">
+	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 	
 	<style type="text/css">
 	.infractionsTable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
@@ -41,9 +41,53 @@
 	
 	
 	
-	 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	
 	<script>
+	
+	$(function() {
+		$("#addInfractionBtn").click(function (event) {
+			event.preventDefault();
+			$( "#infractionDialog" ).show();
+			$( "#infractionDialog" ).dialog({
+				resizable: true,
+				height:400,
+				width:500,
+				modal: true,
+				buttons: {
+				"Add": function() {
+				$("#formAddInfraction").submit();
+				},
+				Cancel: function() {
+				$( this ).dialog( "close" );
+				}
+				}
+			});
+        });
+		
+		$("#addDossierBtn").click(function (event) {
+			event.preventDefault();
+			$( "#dossierDialog" ).show();
+			$( "#dossierDialog" ).dialog({
+				resizable: true,
+				height:400,
+				width:500,
+				modal: true,
+				buttons: {
+				"Add": function() {
+				$("#formAddDossier").submit();
+				},
+				Cancel: function() {
+				$( this ).dialog( "close" );
+				}
+				}
+			});
+        });
+	});
+
 	$( document ).ready(function() {
+	
+		$( "#infractionDialog" ).hide();
+		$( "#dossierDialog" ).hide();
 	
 		$(".infractionsTable td").click(function(){
 			//alert($(this).text());
@@ -55,7 +99,9 @@
 			$('input[name=selectedDos]').val($(this).text());
 		});
 		
-	});
+	});	
+	
+	 
 	</script>
 </head>
 
@@ -69,12 +115,38 @@
 	This should cause you to be returned to the logon page after the redirect
 	that is performed.
 
+	<div id="infractionDialog" title="Add infraction">
+		<form id="formAddInfraction" action="" method="get">
+			<label for="infraction">Infraction: </label>
+			<input type="text" name="infraction" id="infraction" value="Proxenetisme" class="text ui-widget-content ui-corner-all">
+			<br/><br/>
+			<label for="gravite">Gravite: </label>
+			<input type="text" name="gravite" id="gravite" value="2" class="text ui-widget-content ui-corner-all">
+		</form>
+	</div>
+
+	<div id="dossierDialog" title="Add dossier">
+		 <form id="formAddDossier" action="" method="get">
+			<label for="prenom">Prenom: </label>
+			<input type="text" name="prenom" id="prenom" value="John" class="text ui-widget-content ui-corner-all">
+			<br/><br/>
+			<label for="nom">Nom: </label>
+			<input type="text" name="nom" id="nom" value="Doe" class="text ui-widget-content ui-corner-all">
+			<br/><br/>
+			<label for="permis">Permis: </label>
+			<input type="text" name="permis" id="permis" value="Doej1234" class="text ui-widget-content ui-corner-all">
+			<br/><br/>
+			<label for="nom">Plaque: </label>
+			<input type="text" name="plaque" id="plaque" value="a1b2c3" class="text ui-widget-content ui-corner-all">
+		</form>
+	</div>
+
 
 	<div id="main" style="width:1300px; text-align:center; margin: 0 auto;">
 		<div id="leftpanel" style="width:30%; min-height:500px; float:left; background-color:#DDD8EB;">
 			<h2>Infractions</h2>
 			<form name="addInfraction" action="" method="get">
-					<input type="submit" value="Add Infraction">
+					<input type="submit" id="addInfractionBtn" value="Add Infraction">
 			</form>
 			
 			<table class="infractionsTable" border="1">
@@ -90,7 +162,7 @@
 		<div id="middlepanel" style="width:30%;min-height:500px; float:left; background-color:#ADDEC5;">
 			<h2>Dossier</h2>
 			<form name="addDossier" action="" method="get">
-					<input type="submit" value="Add Infraction">
+					<input type="submit" id="addDossierBtn" value="Add Dossier">
 			</form>
 			
 			<table class="dossiersTable" border="1">

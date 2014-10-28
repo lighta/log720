@@ -46,8 +46,8 @@
 
 <role rolename="log720_Admin"/>
 <role rolename="log720_Policier"/> 
-<user username="john" password="test" roles="tomcat,log720_Admin"/>
-<user username="bob" password="test" roles="role1,log720_Policier"/>
+<user username="john" password="test" roles="log720_Admin"/>
+<user username="bob" password="test" roles="log720_Policier"/>
 </tomcat-users>
 
 
