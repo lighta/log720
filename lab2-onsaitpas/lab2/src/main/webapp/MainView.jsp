@@ -116,28 +116,36 @@
 	that is performed.
 
 	<div id="infractionDialog" title="Add infraction">
+		<% 
+		 String description = "Proxenetisme";
+		 int gravite = 2;
+		%>
 		<form id="formAddInfraction" action="" method="get">
 			<label for="infraction">Infraction: </label>
-			<input type="text" name="infraction" id="infraction" value="Proxenetisme" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="infraction" id="infraction" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(description) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="gravite">Gravite: </label>
-			<input type="text" name="gravite" id="gravite" value="2" class="text ui-widget-content ui-corner-all">
+			<input type="number" name="gravite" id="gravite" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.chk_gravite(gravite) %>" class="number ui-widget-content ui-corner-all">
 		</form>
 	</div>
 
 	<div id="dossierDialog" title="Add dossier">
+		<% 
+		 String nom = "Doe", prenom="John";
+		 String permis = "Doej1234", plaque="a1b2c3";
+		%>
 		 <form id="formAddDossier" action="" method="get">
 			<label for="prenom">Prenom: </label>
-			<input type="text" name="prenom" id="prenom" value="John" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="prenom" id="prenom" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(prenom) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="nom">Nom: </label>
-			<input type="text" name="nom" id="nom" value="Doe" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="nom" id="nom" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(nom) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="permis">Permis: </label>
-			<input type="text" name="permis" id="permis" value="Doej1234" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="permis" id="permis" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(permis) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="nom">Plaque: </label>
-			<input type="text" name="plaque" id="plaque" value="a1b2c3" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="plaque" id="plaque" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(plaque) %>" class="text ui-widget-content ui-corner-all">
 		</form>
 	</div>
 
@@ -151,10 +159,10 @@
 			
 			<table class="infractionsTable" border="1">
 				<tr><th>Liste infractions</th></tr>
-				<c:forEach var="row" items="${rs_inf.rows}">
-				<tr><td>Id ${row.id}<br />
-				Description ${row.description}<br />
-				Niveau ${row.niveau}</td>
+					<c:forEach var="row" items="${rs_inf.rows}">
+					<tr><td>Id ${row.id}<br />
+					Description ${row.description}<br />
+					Niveau ${row.niveau}</td>
 				</c:forEach>
 			</table>
 		</div>
@@ -168,11 +176,11 @@
 			<table class="dossiersTable" border="1">
 				<tr><th>Liste dossiers</th></tr>
 				<c:forEach var="row" items="${rs_dos.rows}">
-				<tr><td>Id ${row.id}<br />
-				Nom ${row.nom}<br />
-				Prenom ${row.prenom}<br />
-				noPermis ${row.nopermis}<br />
-				noPlaque ${row.noplaque}</td>
+					<tr><td>Id ${row.id}<br />
+					Nom ${row.nom}<br />
+					Prenom ${row.prenom}<br />
+					noPermis ${row.nopermis}<br />
+					noPlaque ${row.noplaque}</td>
 				</c:forEach>
 			</table>
 		</div>

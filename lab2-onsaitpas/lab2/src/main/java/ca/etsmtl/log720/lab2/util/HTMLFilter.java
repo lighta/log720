@@ -63,9 +63,8 @@ public final class HTMLFilter {
         return (result.toString());
     }
     
-     public static String test(String message) {
-		 if(message != null && message.compareToIgnoreCase("hello") == 0) return "hello boss\n test 2nd line \n test 3rdline \n";
-		 else return "hello world\n";
+     public static int chk_gravite(int gravite) {
+		 return gravite < 1 ? 1 : gravite > 10 ? 10 : gravite;
 	 }
 }
 
