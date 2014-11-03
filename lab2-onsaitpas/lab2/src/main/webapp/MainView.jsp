@@ -82,6 +82,12 @@
 				}
 			});
         });
+		
+		$("#viewDossierBtn").click(function (event) {
+			event.preventDefault();
+			$("#selectedDossier").val( $('input[name=selectedDos]').val() );
+			$("#viewDossier").submit();
+        });
 	});
 
 	$( document ).ready(function() {
@@ -97,6 +103,19 @@
 		$(".dossiersTable td").click(function(){
 			//alert($(this).text());
 			$('input[name=selectedDos]').val($(this).text());
+			$("#viewDossierBtn").removeAttr("disabled");
+			
+			if ( $('input[name=selectedInf]').val() != "" &&  $('input[name=selectedDos]').val() != "" )
+			{
+				$("#addInfractionToDossier").removeAttr("disabled");
+			}
+		});
+		
+		$(".infractionsTable td").click(function(){
+			if ( $('input[name=selectedInf]').val() != "" &&  $('input[name=selectedDos]').val() != "" )
+			{
+				$("#addInfractionToDossier").removeAttr("disabled");
+			}
 		});
 		
 	});	
@@ -191,11 +210,12 @@
 				Selected Infraction: <input type="text" name="selectedInf" value="" readonly><br/><br/>
 				Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
 				<br/>
-					<input type="submit" value="Add Infraction to Dossier">
+					<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true">
 				</form>
 				<br/><br/>
-				<form name="viewDossier" action="" method="get">
-					<input type="submit" value="View Dossier">
+				<form id="viewDossier" action="viewdos.html" method="get">
+					<input type="submit" value="View Dossier" id="viewDossierBtn" disabled="true">
+					<input type="hidden" id="selectedDossier" value="">
 				</form>
 			</div>
 		</div>

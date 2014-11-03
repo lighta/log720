@@ -1,0 +1,93 @@
+<html>
+
+<head>
+	<title>WebApp - Dossier</title>
+	
+	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	
+	<style type="text/css">
+	.infractionsTable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+	.infractionsTable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+	.infractionsTable tr {background-color:#d4e3e5;}
+	.infractionsTable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+	.infractionsTable tr:hover {background-color:#ffffff;}
+	
+	.dossiersTable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+	.dossiersTable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+	.dossiersTable tr {background-color:#d4e3e5;}
+	.dossiersTable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+	.dossiersTable tr:hover {background-color:#ffffff;}
+	</style>
+	
+	
+	
+	
+	<script>
+	
+	$(function() {
+		
+
+	$( document ).ready(function() {
+		
+	}
+	});	
+	
+	 
+	</script>
+</head>
+
+<body>
+
+	<div id="main" style="width:1300px; text-align:center; margin: 0 auto;">
+		<div id="leftpanel" style="width:30%; min-height:500px; float:left; background-color:#DDD8EB;">
+			<h2>Dossier: </h2>
+			<div id="dossierInfo">
+				Prenom: <label id="prenomLabel">John...</label><br/>
+				Nom: <label id="nomLabel">Doe...</label><br/>
+				Permis: <label id="permisLabel">Doej1234...</label><br/>
+				Plaque: <label id="plaqueLabel">a1b2c3...</label><br/>
+				
+				<br/>
+				<h3>Niveau de gravite: <label id="graviteLabel">2</label></h3>
+			</div>
+			
+		</div>
+		
+		<div id="middlepanel" style="width:45%;min-height:500px; float:left; background-color:#ADDEC5;">
+			<h2>Infractions</h2>
+			
+			<table class="infractionsTable" border="1">
+				<tr>
+					<th>Infractions au dossier</th>
+					<th>Niveau de gravite</th>
+				</tr>
+				
+				<tr>
+					<td>Proxenetisme</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>Vol</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>Extorsion</td>
+					<td>3</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="rightpanel" style="width:15%; min-height:500px; float:left; background-color:#BAF7A3;">
+			<div id="buttons" style="margin-top:20px;">
+				<form name="returnMain" action="webapp.html" method="get">
+				<br/>
+					<input type="submit" value="Return to main menu">
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
