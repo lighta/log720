@@ -97,12 +97,12 @@
 	
 		$(".infractionsTable td").click(function(){
 			//alert($(this).text());
-			$('input[name=selectedInf]').val($(this).text());
+			$('input[name=selectedInf]').val($(this).attr("id"));
 		});
 		
 		$(".dossiersTable td").click(function(){
 			//alert($(this).text());
-			$('input[name=selectedDos]').val($(this).text());
+			$('input[name=selectedDos]').val($(this).attr("id"));
 			$("#viewDossierBtn").removeAttr("disabled");
 			
 			if ( $('input[name=selectedInf]').val() != "" &&  $('input[name=selectedDos]').val() != "" )
@@ -179,7 +179,7 @@
 			<table class="infractionsTable" border="1">
 				<tr><th>Liste infractions</th></tr>
 					<c:forEach var="row" items="${rs_inf.rows}">
-					<tr><td>Id ${row.id}<br />
+					<tr><td id="${row.id}">Id ${row.id}<br />
 					Description ${row.description}<br />
 					Niveau ${row.niveau}</td>
 				</c:forEach>
@@ -195,7 +195,7 @@
 			<table class="dossiersTable" border="1">
 				<tr><th>Liste dossiers</th></tr>
 				<c:forEach var="row" items="${rs_dos.rows}">
-					<tr><td>Id ${row.id}<br />
+					<tr><td id="${row.id}">Id ${row.id}<br />
 					Nom ${row.nom}<br />
 					Prenom ${row.prenom}<br />
 					noPermis ${row.nopermis}<br />
