@@ -1,3 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@page import="java.util.*" %>
+
+<% int iddos = Integer.parseInt(request.getParameter("selectedDos")); %>
+<sql:query var="rs_dosinf" dataSource="jdbc/lab2">
+	select id_dossier, id_infraction, date, niveau from dos_infraction inner join infraction on dos_infraction.id_infraction=infraction.id where id_dossier=?
+	<sql:param value="<%= iddos %>" />
+</sql:query>
+<sql:query var="rs_maxinf" dataSource="jdbc/lab2">
+	select max(niveau) as mniveau from dos_infraction inner join infraction on dos_infraction.id_infraction=infraction.id where id_dossier=?
+	<sql:param value="<%= iddos %>" />
+</sql:query>
+<sql:query var="rs_curdos" dataSource="jdbc/lab2">
+	select id, nom, prenom, nopermis, noplaque from dossier where id=?
+	<sql:param value="<%= iddos %>" />
+</sql:query>
+
+
+
 <html>
 
 <head>
@@ -23,15 +46,14 @@
 	
 	
 	
-	
 	<script>
 	
 	$(function() {
 		
 
 	$( document ).ready(function() {
-	});
-
+		
+	}
 	});	
 	
 	 
@@ -39,18 +61,22 @@
 </head>
 
 <body>
-
 	<div id="main" style="width:1300px; text-align:center; margin: 0 auto;">
 		<div id="leftpanel" style="width:30%; min-height:500px; float:left; background-color:#DDD8EB;">
 			<h2>Dossier: </h2>
 			<div id="dossierInfo">
-				Prenom: <label id="prenomLabel">John...</label><br/>
-				Nom: <label id="nomLabel">Doe...</label><br/>
-				Permis: <label id="permisLabel">Doej1234...</label><br/>
-				Plaque: <label id="plaqueLabel">a1b2c3...</label><br/>
-				
+				<c:forEach var="row" items="${rs_curdos.rows}">
+				Prenom: <label id="prenomLabel"> ${row.prenom} </label><br/>
+				Nom: <label id="nomLabel"> ${row.nom} </label><br/>
+				Permis: <label id="permisLabel"> ${row.nopermis} </label><br/>
+				Plaque: <label id="plaqueLabel"> ${row.noplaque} </label><br/>
+				</c:forEach>
 				<br/>
-				<h3>Niveau de gravite: <label id="graviteLabel">2</label></h3>
+				<h3>Niveau de gravite: 
+				<c:forEach var="row3" items="${rs_maxinf.rows}">
+					<label id="graviteLabel"> ${row3.mniveau} </label><br/>
+				</c:forEach>
+				</h3>
 			</div>
 			
 		</div>
@@ -63,19 +89,15 @@
 					<th>Infractions au dossier</th>
 					<th>Niveau de gravite</th>
 				</tr>
-				
-				<tr>
-					<td>Proxenetisme</td>
-					<td>1</td>
-				</tr>
-				<tr>
-					<td>Vol</td>
-					<td>2</td>
-				</tr>
-				<tr>
-					<td>Extorsion</td>
-					<td>3</td>
-				</tr>
+				<c:forEach var="row2" items="${rs_dosinf.rows}">
+					<tr>
+					<td>
+						Infraction ${row2.id_infraction}<br />
+						Date ${row2.date}</td>
+					<td>
+						Niveau ${row2.niveau}
+					</td>
+				</c:forEach>
 			</table>
 		</div>
 		

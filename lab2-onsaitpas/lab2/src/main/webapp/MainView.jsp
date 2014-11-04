@@ -213,9 +213,9 @@
 					<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true">
 				</form>
 				<br/><br/>
-				<form id="viewDossier" action="viewdos.html" method="get">
+				<form id="viewDossier" action="viewdos.jsp" method="get">
 					<input type="submit" value="View Dossier" id="viewDossierBtn" disabled="true">
-					<input type="hidden" id="selectedDossier" value="">
+					<input type="hidden" name="selectedDos" value="">
 				</form>
 			</div>
 		</div>
