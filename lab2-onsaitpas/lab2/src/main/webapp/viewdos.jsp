@@ -11,11 +11,11 @@
 	}
 %>
 <sql:query var="rs_dosinf" dataSource="jdbc/lab2">
-	select id_dossier, id_infraction, date, niveau from dos_infraction inner join infraction on dos_infraction.id_infraction=infraction.id where id_dossier=?
+	select iddossier, idinfraction, date, niveau from dosinfraction inner join infraction on dosinfraction.idinfraction=infraction.id where iddossier=?
 	<sql:param value="<%= iddos %>" />
 </sql:query>
 <sql:query var="rs_maxinf" dataSource="jdbc/lab2">
-	select max(niveau) as mniveau from dos_infraction inner join infraction on dos_infraction.id_infraction=infraction.id where id_dossier=?
+	select max(niveau) as mniveau from dosinfraction inner join infraction on dosinfraction.idinfraction=infraction.id where iddossier=?
 	<sql:param value="<%= iddos %>" />
 </sql:query>
 <sql:query var="rs_curdos" dataSource="jdbc/lab2">
@@ -96,7 +96,7 @@
 				<c:forEach var="row2" items="${rs_dosinf.rows}">
 					<tr>
 					<td>
-						Infraction ${row2.id_infraction}<br />
+						Infraction ${row2.idinfraction}<br />
 						Date ${row2.date}</td>
 					<td>
 						Niveau ${row2.niveau}

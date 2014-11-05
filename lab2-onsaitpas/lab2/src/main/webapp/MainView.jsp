@@ -2,12 +2,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<sql:query var="rs_dos" dataSource="jdbc/lab2">
-	select id, nom, prenom, nopermis, noplaque from dossier
-</sql:query>
-<sql:query var="rs_inf" dataSource="jdbc/lab2">
-	select id, description, niveau from infraction
-</sql:query>
 
 <%
   if (request.getParameter("logoff") != null) {
@@ -19,14 +13,13 @@
 
 <%
 	//Our ugly DoStuff without servlet
-	
 	String description;
 	int gravite=0;
 	
 	String nom, prenom;
 	String permis, plaque;
 	
-	int id_infraction=-1,id_dossier=-1;
+	int id_infraction=0,id_dossier=0;
 	 
 	//Add infractions
 	if (request.getParameter("gravite") != null) {
@@ -58,12 +51,19 @@
 	if (request.getParameter("selectedDos") != null) {
 		id_dossier = Integer.parseInt(request.getParameter("selectedDos"));
 	}
-	if(id_dossier != -1 && id_infraction != -1) {
-		pageContext.setAttribute("idinfraction", id_infraction);
-		pageContext.setAttribute("iddossier", id_dossier);
+	if(id_dossier != 0 && id_infraction != 0) {
+		pageContext.setAttribute("idinf", id_infraction);
+		pageContext.setAttribute("iddos", id_dossier);
 	}
 %>
 
+<c:if test="${iddos > 0}">
+	<sql:update var="ins_dosinf" dataSource="jdbc/lab2">
+		insert into dosinfraction(iddossier, idinfraction) values (?,?);
+		<sql:param value="${iddos}" />
+		<sql:param value="${idinf}" />
+	</sql:update>
+</c:if>
 <c:if test="${!empty param.gravite}">
 	<sql:update var="ins_inf" dataSource="jdbc/lab2">
 		insert into infraction(description, niveau) values (?,?);
@@ -80,15 +80,13 @@
 		<sql:param value="${plaque}" />
 	</sql:update>
 </c:if>
-<c:if test="${!empty param.iddossier}">
-	<sql:update var="ins_dosinf" dataSource="jdbc/lab2">
-		insert into dos_infraction(id_dossier, id_infraction) values (?,?);
-		<sql:param value="${iddossier}" />
-		<sql:param value="${idinfraction}" />
-	</sql:update>
-</c:if>
 
-
+<sql:query var="rs_dos" dataSource="jdbc/lab2">
+	select id, nom, prenom, nopermis, noplaque from dossier
+</sql:query>
+<sql:query var="rs_inf" dataSource="jdbc/lab2">
+	select id, description, niveau from infraction
+</sql:query>
 
 
 <html>
@@ -274,12 +272,13 @@
 		<div id="rightpanel" style="width:30%; min-height:500px; float:left; background-color:#BAF7A3;">
 			<div id="buttons" style="margin-top:20px;">
 				<form name="add" action="" method="get">
-				Selected Infraction: <input type="text" name="selectedInf" value="" readonly><br/><br/>
-				Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
-				<br/>
-					<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true">
+					Selected Infraction: <input type="text" name="selectedInf" value="" readonly><br/><br/>
+					Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
+					<br/>
+						<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true">
 				</form>
-				<br/><br/>
+				<br/>
+				<br/>
 				<form id="viewDossier" action="viewdos.jsp" method="get">
 					<input type="submit" value="View Dossier" id="viewDossierBtn" disabled="true">
 					<input type="hidden" name="selectedDos" value="">
