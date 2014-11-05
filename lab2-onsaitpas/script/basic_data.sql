@@ -1,8 +1,8 @@
 ﻿--Insertion des dossier
-insert into "dossier" ("nom","prenom","noPermis","noPlaque") values ('john','do','Pe0001','Pl001');
-insert into "dossier" ("nom","prenom","noPermis","noPlaque") values ('steven','do','Pe0002','Pl002');
---test UNQ_NoPermis
-insert into "dossier" ("nom","prenom","noPermis","noPlaque") values ('fail','permis','Pe0002','blablabala');
+insert into "dossier" ("nom","prenom","nopermis","noplaque") values ('john','do','Pe0001','Pl001');
+insert into "dossier" ("nom","prenom","nopermis","noplaque") values ('steven','do','Pe0002','Pl002');
+--test UNQ_nopermis
+insert into "dossier" ("nom","prenom","nopermis","noplaque") values ('fail','permis','Pe0002','blablabala');
 --verification table dossier (2 entries)
 select * from "dossier";
 
@@ -23,11 +23,11 @@ select * from "infraction";
 
 
 --Insertion des DosInf
-insert into "dosinfraction" ("id_dossier","id_infraction") values (2,2);
-insert into "dosinfraction" ("id_dossier","id_infraction") values (2,5);
-insert into "dosinfraction" ("id_dossier","id_infraction") values (1,7);
+insert into "dos_infraction" ("id_dossier","id_infraction") values (2,2);
+insert into "dos_infraction" ("id_dossier","id_infraction") values (2,5);
+insert into "dos_infraction" ("id_dossier","id_infraction") values (1,7);
 --test invalid FK
-insert into "dosinfraction" ("id_dossier","id_infraction") values (0,7);
-insert into "dosinfraction" ("id_dossier","id_infraction") values (1,15);
+insert into "dos_infraction" ("id_dossier","id_infraction") values (0,7);
+insert into "dos_infraction" ("id_dossier","id_infraction") values (1,15);
 --verification table dosinfraction (3 entries)
-select * from "dosinfraction";
+select * from "dos_infraction";

@@ -16,6 +16,81 @@
     return;
   }
 %>
+
+<%
+	//Our ugly DoStuff without servlet
+	
+	String description;
+	int gravite=0;
+	
+	String nom, prenom;
+	String permis, plaque;
+	
+	int id_infraction=-1,id_dossier=-1;
+	 
+	//Add infractions
+	if (request.getParameter("gravite") != null) {
+		gravite = Integer.parseInt(request.getParameter("gravite"));
+	}
+	description=request.getParameter("infraction");
+	if(gravite != 0 && description != null) {
+		pageContext.setAttribute("gravite", gravite);
+		pageContext.setAttribute("description", description);
+	}
+	
+	
+	//Add dossier
+	nom = request.getParameter("nom");
+	prenom = request.getParameter("prenom");
+	permis = request.getParameter("permis");
+	plaque = request.getParameter("plaque");
+	if(nom != null && prenom != null && permis != null && plaque != null) {
+		pageContext.setAttribute("nom", nom);
+		pageContext.setAttribute("prenom", prenom);
+		pageContext.setAttribute("permis", permis);
+		pageContext.setAttribute("plaque", plaque);
+	}
+	
+	//Add dosinfraction
+	if (request.getParameter("selectedInf") != null) {
+		id_infraction = Integer.parseInt(request.getParameter("selectedInf"));
+	}
+	if (request.getParameter("selectedDos") != null) {
+		id_dossier = Integer.parseInt(request.getParameter("selectedDos"));
+	}
+	if(id_dossier != -1 && id_infraction != -1) {
+		pageContext.setAttribute("idinfraction", id_infraction);
+		pageContext.setAttribute("iddossier", id_dossier);
+	}
+%>
+
+<c:if test="${!empty param.gravite}">
+	<sql:update var="ins_inf" dataSource="jdbc/lab2">
+		insert into infraction(description, niveau) values (?,?);
+		<sql:param value="${description}" />
+		<sql:param value="${gravite}" />
+	</sql:update>
+</c:if>
+<c:if test="${!empty param.plaque}">
+	<sql:update var="ins_dos" dataSource="jdbc/lab2">
+		insert into dossier(nom, prenom, nopermis, noplaque) values (?,?,?,?);
+		<sql:param value="${nom}" />
+		<sql:param value="${prenom}" />
+		<sql:param value="${permis}" />
+		<sql:param value="${plaque}" />
+	</sql:update>
+</c:if>
+<c:if test="${!empty param.iddossier}">
+	<sql:update var="ins_dosinf" dataSource="jdbc/lab2">
+		insert into dos_infraction(id_dossier, id_infraction) values (?,?);
+		<sql:param value="${iddossier}" />
+		<sql:param value="${idinfraction}" />
+	</sql:update>
+</c:if>
+
+
+
+
 <html>
 
 <head>
@@ -135,10 +210,6 @@
 	that is performed.
 
 	<div id="infractionDialog" title="Add infraction">
-		<% 
-		 String description = "Proxenetisme";
-		 int gravite = 2;
-		%>
 		<form id="formAddInfraction" action="" method="get">
 			<label for="infraction">Infraction: </label>
 			<input type="text" name="infraction" id="infraction" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(description) %>" class="text ui-widget-content ui-corner-all">
@@ -149,10 +220,6 @@
 	</div>
 
 	<div id="dossierDialog" title="Add dossier">
-		<% 
-		 String nom = "Doe", prenom="John";
-		 String permis = "Doej1234", plaque="a1b2c3";
-		%>
 		 <form id="formAddDossier" action="" method="get">
 			<label for="prenom">Prenom: </label>
 			<input type="text" name="prenom" id="prenom" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(prenom) %>" class="text ui-widget-content ui-corner-all">

@@ -5,7 +5,11 @@
 
 <%@page import="java.util.*" %>
 
-<% int iddos = Integer.parseInt(request.getParameter("selectedDos")); %>
+<% int iddos = 0;
+	if (request.getParameter("selectedDos") != null) {
+		iddos = Integer.parseInt(request.getParameter("selectedDos"));
+	}
+%>
 <sql:query var="rs_dosinf" dataSource="jdbc/lab2">
 	select id_dossier, id_infraction, date, niveau from dos_infraction inner join infraction on dos_infraction.id_infraction=infraction.id where id_dossier=?
 	<sql:param value="<%= iddos %>" />
