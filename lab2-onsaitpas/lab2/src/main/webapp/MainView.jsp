@@ -23,42 +23,37 @@
 	
 	int id_infraction=0,id_dossier=0;
 	 
-	if (request.getUserPrincipal() != null){
-		user=ca.etsmtl.log720.lab2.util.HTMLFilter.filter(request.getUserPrincipal().getName());
-		
-		out.print("User="+user);
-	}
-	else { //no user identified
-		out.print("Aucun utilisateur identifier");
-	}
-	if(request.isUserInRole("log720_Admin")) 
-		out.print("User is an admin");
-	if(request.isUserInRole("log720_Policier")) 
-		out.print("User is a policeman");
-	 
+	if(request.isUserInRole("log720_Admin")){ //user must be an admin to do those
+		out.print("User is a admin");
 		//Add infractions
 		if (request.getParameter("gravite") != null) {
 			gravite = Integer.parseInt(request.getParameter("gravite"));
 		}
 		description=request.getParameter("infraction");
-		if(gravite != 0 && description != null) {
+		if(gravite != 0 
+			&& description != null && !description.isEmpty())  {
 			pageContext.setAttribute("gravite", gravite);
 			pageContext.setAttribute("description", description);
 		}
-		
 		
 		//Add dossier
 		nom = request.getParameter("nom");
 		prenom = request.getParameter("prenom");
 		permis = request.getParameter("permis");
 		plaque = request.getParameter("plaque");
-		if(nom != null && prenom != null && permis != null && plaque != null) {
+		if(nom != null && !nom.isEmpty()
+		 && prenom != null && !prenom.isEmpty()
+		 && permis != null && !permis.isEmpty()
+		 && plaque != null && !plaque.isEmpty()) 
+		{
 			pageContext.setAttribute("nom", nom);
 			pageContext.setAttribute("prenom", prenom);
 			pageContext.setAttribute("permis", permis);
 			pageContext.setAttribute("plaque", plaque);
 		}
-		
+	}
+	else if(request.isUserInRole("log720_Policier")) { //user must be an policeman to do those
+		out.print("User is a policeman");
 		//Add dosinfraction
 		if (request.getParameter("selectedInf") != null) {
 			id_infraction = Integer.parseInt(request.getParameter("selectedInf"));
@@ -70,6 +65,10 @@
 			pageContext.setAttribute("idinf", id_infraction);
 			pageContext.setAttribute("iddos", id_dossier);
 		}
+	}
+	else {
+		out.print("You shouldn't be able to be here !!!!");
+	}
 	
 %>
 
@@ -83,7 +82,7 @@
 	</c:catch>
 	<c:if test = "${catchExceptionInsDosInf != null}">
 	   <p>Couldn't add Infraction to Dossier, There is an exception: </br>
-	   ${catchException.message}</p>
+	   Msg : ${catchExceptionInsDosInf.message}</p>
 	</c:if>
 </c:if>
 <c:if test="${!empty param.gravite}">
@@ -96,7 +95,7 @@
 	</c:catch>
 	<c:if test = "${catchExceptionInsInf != null}">
 	   <p>Couldn't add Infraction, There is an exception: </br>
-	   ${catchException.message}</p>
+	   Msg : ${catchExceptionInsInf.message}</p>
 	</c:if>
 </c:if>
 <c:if test="${!empty param.plaque}">
@@ -111,7 +110,7 @@
 	</c:catch>
 	<c:if test = "${catchExceptionInsDos != null}">
 	   <p>Couldn't add Dossier, There is an exception: </br>
-	   ${catchException.message}</p>
+	   Msg : ${catchExceptionInsDos.message}</p>
 	</c:if>
 </c:if>
 
@@ -121,8 +120,8 @@
 	</sql:query>
 </c:catch>
 <c:if test = "${catchExceptionRsDos != null}">
-   <p>Couldn't fetch Dossier data, There is an exception: </br>
-   ${catchException.message}</p>
+	<p>Couldn't fetch Dossier data, There is an exception: </br>
+	Msg : ${catchExceptionRsDos.message}</p>
 </c:if>
 
 <c:catch var ="catchExceptionRsInf">
@@ -131,8 +130,8 @@
 	</sql:query>
 </c:catch>
 <c:if test = "${catchExceptionRsInf != null}">
-   <p>Couldn't fetch Infraction data, There is an exception: </br>
-   ${catchException.message}</p>
+	<p>Couldn't fetch Infraction data, There is an exception: </br>
+	Msg : ${catchExceptionRsInf.message}</p>
 </c:if>
 
 
@@ -257,6 +256,10 @@
 
 	<div id="infractionDialog" title="Add infraction">
 		<form id="formAddInfraction" action="" method="get">
+			<% 
+				description = "Proxenetisme";
+				gravite = 2;
+			%>
 			<label for="infraction">Infraction: </label>
 			<input type="text" name="infraction" id="infraction" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(description) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
@@ -267,6 +270,12 @@
 
 	<div id="dossierDialog" title="Add dossier">
 		 <form id="formAddDossier" action="" method="get">
+			<%
+				nom = "Doe";
+				prenom="John";
+		 		permis = "Doej1234";
+		 		plaque="a1b2c3";
+			%>
 			<label for="prenom">Prenom: </label>
 			<input type="text" name="prenom" id="prenom" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(prenom) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>

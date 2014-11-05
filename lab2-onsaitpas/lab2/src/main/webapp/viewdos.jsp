@@ -18,8 +18,8 @@
 	</sql:query>
 </c:catch>
 <c:if test = "${catchExceptionRsDosInf != null}">
-   <p>Couldn't fetch Dossier (liste infraction), There is an exception: </br>
-   ${catchException.message}</p>
+	<p>Couldn't fetch Dossier (liste infraction), There is an exception: </br>
+	Msg : ${catchExceptionRsDosInf.message}</p>
 </c:if>
 
 <c:catch var ="catchExceptionRsMaxInf">
@@ -29,8 +29,8 @@
 	</sql:query>
 </c:catch>
 <c:if test = "${catchExceptionRsMaxInf != null}">
-   <p>Couldn't fetch Dossier (niveau), There is an exception: </br>
-   ${catchException.message}</p>
+	<p>Couldn't fetch Dossier (niveau), There is an exception: </br>
+	Msg : ${catchExceptionRsMaxInf.message}</p>
 </c:if>
 
 <c:catch var ="catchExceptionRsCurDos">
@@ -40,8 +40,8 @@
 	</sql:query>
 </c:catch>
 <c:if test = "${catchExceptionRsCurDos != null}">
-   <p>Couldn't fetch Dossier data, There is an exception: </br>
-   ${catchException.message}</p>
+	<p>Couldn't fetch Dossier data, There is an exception: </br>
+	Msg : ${catchExceptionRsCurDos.message}</p>
 </c:if>
 
 
