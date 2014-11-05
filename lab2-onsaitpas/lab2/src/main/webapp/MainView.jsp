@@ -58,35 +58,67 @@
 %>
 
 <c:if test="${iddos > 0}">
-	<sql:update var="ins_dosinf" dataSource="jdbc/lab2">
-		insert into dosinfraction(iddossier, idinfraction) values (?,?);
-		<sql:param value="${iddos}" />
-		<sql:param value="${idinf}" />
-	</sql:update>
+	<c:catch var ="catchExceptionInsDosInf">
+		<sql:update var="ins_dosinf" dataSource="jdbc/lab2">
+			insert into dosinfraction(iddossier, idinfraction) values (?,?);
+			<sql:param value="${iddos}" />
+			<sql:param value="${idinf}" />
+		</sql:update>
+	</c:catch>
+	<c:if test = "${catchExceptionInsDosInf != null}">
+	   <p>Couldn't add Infraction to Dossier, There is an exception: </br>
+	   ${catchException.message}</p>
+	</c:if>
 </c:if>
 <c:if test="${!empty param.gravite}">
-	<sql:update var="ins_inf" dataSource="jdbc/lab2">
-		insert into infraction(description, niveau) values (?,?);
-		<sql:param value="${description}" />
-		<sql:param value="${gravite}" />
-	</sql:update>
+	<c:catch var ="catchExceptionInsInf">
+		<sql:update var="ins_inf" dataSource="jdbc/lab2">
+			insert into infraction(description, niveau) values (?,?);
+			<sql:param value="${description}" />
+			<sql:param value="${gravite}" />
+		</sql:update>
+	</c:catch>
+	<c:if test = "${catchExceptionInsInf != null}">
+	   <p>Couldn't add Infraction, There is an exception: </br>
+	   ${catchException.message}</p>
+	</c:if>
 </c:if>
 <c:if test="${!empty param.plaque}">
-	<sql:update var="ins_dos" dataSource="jdbc/lab2">
-		insert into dossier(nom, prenom, nopermis, noplaque) values (?,?,?,?);
-		<sql:param value="${nom}" />
-		<sql:param value="${prenom}" />
-		<sql:param value="${permis}" />
-		<sql:param value="${plaque}" />
-	</sql:update>
+	<c:catch var ="catchExceptionInsDos">
+		<sql:update var="ins_dos" dataSource="jdbc/lab2">
+			insert into dossier(nom, prenom, nopermis, noplaque) values (?,?,?,?);
+			<sql:param value="${nom}" />
+			<sql:param value="${prenom}" />
+			<sql:param value="${permis}" />
+			<sql:param value="${plaque}" />
+		</sql:update>
+	</c:catch>
+	<c:if test = "${catchExceptionInsDos != null}">
+	   <p>Couldn't add Dossier, There is an exception: </br>
+	   ${catchException.message}</p>
+	</c:if>
 </c:if>
 
-<sql:query var="rs_dos" dataSource="jdbc/lab2">
-	select id, nom, prenom, nopermis, noplaque from dossier
-</sql:query>
-<sql:query var="rs_inf" dataSource="jdbc/lab2">
-	select id, description, niveau from infraction
-</sql:query>
+<c:catch var ="catchExceptionRsDos">
+	<sql:query var="rs_dos" dataSource="jdbc/lab2">
+		select id, nom, prenom, nopermis, noplaque from dossier
+	</sql:query>
+</c:catch>
+<c:if test = "${catchExceptionRsDos != null}">
+   <p>Couldn't fetch Dossier data, There is an exception: </br>
+   ${catchException.message}</p>
+</c:if>
+
+<c:catch var ="catchExceptionRsInf">
+	<sql:query var="rs_inf" dataSource="jdbc/lab2">
+		select id, description, niveau from infraction
+	</sql:query>
+</c:catch>
+<c:if test = "${catchExceptionRsInf != null}">
+   <p>Couldn't fetch Infraction data, There is an exception: </br>
+   ${catchException.message}</p>
+</c:if>
+
 
 
 <html>

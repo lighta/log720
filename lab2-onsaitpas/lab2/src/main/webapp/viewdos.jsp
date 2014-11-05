@@ -10,18 +10,39 @@
 		iddos = Integer.parseInt(request.getParameter("selectedDos"));
 	}
 %>
-<sql:query var="rs_dosinf" dataSource="jdbc/lab2">
-	select iddossier, idinfraction, date, niveau from dosinfraction inner join infraction on dosinfraction.idinfraction=infraction.id where iddossier=?
-	<sql:param value="<%= iddos %>" />
-</sql:query>
-<sql:query var="rs_maxinf" dataSource="jdbc/lab2">
-	select max(niveau) as mniveau from dosinfraction inner join infraction on dosinfraction.idinfraction=infraction.id where iddossier=?
-	<sql:param value="<%= iddos %>" />
-</sql:query>
-<sql:query var="rs_curdos" dataSource="jdbc/lab2">
-	select id, nom, prenom, nopermis, noplaque from dossier where id=?
-	<sql:param value="<%= iddos %>" />
-</sql:query>
+
+<c:catch var ="catchExceptionRsDosInf">
+	<sql:query var="rs_dosinf" dataSource="jdbc/lab2">
+		select iddossier, idinfraction, date, niveau from dosinfraction inner join infraction on dosinfraction.idinfraction=infraction.id where iddossier=?
+		<sql:param value="<%= iddos %>" />
+	</sql:query>
+</c:catch>
+<c:if test = "${catchExceptionRsDosInf != null}">
+   <p>Couldn't fetch Dossier (liste infraction), There is an exception: </br>
+   ${catchException.message}</p>
+</c:if>
+
+<c:catch var ="catchExceptionRsMaxInf">
+	<sql:query var="rs_maxinf" dataSource="jdbc/lab2">
+		select max(niveau) as mniveau from dosinfraction inner join infraction on dosinfraction.idinfraction=infraction.id where iddossier=?
+		<sql:param value="<%= iddos %>" />
+	</sql:query>
+</c:catch>
+<c:if test = "${catchExceptionRsMaxInf != null}">
+   <p>Couldn't fetch Dossier (niveau), There is an exception: </br>
+   ${catchException.message}</p>
+</c:if>
+
+<c:catch var ="catchExceptionRsCurDos">
+	<sql:query var="rs_curdos" dataSource="jdbc/lab2">
+		select id, nom, prenom, nopermis, noplaque from dossier where id=?
+		<sql:param value="<%= iddos %>" />
+	</sql:query>
+</c:catch>
+<c:if test = "${catchExceptionRsCurDos != null}">
+   <p>Couldn't fetch Dossier data, There is an exception: </br>
+   ${catchException.message}</p>
+</c:if>
 
 
 
