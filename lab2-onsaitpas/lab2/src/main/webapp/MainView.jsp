@@ -13,48 +13,64 @@
 
 <%
 	//Our ugly DoStuff without servlet
+	String user;
 	String description;
 	int gravite=0;
 	
 	String nom, prenom;
 	String permis, plaque;
 	
+	
 	int id_infraction=0,id_dossier=0;
 	 
-	//Add infractions
-	if (request.getParameter("gravite") != null) {
-		gravite = Integer.parseInt(request.getParameter("gravite"));
+	if (request.getUserPrincipal() != null){
+		user=ca.etsmtl.log720.lab2.util.HTMLFilter.filter(request.getUserPrincipal().getName());
+		
+		out.print("User="+user);
 	}
-	description=request.getParameter("infraction");
-	if(gravite != 0 && description != null) {
-		pageContext.setAttribute("gravite", gravite);
-		pageContext.setAttribute("description", description);
+	else { //no user identified
+		out.print("Aucun utilisateur identifier");
 	}
+	if(request.isUserInRole("log720_Admin")) 
+		out.print("User is an admin");
+	if(request.isUserInRole("log720_Policier")) 
+		out.print("User is a policeman");
+	 
+		//Add infractions
+		if (request.getParameter("gravite") != null) {
+			gravite = Integer.parseInt(request.getParameter("gravite"));
+		}
+		description=request.getParameter("infraction");
+		if(gravite != 0 && description != null) {
+			pageContext.setAttribute("gravite", gravite);
+			pageContext.setAttribute("description", description);
+		}
+		
+		
+		//Add dossier
+		nom = request.getParameter("nom");
+		prenom = request.getParameter("prenom");
+		permis = request.getParameter("permis");
+		plaque = request.getParameter("plaque");
+		if(nom != null && prenom != null && permis != null && plaque != null) {
+			pageContext.setAttribute("nom", nom);
+			pageContext.setAttribute("prenom", prenom);
+			pageContext.setAttribute("permis", permis);
+			pageContext.setAttribute("plaque", plaque);
+		}
+		
+		//Add dosinfraction
+		if (request.getParameter("selectedInf") != null) {
+			id_infraction = Integer.parseInt(request.getParameter("selectedInf"));
+		}
+		if (request.getParameter("selectedDos") != null) {
+			id_dossier = Integer.parseInt(request.getParameter("selectedDos"));
+		}
+		if(id_dossier != 0 && id_infraction != 0) {
+			pageContext.setAttribute("idinf", id_infraction);
+			pageContext.setAttribute("iddos", id_dossier);
+		}
 	
-	
-	//Add dossier
-	nom = request.getParameter("nom");
-	prenom = request.getParameter("prenom");
-	permis = request.getParameter("permis");
-	plaque = request.getParameter("plaque");
-	if(nom != null && prenom != null && permis != null && plaque != null) {
-		pageContext.setAttribute("nom", nom);
-		pageContext.setAttribute("prenom", prenom);
-		pageContext.setAttribute("permis", permis);
-		pageContext.setAttribute("plaque", plaque);
-	}
-	
-	//Add dosinfraction
-	if (request.getParameter("selectedInf") != null) {
-		id_infraction = Integer.parseInt(request.getParameter("selectedInf"));
-	}
-	if (request.getParameter("selectedDos") != null) {
-		id_dossier = Integer.parseInt(request.getParameter("selectedDos"));
-	}
-	if(id_dossier != 0 && id_infraction != 0) {
-		pageContext.setAttribute("idinf", id_infraction);
-		pageContext.setAttribute("iddos", id_dossier);
-	}
 %>
 
 <c:if test="${iddos > 0}">

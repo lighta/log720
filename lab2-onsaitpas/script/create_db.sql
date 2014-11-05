@@ -47,25 +47,25 @@ COMMENT ON COLUMN infraction.id IS 'Identifieur de l''infractions';
 COMMENT ON COLUMN infraction.description IS 'Description de l''infraction';
 
 
--- Table: dos_infraction
--- DROP TABLE dos_infraction;
-CREATE TABLE dos_infraction
+-- Table: dosinfraction
+-- DROP TABLE dosinfraction;
+CREATE TABLE dosinfraction
 (
-  id_dossier integer NOT NULL DEFAULT nextval('"DosInfractions_Id_Dossier_seq"'::regclass),
-  id_infraction integer NOT NULL DEFAULT nextval('"DosInfractions_Id_Infraction_seq"'::regclass),
+  iddossier integer NOT NULL DEFAULT nextval('"DosInfractions_Id_Dossier_seq"'::regclass),
+  idinfraction integer NOT NULL DEFAULT nextval('"DosInfractions_Id_Infraction_seq"'::regclass),
   date timestamp with time zone NOT NULL DEFAULT now(),
-  CONSTRAINT "FK_IDdos" FOREIGN KEY (id_dossier)
-      REFERENCES dossier (id) MATCH SIMPLE
+  CONSTRAINT "FK_IDdos" FOREIGN KEY ()
+      REFERENCES dossier () MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT "FK_IDinf" FOREIGN KEY (id_infraction)
-      REFERENCES infraction (id) MATCH SIMPLE
+  CONSTRAINT "FK_IDinf" FOREIGN KEY ()
+      REFERENCES infraction () MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE dos_infraction
+ALTER TABLE dosinfraction
   OWNER TO equipe_14;
-COMMENT ON TABLE dos_infraction
+COMMENT ON TABLE dosinfraction
   IS 'Liste d''infractions pour les dossiers';
 

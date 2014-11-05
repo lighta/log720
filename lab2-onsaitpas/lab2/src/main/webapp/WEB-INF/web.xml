@@ -10,6 +10,7 @@
     <web-resource-collection>
       <web-resource-name>Protected Area</web-resource-name>
       <url-pattern>/MainView.jsp</url-pattern>
+      <url-pattern>/viewdos.jsp</url-pattern>
       <http-method>DELETE</http-method>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
@@ -29,10 +30,10 @@
     </form-login-config>
   </login-config>
   <security-role>
-    <role-name>role1</role-name>
+    <role-name>log720_Admin</role-name>
   </security-role>
   <security-role>
-    <role-name>tomcat</role-name>
+    <role-name>log720_Policier</role-name>
   </security-role>
   <welcome-file-list>
     <welcome-file>LISEZMOI.html</welcome-file>

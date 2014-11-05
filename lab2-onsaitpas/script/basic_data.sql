@@ -23,11 +23,11 @@ select * from "infraction";
 
 
 --Insertion des DosInf
-insert into "dos_infraction" ("id_dossier","id_infraction") values (2,2);
-insert into "dos_infraction" ("id_dossier","id_infraction") values (2,5);
-insert into "dos_infraction" ("id_dossier","id_infraction") values (1,7);
+insert into "dosinfraction" ("iddossier","idinfraction") values (2,2);
+insert into "dosinfraction" ("iddossier","idinfraction") values (2,5);
+insert into "dosinfraction" ("iddossier","idinfraction") values (1,7);
 --test invalid FK
-insert into "dos_infraction" ("id_dossier","id_infraction") values (0,7);
-insert into "dos_infraction" ("id_dossier","id_infraction") values (1,15);
+insert into "dosinfraction" ("iddossier","idinfraction") values (0,7);
+insert into "dosinfraction" ("iddossier","idinfraction") values (1,15);
 --verification table dosinfraction (3 entries)
-select * from "dos_infraction";
+select * from "dosinfraction";
