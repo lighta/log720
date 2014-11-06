@@ -295,7 +295,12 @@
 		<div id="leftpanel" style="width:30%; min-height:500px; float:left; background-color:#DDD8EB;">
 			<h2>Infractions</h2>
 			<form name="addInfraction" action="" method="get">
+				<% 
+				if(request.isUserInRole("log720_Admin")){ %>
 					<input type="submit" id="addInfractionBtn" value="Add Infraction">
+				<%
+				}
+				%>
 			</form>
 			
 			<table class="infractionsTable" border="1">
@@ -311,7 +316,12 @@
 		<div id="middlepanel" style="width:30%;min-height:500px; float:left; background-color:#ADDEC5;">
 			<h2>Dossier</h2>
 			<form name="addDossier" action="" method="get">
-					<input type="submit" id="addDossierBtn" value="Add Dossier">
+					<% 
+					if(request.isUserInRole("log720_Admin")){ %>
+						<input type="submit" id="addDossierBtn" value="Add Dossier">
+					<% 
+					}
+					%>
 			</form>
 			
 			<table class="dossiersTable" border="1">
@@ -332,7 +342,12 @@
 					Selected Infraction: <input type="text" name="selectedInf" value="" readonly><br/><br/>
 					Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
 					<br/>
-						<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true">
+						<% 
+						if(request.isUserInRole("log720_Policier")){ %>
+							<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true">
+						<%
+						}
+						%>
 				</form>
 				<br/>
 				<br/>
