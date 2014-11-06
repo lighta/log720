@@ -79,6 +79,7 @@
 			<sql:param value="${iddos}" />
 			<sql:param value="${idinf}" />
 		</sql:update>
+		<c:redirect url="MainView.jsp" />
 	</c:catch>
 	<c:if test = "${catchExceptionInsDosInf != null}">
 	   <p>Couldn't add Infraction to Dossier, There is an exception: </br>
@@ -92,6 +93,7 @@
 			<sql:param value="${description}" />
 			<sql:param value="${gravite}" />
 		</sql:update>
+		<c:redirect url="MainView.jsp" />
 	</c:catch>
 	<c:if test = "${catchExceptionInsInf != null}">
 	   <p>Couldn't add Infraction, There is an exception: </br>
@@ -107,6 +109,7 @@
 			<sql:param value="${permis}" />
 			<sql:param value="${plaque}" />
 		</sql:update>
+		<c:redirect url="MainView.jsp" />
 	</c:catch>
 	<c:if test = "${catchExceptionInsDos != null}">
 	   <p>Couldn't add Dossier, There is an exception: </br>
@@ -339,15 +342,15 @@
 		<div id="rightpanel" style="width:30%; min-height:500px; float:left; background-color:#BAF7A3;">
 			<div id="buttons" style="margin-top:20px;">
 				<form name="add" action="" method="get">
-					Selected Infraction: <input type="text" name="selectedInf" value="" readonly><br/><br/>
-					Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
-					<br/>
-						<% 
-						if(request.isUserInRole("log720_Policier")){ %>
-							<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true">
-						<%
+							<br/> Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
+					<% 
+						if(request.isUserInRole("log720_Policier")){ 
+					%>
+							<br/> Selected Infraction: <input type="text" name="selectedInf" value="" readonly><br/><br/>
+							<input type="submit" value="Add Infraction to Dossier" id="addInfractionToDossier" disabled="true"><br/>
+					<%
 						}
-						%>
+					%>
 				</form>
 				<br/>
 				<br/>
