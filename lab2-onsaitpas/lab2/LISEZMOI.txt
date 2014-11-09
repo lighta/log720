@@ -1,0 +1,2 @@
+Pour toute instruction referez vous a
+src/main/webapp/LISEZMOI.html

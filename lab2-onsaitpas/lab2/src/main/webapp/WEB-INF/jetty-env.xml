@@ -7,10 +7,10 @@
 	<Arg>jdbc/TestJeeMvc</Arg>
 	<Arg>
 	<New class="org.postgresql.ds.PGSimpleDataSource">
-		<Set name="User">lighta</Set>
-		<Set name="Password">*</Set>
-		<Set name="DatabaseName">log720_20123_onsaitpas</Set>
-		<Set name="ServerName">localhost</Set>
+		<Set name="User">aj47630</Set>
+		<Set name="Password">Log7203</Set>
+		<Set name="DatabaseName">log720_20143_14</Set>
+		<Set name="ServerName">log720.logti.etsmtl.ca</Set>
 		<Set name="PortNumber">5432</Set>
 	</New>
 	</Arg>
