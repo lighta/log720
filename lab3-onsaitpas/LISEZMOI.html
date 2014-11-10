@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Tutoriel Spring-MVC mouture ÉTS LOG720</TITLE>
+</HEAD>
+<BODY>
+<p>Cet exemple illustre l'utilisation du framework d'applications web
+Spring&nbsp;v2.5. Il s'agit d'une version modifiée du tutoriel 
+<a href="http://static.springframework.org/docs/Spring-MVC-step-by-step/"
+ target="_blank">Developing a Spring Framework MVC application step-by-step</a>.
+Le tutoriel original a été adapté pour utiliser PostgreSQL et un POM maven a été
+ajoutéet. De plus, plusieurs corrections ont été apportées, en plus de quelques
+ajouts, dont l'internationalisation ("i18n", support multilingue).</p>
+
+<p><b>NOTE IMPORTANTE:</b> en plus de bien expliquer Spring, ce tutoriel met en
+application plusieurs bonnes pratiques de développement d'applications web, dont
+entre autres le développement continu de tests au fur et à mesure que de
+nouvelles fonctionnalités sont ajoutées.</p>
+
+<h2>Pré-requis</h2>
+<p>L'exemple tel que livré ici est autonome. Pour que cette application
+fonctionne:</p>
+<ul>
+  <li>un compilateur java doit être sur le chemin d'accès ("path");</li>
+  <li>maven doit être sur le chemin d'accès ("path");</li>
+  <li>une base de données PostgreSQL doit exister, être accessible et doit
+    contenir une table &quot;products&quot;. Des scripts SQL sont inclus pour créer et
+    peupler cette table dans le répertoire
+    <a href="src/main/sql" target="_blank">src/main/sql</a>.
+    </li>
+</ul>
+
+<h2>Pour exécuter l'exemple à partir d'une console DOS</h2>
+<ul>
+  <li>ajuster les paramètres dans le fichier
+    <a href="src/main/resources/jdbc.properties"
+    target="_blank">src/main/resources/jdbc.properties</a> afin que la
+    configuration reflète votre contexte;</li>
+  <li>s'assurer que le serveur de base de données est activé, contient une table
+    <tt>products</tt> qui contient des produits
+    (voir <a href="src/main/sql" target="_blank">src/main/sql</a>);</li>  
+  <li>se déplacer à l'endroit où se trouve le fichier <tt>pom.xml</tt> dans
+    cette archive (en principe au même niveau que les présentes directives);</li>
+  <li>lancer <tt><b>mvn compile jetty:run</b></tt></li>
+  <li>pointer un fureteur Web sur <a href="http://localhost:8080/spring-mvc"
+    target="_blank">http://localhost:8080/spring-mvc</a></li>
+</ul>
+
+<h2>Pour expérimenter avec l'internationalisation (i18n)</h2>
+<p>Cette version de l'application utilise des &quot;message bundles&quot;. Tout
+le texte affiché dans les différentes pages est centralisé à un seul endroit, de
+telle sorte que la langue des messages est facile à changer. Deux langues sont
+supportées dans cette version, l'anglais et le français (tous lieux confondus).
+Comme la langue d'affichage dépend des réglages de votre fureteur, je vous
+explique ici comment changer ces réglages pour pouvoir voir l'i18n à l'oeuvre.</p>
+
+<ul>
+  <li><b>Dans Google Chrome:</b> Tools&nbsp;&rarr;&nbsp;Options, onglet "Under the Hood",
+    Section "Web content", bouton "Language and spell checker settings...", onglet
+    "Languages"</li>
+  <li><b>Dans Firefox 3+:</b> Tools&nbsp;&rarr;&nbsp;Options&nbsp;&rarr;&nbsp;Content,
+    section "Languages", bouton "Choose..."</li>
+  <li><b>Dans Internet Explorer 7+:</b> Tools&nbsp;&rarr;&nbsp;Internet Options,
+    onglet "General", bouton "Languages"</li>
+</ul>
+<p>Dans tous les cas, ajouter les langues désirées, et les placer en ordre de
+préférence. Pour fins d'experimentation, ajouter au moins une version de
+l'anglais et une version de français (n'importe quel pays), changer l'ordre et
+rafraichir votre fureteur ("reload"). Vous devriez voir l'impact tout de suite.</p>
+
+<p>Pour les détails de ce tutoriel, consultez
+<a href="http://static.springsource.org/docs/Spring-MVC-step-by-step/"
+target="_blank">le document d'origine</a>.</p>
+
+<p>Par Roger Champagne, ing., Ph. D.<br>
+École de technologie supérieure<br>
+MÀJ 2011-Nov-21</p>
+</BODY>
+</HTML>  

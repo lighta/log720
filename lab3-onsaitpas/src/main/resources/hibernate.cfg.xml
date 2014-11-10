@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Database connection settings -->
+		<!-- Modification R. Champagne: remplacement de HSQLDB par PostgreSQL -->
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://log720.logti.etsmtl.ca:5432/log720_20143_14</property>
+		<property name="connection.username">aj47630</property>
+		<property name="connection.password">Log7203</property>
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<!-- Fin modification R. Champagne -->
+
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+	<!-- Values for hbm2ddl.auto:
+	
+	     create: recreates schema (all existing data is lost, use this setting only on the first run)
+	     update: adds to existing tables.
+	-->
+
+		<property name="hbm2ddl.auto">create</property>
+
+		<!-- Mapping files -->
+		<mapping resource="springapp/domain/Product.hbm.xml" />
+		
+	</session-factory>
+</hibernate-configuration>
