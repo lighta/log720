@@ -47,16 +47,16 @@ MAJ: 2011-Oct-07
 MAJ: 2014-Oct-08 (Rajout de mvn clean, Moreau Max)
 -->
 <project name="ant-remise-lab" default="zip" basedir=".">
-  <property name="no.lab" value="2"/> <!-- Numero du lab -->
+  <property name="no.lab" value="1"/> <!-- Numero du lab -->
   <property name="equipe" value="onsaitpas"/> <!-- Numero d'equipe -->
-  <property name="racine.projet.mvn" value="./lab2-onsaitpas/lab2"/>
+  <property name="racine.projet.mvn" value="./lab1-onsaitpas"/>
   <!--
      modules.a.inclure: les "/" apres chaque repertoire sont importants.
      
      Si votre projet maven n'utilise pas les modules, inclure simplement "src".
   -->
   <property name="modules.a.inclure"
-    value="conf/,script/,src/"/>
+    value="scripts/,server_poste/,server_voiture/,idl/,client_voiture/,client_poste/,common/"/>
   <property name="cours" value="log720"/> <!-- Sigle du cours -->
   <property name="session" value="A14"/>  <!-- Acronyme ETS pour sessions -->
 

@@ -2,9 +2,9 @@
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN"
 "http://jetty.mortbay.org/configure.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
-	<New id="TestJeeMvc" class="org.eclipse.jetty.plus.jndi.Resource">
+	<New id="lab2" class="org.eclipse.jetty.plus.jndi.Resource">
 	<Arg></Arg>
-	<Arg>jdbc/TestJeeMvc</Arg>
+	<Arg>jdbc/lab2</Arg>
 	<Arg>
 	<New class="org.postgresql.ds.PGSimpleDataSource">
 		<Set name="User">aj47630</Set>
