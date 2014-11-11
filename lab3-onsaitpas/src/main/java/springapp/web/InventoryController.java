@@ -23,14 +23,15 @@ public class InventoryController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-
-        
+        	
         SimpleDateFormat sdf = new SimpleDateFormat("d MMMMMMMMMMMMMMM yyyy HH:mm:ss");
         String now = sdf.format(new Date());
-	logger.info("returning hello view with " + now);
+        logger.info("returning hello view with " + now);
         Map<String, Object> myModel = new HashMap<String, Object>();
         myModel.put("now", now);
         myModel.put("products", this.productManager.getProducts());
+        
+  //      myModel.put("infractions", this.productManager.getProducts());
         return new ModelAndView("hello", "model", myModel);
     }
 

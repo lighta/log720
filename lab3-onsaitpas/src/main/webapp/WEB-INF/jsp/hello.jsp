@@ -15,5 +15,13 @@
 <br>
 <a href="<c:url value="priceincrease.htm"/>"><fmt:message key="priceincrease.link" /></a>
 <br>
+
+<h3><fmt:message key="infractions" /></h3>
+<c:forEach items="${model.infractions}" var="inf">
+	<c:out value="${inf.description}" />
+	<i>$<c:out value="${inf.niveau}" /></i>
+	<br>
+</c:forEach>
+<br>
 </body>
 </html>

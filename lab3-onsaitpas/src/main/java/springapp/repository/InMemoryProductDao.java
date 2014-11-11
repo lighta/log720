@@ -15,5 +15,7 @@ public class InMemoryProductDao implements ProductDao {
     }
 
     public void saveProduct(Product prod) {
+    	if(this.productList.contains(prod)==false)
+    		this.productList.add(prod);
     }
 }

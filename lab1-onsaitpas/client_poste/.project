@@ -31,5 +31,10 @@
 			<type>2</type>
 			<location>/home/lighta/Documents/ETS/LOG720/git/lab1-onsaitpas/idl/target/generated-sources/idl</location>
 		</link>
+		<link>
+			<name>idl2</name>
+			<type>2</type>
+			<locationURI>WORKSPACE_LOC/lab1-onsaitpas/idl/target/generated-sources/idl</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>

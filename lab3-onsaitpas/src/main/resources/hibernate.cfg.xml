@@ -35,6 +35,9 @@
 
 		<!-- Mapping files -->
 		<mapping resource="springapp/domain/Product.hbm.xml" />
+		<mapping resource="springapp/domain/Dosinfraction.hbm.xml" />
+		<mapping resource="springapp/domain/Dossier.hbm.xml" />
+		<mapping resource="springapp/domain/Infration.hbm.xml" />
 		
 	</session-factory>
 </hibernate-configuration>
