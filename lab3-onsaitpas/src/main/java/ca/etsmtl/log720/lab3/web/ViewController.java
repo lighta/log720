@@ -38,6 +38,16 @@ public class ViewController {
 		model.addObject("dosInfs", dosInfs);
 		return model;
 	}
+	
+	@RequestMapping(value="/viewdossier")
+	public ModelAndView viewDos() {
+		List<Dosinfraction> dosInfs = this.dossierInfManager.getDossierInf();
+		Dossier dossier = this.dossierManager.getDossiers().get(0); //test see 1st dos
+		ModelAndView model = new ModelAndView("viewdos");
+		model.addObject("dosInfs", dosInfs);
+		model.addObject("dossier", dossier);
+		return model;
+	}
     
     public void setInfractionManager(InfractionManager InfractionManager) {
         this.infractionManager = InfractionManager;
