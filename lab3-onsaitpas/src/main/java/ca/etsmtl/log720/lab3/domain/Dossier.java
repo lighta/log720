@@ -19,7 +19,7 @@ public class Dossier implements java.io.Serializable {
 	private String nopermis;
 	private String noplaque;
 	private Integer niveau;
-	private Set<Infraction> dosinfractions = new HashSet<Infraction>(0);
+	private Set<Dosinfraction> dosinfractions = new HashSet<Dosinfraction>(0);
 
 	public Dossier() {
 	}
@@ -31,7 +31,7 @@ public class Dossier implements java.io.Serializable {
 	}
 
 	public Dossier(int id, String nom, String prenom, String nopermis,
-			String noplaque, Integer niveau, Set<Infraction> dosinfractions) {
+			String noplaque, Integer niveau, Set<Dosinfraction> dosinfractions) {
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -39,6 +39,7 @@ public class Dossier implements java.io.Serializable {
 		this.noplaque = noplaque;
 		this.niveau = niveau;
 		this.dosinfractions = dosinfractions;
+		calcNiveau();
 	}
 
 	public int getId() {
@@ -89,12 +90,24 @@ public class Dossier implements java.io.Serializable {
 		this.niveau = niveau;
 	}
 
-	public Set<?> getDosinfractions() {
+	public Set<Dosinfraction> getDosinfractions() {
 		return this.dosinfractions;
 	}
 
-	public void setDosinfractions(Set<Infraction> dosinfractions) {
+	public void setDosinfractions(Set<Dosinfraction> dosinfractions) {
 		this.dosinfractions = dosinfractions;
+		calcNiveau();
+	}
+	
+	public int calcNiveau(){
+		int niveau=0;
+		for( Dosinfraction cur : this.dosinfractions){
+			int tmp = cur.getInfraction().getNiveau();
+			if(tmp > niveau)
+				niveau = tmp;
+		}
+		setNiveau(niveau);
+		return niveau;
 	}
 
 }

@@ -16,7 +16,7 @@ public class Infraction implements java.io.Serializable {
 	private int id;
 	private String description;
 	private Integer niveau;
-	private Set<Dossier> dosinfractions = new HashSet<Dossier>(0);
+	private Set<Dosinfraction> dosinfractions = new HashSet<Dosinfraction>(0);
 
 	public Infraction() {
 	}
@@ -27,7 +27,7 @@ public class Infraction implements java.io.Serializable {
 	}
 
 	public Infraction(int id, String description, Integer niveau,
-			Set<Dossier> dosinfractions) {
+			Set<Dosinfraction> dosinfractions) {
 		this.id = id;
 		this.description = description;
 		this.niveau = niveau;
@@ -58,11 +58,11 @@ public class Infraction implements java.io.Serializable {
 		this.niveau = niveau;
 	}
 
-	public Set<Dossier> getDosinfractions() {
+	public Set<Dosinfraction> getDosinfractions() {
 		return this.dosinfractions;
 	}
 
-	public void setDosinfractions(Set<Dossier> dosinfractions) {
+	public void setDosinfractions(Set<Dosinfraction> dosinfractions) {
 		this.dosinfractions = dosinfractions;
 	}
 
