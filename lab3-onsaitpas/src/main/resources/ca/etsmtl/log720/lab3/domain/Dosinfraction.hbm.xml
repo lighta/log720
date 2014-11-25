@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 10, 2014 2:00:28 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="ca.etsmtl.log720.lab3.domain.Dosinfraction" table="dosinfraction" schema="public">
+        <comment>Liste d'infractions pour les dossiers</comment>
+        <composite-id name="id" class="ca.etsmtl.log720.lab3.domain.DosinfractionId">
+            <key-property name="iddossier" type="int">
+                <column name="iddossier" />
+            </key-property>
+            <key-property name="idinfraction" type="int">
+                <column name="idinfraction" />
+            </key-property>
+            <key-property name="date" type="timestamp">
+                <column name="date" length="35" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="dossier" class="ca.etsmtl.log720.lab3.domain.Dossier" update="false" insert="false" fetch="select">
+            <column name="iddossier" not-null="true" />
+        </many-to-one>
+        <many-to-one name="infraction" class="ca.etsmtl.log720.lab3.domain.Infraction" update="false" insert="false" fetch="select">
+            <column name="idinfraction" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
