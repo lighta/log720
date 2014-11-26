@@ -109,5 +109,4 @@ public class Dossier implements java.io.Serializable {
 		setNiveau(niveau);
 		return niveau;
 	}
-
 }

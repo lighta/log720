@@ -189,7 +189,7 @@
 	<b><%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(request.getRemoteUser()) %></b>
 	in session <b><%= session.getId() %></b><br><br>
 	You can log off by clicking
-	<a href='<%= response.encodeURL("MainView.jsp?logoff=true") %>'><b>here</b></a>.<br>
+	<a href='<%= response.encodeURL("/lab3/?logoff=true") %>'><b>here</b></a>.<br>
 	This should cause you to be returned to the logon page after the redirect
 	that is performed.
 
