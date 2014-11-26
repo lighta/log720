@@ -56,35 +56,46 @@ public class ViewController {
 	public ModelAndView addinf(@RequestParam("prenom") String prenom, @RequestParam("nom") String nom,
 			@RequestParam("permis") String nopermis, @RequestParam("plaque") String noplaque,
 			HttpServletRequest request) {
+		String reason = null;
 		if(request.isUserInRole("log720_Admin")){
 			String filter_nom = HTMLFilter.filter(nom);
 			String filter_prenom = HTMLFilter.filter(prenom);
 			String filter_nopermis = HTMLFilter.filter(nopermis);
 			String filter_noplaque = HTMLFilter.filter(noplaque);
-			this.dossierManager.ajouterDossier(filter_nom, filter_prenom, filter_nopermis, filter_noplaque);
+			if(this.dossierManager.ajouterDossier(filter_nom, filter_prenom, filter_nopermis, filter_noplaque)==false)
+				reason = "Duplicated KEY for permis";
+			else reason = "Dossier Added with success";
 		}
-		return new ModelAndView("redirect:/");
+		else reason = "BAD USER role";
+		ModelAndView model = new ModelAndView("redirect:/");
+		model.addObject("dos_addFail_reason",reason);
+		return model;
 	}
 	
 	@RequestMapping(value="/addInf", method = RequestMethod.GET)
 	public ModelAndView addinf(@RequestParam("description") String description, @RequestParam("gravite") int niveau, HttpServletRequest request) {
+		String reason = null;
 		if(request.isUserInRole("log720_Admin")){
 			String filter_desc = HTMLFilter.filter(description);
 			//TODO try with niveau = not int
-			if(this.infractionManager.ajouterInfraction(filter_desc,niveau)==false)
-				return new ModelAndView("redirect:/AddinfFail");;
-		}
-		return new ModelAndView("redirect:/");
+			if(this.infractionManager.ajouterInfraction(filter_desc,niveau)==false){
+				reason = "Invalide niveau de gravite";
+			}
+		} else reason = "BAD USER role";
+		
+		return home();
 	}
 	
 	@RequestMapping(value="/addinfToDos", method = RequestMethod.GET)
 	public ModelAndView addinf(@RequestParam("selectedDos") int iddos, @RequestParam("selectedInf") int idinf, HttpServletRequest request) {
+		String reason = null;
 		if(request.isUserInRole("log720_Policier")){
 			//TODO try with iddos and idinf = not int
-			if(ajouteInfractionADossier(iddos,idinf)==false);
-				return new ModelAndView("redirect:/AddinfToDosFail");
-		}
-		return new ModelAndView("redirect:/");
+			if(ajouteInfractionADossier(iddos,idinf)==false){
+				reason = "something something";
+			}
+		} else reason = "BAD USER role";
+		return home();
 	}
 	
 	@RequestMapping(value="/viewdos", method = RequestMethod.GET)

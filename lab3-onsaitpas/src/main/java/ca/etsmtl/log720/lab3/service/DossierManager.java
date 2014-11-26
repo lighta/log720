@@ -2,6 +2,8 @@ package ca.etsmtl.log720.lab3.service;
 
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import ca.etsmtl.log720.lab3.domain.Dossier;
 import ca.etsmtl.log720.lab3.repository.DossierDao;
 
@@ -18,9 +20,28 @@ public class DossierManager {
         this.dossierDao = dossierDao;
     }
 
-    public void addDossier(Dossier dossier) {
-    	dossierDao.insert(dossier);
+    public boolean addDossier(Dossier dossier) {
+    	try {
+    		dossierDao.insert(dossier);
+		} catch (ConstraintViolationException e) {
+			return false;
+		}
+    	return true;
 	}
+    
+    /**
+     * Verifie si le noPermis n'est pas deja enregistrer
+     * @param noPermis : new noPermis
+     * @return true:deja present, false=non present
+     */
+    public boolean chkDuplicate_NoPermis(String noPermis){
+    	for(Dossier cur_dos : getDossiers() ){
+			if(noPermis.equalsIgnoreCase(cur_dos.getNopermis()) ){
+				return true;
+			}
+		}
+    	return false;
+    }
     
     public Dossier searchDossierByID(int dosId){
     	for(Dossier cur_dos : getDossiers() ){
@@ -32,8 +53,9 @@ public class DossierManager {
     }
     
     public boolean ajouterDossier(String nom, String prenom, String nopermis, String noplaque){
+    	if(chkDuplicate_NoPermis(nopermis)==true) return false;
+    	
 		Dossier dos = new Dossier(nom, prenom, nopermis, noplaque);
-		addDossier(dos);
-		return true;
+		return addDossier(dos);
 	}
 }

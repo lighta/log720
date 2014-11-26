@@ -3,6 +3,8 @@ package ca.etsmtl.log720.lab3.service;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import ca.etsmtl.log720.lab3.domain.Dosinfraction;
 import ca.etsmtl.log720.lab3.domain.DosinfractionId;
 import ca.etsmtl.log720.lab3.domain.Dossier;
@@ -22,14 +24,18 @@ public class DossierInfManager {
         this.dosinfractionDao = dosinfractionDao;
     }
 
-    public void addDossierInf(Dosinfraction dossierinf) {
-    	dosinfractionDao.insert(dossierinf);
+    public boolean addDossierInf(Dosinfraction dossierinf) {
+    	try {
+    		dosinfractionDao.insert(dossierinf);
+		} catch (ConstraintViolationException e) {
+			return false;
+		}
+		return true;
 	}
     
     public boolean ajouteInfractionADossier(Dossier dos, Infraction inf){
 		DosinfractionId dosInfId = new DosinfractionId(dos.getId(),inf.getId(),new Date());
 		Dosinfraction dosInf = new Dosinfraction(dosInfId,dos,inf);
-		addDossierInf(dosInf); //save new relation in persistance
-		return true; 
+		return addDossierInf(dosInf); //save new relation in persistance 
 	}
 }

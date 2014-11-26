@@ -112,6 +112,14 @@
 </head>
 
 <body>
+	<%
+		if(request.isUserInRole("log720_Admin")){ //user must be an admin to do those
+			out.println("User is a admin");
+		}
+		else if(request.isUserInRole("log720_Policier")) { //user must be an policeman to do those
+			out.println("User is a policeman");
+		}
+	%>
 	You are logged in as remote user
 	<b><%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(request.getRemoteUser()) %></b>
 	in session <b><%= session.getId() %></b><br><br>
@@ -119,7 +127,10 @@
 	<a href='<%= response.encodeURL("/lab3/logout?logoff=true") %>'><b>here</b></a>.<br>
 	This should cause you to be returned to the logon page after the redirect
 	that is performed.
-
+	</br></br>
+	<c:if test="${inf_addFail_reason}">L'ajout d'infraction a echouer pour la raison ${inf_addFail_reason}</c:if>
+	<c:if test="${dos_addFail_reason}">L'ajout de dossier a echouer pour la raison ${dos_addFail_reason}</c:if>
+	<c:if test="${dosInf_addFail_reason}">L'ajout d' infraction au dossier a echouer pour la raison ${dosInf_addFail_reason}</c:if>
 	
 	<div id="infractionDialog" title="Add infraction">
 		<form id="formAddInfraction" action="addInf" method="get">
