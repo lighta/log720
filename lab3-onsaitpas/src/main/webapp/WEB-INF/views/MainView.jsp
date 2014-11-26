@@ -6,7 +6,7 @@
 <%
   if (request.getParameter("logoff") != null) {
     session.invalidate();
-    response.sendRedirect("MainView.jsp");
+    response.sendRedirect("/lab3/");
     return;
   }
 %>
@@ -68,76 +68,8 @@
 	}
 	else {
 		out.print("You shouldn't be able to be here !!!!");
-	}
-	
+	}	
 %>
-
-<c:if test="${iddos > 0}">
-	<c:catch var ="catchExceptionInsDosInf">
-		<sql:update var="ins_dosinf" dataSource="jdbc/lab2">
-			insert into dosinfraction(iddossier, idinfraction) values (?,?);
-			<sql:param value="${iddos}" />
-			<sql:param value="${idinf}" />
-		</sql:update>
-		<c:redirect url="MainView.jsp" />
-	</c:catch>
-	<c:if test = "${catchExceptionInsDosInf != null}">
-	   <p>Couldn't add Infraction to Dossier, There is an exception: </br>
-	   Msg : ${catchExceptionInsDosInf.message}</p>
-	</c:if>
-</c:if>
-<c:if test="${!empty param.gravite}">
-	<c:catch var ="catchExceptionInsInf">
-		<sql:update var="ins_inf" dataSource="jdbc/lab2">
-			insert into infraction(description, niveau) values (?,?);
-			<sql:param value="${description}" />
-			<sql:param value="${gravite}" />
-		</sql:update>
-		<c:redirect url="MainView.jsp" />
-	</c:catch>
-	<c:if test = "${catchExceptionInsInf != null}">
-	   <p>Couldn't add Infraction, There is an exception: </br>
-	   Msg : ${catchExceptionInsInf.message}</p>
-	</c:if>
-</c:if>
-<c:if test="${!empty param.plaque}">
-	<c:catch var ="catchExceptionInsDos">
-		<sql:update var="ins_dos" dataSource="jdbc/lab2">
-			insert into dossier(nom, prenom, nopermis, noplaque) values (?,?,?,?);
-			<sql:param value="${nom}" />
-			<sql:param value="${prenom}" />
-			<sql:param value="${permis}" />
-			<sql:param value="${plaque}" />
-		</sql:update>
-		<c:redirect url="MainView.jsp" />
-	</c:catch>
-	<c:if test = "${catchExceptionInsDos != null}">
-	   <p>Couldn't add Dossier, There is an exception: </br>
-	   Msg : ${catchExceptionInsDos.message}</p>
-	</c:if>
-</c:if>
-
-<c:catch var ="catchExceptionRsDos">
-	<sql:query var="rs_dos" dataSource="jdbc/lab2">
-		select id, nom, prenom, nopermis, noplaque from dossier
-	</sql:query>
-</c:catch>
-<c:if test = "${catchExceptionRsDos != null}">
-	<p>Couldn't fetch Dossier data, There is an exception: </br>
-	Msg : ${catchExceptionRsDos.message}</p>
-</c:if>
-
-<c:catch var ="catchExceptionRsInf">
-	<sql:query var="rs_inf" dataSource="jdbc/lab2">
-		select id, description, niveau from infraction
-	</sql:query>
-</c:catch>
-<c:if test = "${catchExceptionRsInf != null}">
-	<p>Couldn't fetch Infraction data, There is an exception: </br>
-	Msg : ${catchExceptionRsInf.message}</p>
-</c:if>
-
-
 
 <html>
 
@@ -248,26 +180,27 @@
 </head>
 
 <body>
+	<%
+			String desc = "Proxenetisme";
+			int niveau=0;
+	%>
 	
 	You are logged in as remote user
-	<b><%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(request.getRemoteUser()) %></b>
+	<b><%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(request.getRemoteUser()) %></b>
 	in session <b><%= session.getId() %></b><br><br>
 	You can log off by clicking
 	<a href='<%= response.encodeURL("MainView.jsp?logoff=true") %>'><b>here</b></a>.<br>
 	This should cause you to be returned to the logon page after the redirect
 	that is performed.
 
+	
 	<div id="infractionDialog" title="Add infraction">
 		<form id="formAddInfraction" action="" method="get">
-			<% 
-				description = "Proxenetisme";
-				gravite = 2;
-			%>
 			<label for="infraction">Infraction: </label>
-			<input type="text" name="infraction" id="infraction" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(description) %>" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="infraction" id="infraction" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(desc) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="gravite">Gravite: </label>
-			<input type="number" name="gravite" id="gravite" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.chk_gravite(gravite) %>" class="number ui-widget-content ui-corner-all">
+			<input type="number" name="gravite" id="gravite" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.chk_gravite(niveau) %>" class="number ui-widget-content ui-corner-all">
 		</form>
 	</div>
 
@@ -280,16 +213,16 @@
 		 		plaque="a1b2c3";
 			%>
 			<label for="prenom">Prenom: </label>
-			<input type="text" name="prenom" id="prenom" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(prenom) %>" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="prenom" id="prenom" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(prenom) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="nom">Nom: </label>
-			<input type="text" name="nom" id="nom" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(nom) %>" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="nom" id="nom" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(nom) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="permis">Permis: </label>
-			<input type="text" name="permis" id="permis" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(permis) %>" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="permis" id="permis" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(permis) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="nom">Plaque: </label>
-			<input type="text" name="plaque" id="plaque" value="<%= ca.etsmtl.log720.lab2.util.HTMLFilter.filter(plaque) %>" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="plaque" id="plaque" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(plaque) %>" class="text ui-widget-content ui-corner-all">
 		</form>
 	</div>
 
@@ -307,13 +240,17 @@
 			</form>
 			
 			<table class="infractionsTable" border="1">
-				<tr><th>Liste infractions</th></tr>
-					<c:forEach var="row" items="${rs_inf.rows}">
-					<tr><td id="${row.id}">Id ${row.id}<br />
-					Description ${row.description}<br />
-					Niveau ${row.niveau}</td>
+	        	<th>ID</th>
+	        	<th>Description</th>
+	        	<th>Niveau</th>
+				<c:forEach var="infractions" items="${infractions}" varStatus="status">
+	        	<tr>
+					<td>${infractions.id}</td>
+					<td>${infractions.description}</td>
+					<td>${infractions.niveau}</td>
+	        	</tr>
 				</c:forEach>
-			</table>
+        	</table>
 		</div>
 		
 		<div id="middlepanel" style="width:30%;min-height:500px; float:left; background-color:#ADDEC5;">
@@ -328,15 +265,23 @@
 			</form>
 			
 			<table class="dossiersTable" border="1">
-				<tr><th>Liste dossiers</th></tr>
-				<c:forEach var="row" items="${rs_dos.rows}">
-					<tr><td id="${row.id}">Id ${row.id}<br />
-					Nom ${row.nom}<br />
-					Prenom ${row.prenom}<br />
-					noPermis ${row.nopermis}<br />
-					noPlaque ${row.noplaque}</td>
+	        	<th>ID</th>
+	        	<th>Nom</th>
+	        	<th>Prenom</th>
+	        	<th>NoPermis</th>
+	        	<th>NoPlaque</th>
+	        	<th>Niveau</th>
+				<c:forEach var="dossiers" items="${dossiers}" varStatus="status">
+	        	<tr>
+					<td>${dossiers.id}</td>
+					<td>${dossiers.nom}</td>
+					<td>${dossiers.prenom}</td>
+					<td>${dossiers.nopermis}</td>
+					<td>${dossiers.noplaque}</td>
+					<td>${dossiers.niveau}</td>
+	        	</tr>
 				</c:forEach>
-			</table>
+        	</table>
 		</div>
 		
 		<div id="rightpanel" style="width:30%; min-height:500px; float:left; background-color:#BAF7A3;">

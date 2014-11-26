@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Laboratoire 2 de LOG720 (JSP)</TITLE>
+</HEAD>
+
+<BODY>
+<p>Ce laboratoire illustre la gestion d'un poste de police et d'une voiture par 
+des servlet JSP et une base de donnee PostgreSQL</p>
+
+<h2>Pré-requis</h2>
+
+<ul>
+  <li>un compilateur java doit être sur le chemin d'accès ("PATH").</li>
+  <li>l'outil maven doit être sur le chemin d'accès ("PATH");</li>
+  <li>Une connexion internet afin que maven trouve le POM parent sur le site web du cours.</li>
+  <li>Une serveur de base de donnees (PostgreSQL 9 ou plus)</li>
+  <li>Un serveur Web Tomcat (7 ou plus)</li>
+  <li>Une configuration alternative de Tomcat</li>
+</ul>
+
+<h3>Configuration Variable environnement</h3>
+Pour ce lavoratoire il faut avoir definit les variables d'environnement suivante: <br/>
+<ul>
+	<li> JAVA_HOME : Specifier le path du repertoire de base du JRE ou JDK</li>
+	<li> MVN_HOME : Specifier le path du repertoire de base de Maven   le</li>
+	<li> CATALINA_HOME : Specifier le path du repertoire de base de Tomcat  </li>
+	<li> CATALINA_BASE : Specifier le path du repertoire de base de Tomcat specifique pour le Laboratoire  </li>
+	<li> PATH : Specifier le chemin d'acces des binary elements (ex MVN_HOME/bin/) </li>
+</ul>
+Vous pouvez regarder le fichier <b>script/log720.sh</b> comme exemple.
+
+<h3>Configuration base de donnee</h3>
+Ce laboratoire utilise le serveur de base de donnees PostgreSQL de l'ETS fournit pour nos besoins. <br/>
+N'importe quel autre SGDB devrait etre neanmoins fonctionnelle. (Tester avec MySQL),
+du moment qu'un driver JDBC soit disponible pour le mappage.<br/>
+La configuration de l'acces au SGDB doit etre definit dans :  <br/>
+<b>src/main/webapp/META-INF/context.xml</b> (Tomcat) <br/>
+<b>src/main/webapp/WEB-INF/jetty-env.xml</b> (Jetty) <br/>
+<br/>La specification des ressources doit etre faite dans : <br/>
+<b>src/main/webapp/WEB-INF/web.xml</b><br/>
+Ceci est necessaire pour l'utilisation dans les pages JSP. <br/>
+Enfin pour notre laboratoire il faut creer les tables utilise dans, 
+ce qui peut etre fait en executant le script 
+<b>script/create_db.sql</b><br/>
+Le nettoyage des tables peut etre fait en executant <b>script/clean_db.sql</b> <br/>
+et un exemple de valeur peut etre charger avec le script <b>script/basic_data.sql</b>. <br/>
+
+
+<h3>Configuration Tomcat</h3>
+Pour eviter d'alterer l'environnement nous utilisons un Tomcat specifique ce qui peut etre fait en definissant un CATALINA_BASE 
+et en copiant les elements suivant de CATALINA_HOME.
+<ul>
+	<li> conf </li>
+	<li> lib </li>
+	<li> temp </li>
+	<li> webapps </li>
+</ul>
+<p>Ce laboratoire utilise une "base de données" d'usagers définie dans le fichier
+$CATALINA_BASE/conf/tomcat-users.xml qui est livré par défaut avec la distribution
+de Tomcat 6 ou 7. Pour pouvoir utiliser l'exemple, ce fichier doit définir l'un des rôles
+exigés <b>(log720_Admin, log720_Policier)</b> et au moins un usager doit être associé à ce rôle.
+<br/><strong>VOUS DEVEZ MODIFIER CE FICHIER POUR QUE LE LABORATOIRE FONCTIONNE.</strong>
+<br/>Un fichier d'exemple de configuration est disponible dans <b>conf/tomcat-users.xml</b>
+</p>
+<p>La "base de données" d'usagers $CATALINA_BASE/conf/tomcat-users.xml est une
+ressource JNDI "UserDatabase" définie dans $CATALINA_BASE/conf/server.xml.
+Elle est utilisée pour définir un "UserDatabaseRealm" (domaine de sécurité) dans ce
+même fichier $CATALINA_BASE/conf/server.xml. <strong>VOUS N'AVEZ PAS À MODIFIER
+CE FICHIER.</strong></p>
+
+
+<h2>Pour exécuter ce lab à partir d'une console</h2>
+
+<ul>
+  <li>éditer le fichier $CATALINA_BASE/conf/tomcat-users.xml afin qu'il reflète
+    les prérequis indiqués plus haut</li>
+  <li>Effacer si deja present <tt><b>equipe14-log720-A11-lab2.war</b></tt> et le dossier <tt><b>equipe14-log720-A11-lab2</b></tt> 
+	dans $CATALINA_BASE/webapps</li>
+  <li>lancer <tt><b>mvn package</b></tt></li>
+  <li>copier le fichier WAR produit par maven (dans target) dans
+    $CATALINA_BASE/webapps (est fait automatiquement par package)</li>
+  <li>(re)démarrer Tomcat (CATALINA_HOME/bin/startup) ou (sudo service tomcat start)</li>
+  <li>pointer votre fureteur au
+    <a href="http://localhost:8080/equipe14-log720-A11-lab2-beans/MainView.jsp"
+      target="_blank">http://localhost:8080/equipe14-log720-A11-lab2/MainView.jsp</a></li>
+  <li>entrer les informations associées à un usager autorisé (selon votre
+    tomcat-users.xml)</li>
+  <li>expérimenter (bouton "back" du fureteur, "logout", ...)</li>
+</ul>
+
+<p>Moreau Max<br>
+Steven Pelletier Max<br>
+École de technologie supérieure<br>
+MÀJ 2011-Oct-20</p>
+</BODY>
+</HTML>  

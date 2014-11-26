@@ -7,7 +7,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import ca.etsmtl.log720.lab3.domain.Dosinfraction;
 import ca.etsmtl.log720.lab3.domain.Dossier;
@@ -27,17 +29,34 @@ public class ViewController {
     @Autowired
     private DossierInfManager dossierInfManager;
 	
+//	@RequestMapping(value="/")
+//	public ModelAndView home() {
+//		List<Infraction> infractions = this.infractionManager.getInfractions();
+//		List<Dossier> dossiers = this.dossierManager.getDossiers();
+//		List<Dosinfraction> dosInfs = this.dossierInfManager.getDossierInf();
+//		ModelAndView model = new ModelAndView("home");
+//		model.addObject("infractions", infractions);
+//		model.addObject("dossiers", dossiers);
+//		model.addObject("dosInfs", dosInfs);
+//		return model;
+//	}
+	
 	@RequestMapping(value="/")
 	public ModelAndView home() {
 		List<Infraction> infractions = this.infractionManager.getInfractions();
 		List<Dossier> dossiers = this.dossierManager.getDossiers();
-		List<Dosinfraction> dosInfs = this.dossierInfManager.getDossierInf();
-		ModelAndView model = new ModelAndView("home");
+		ModelAndView model = new ModelAndView("MainView");
 		model.addObject("infractions", infractions);
 		model.addObject("dossiers", dossiers);
-		model.addObject("dosInfs", dosInfs);
 		return model;
 	}
+	
+//	@RequestMapping(value="/MainView.jsp", method = RequestMethod.POST)
+//	public String processSubmit(
+//		@ModelAttribute("logoff")
+//		return "CustomerSuccess";
+// 
+//	}
 	
 	@RequestMapping(value="/viewdossier")
 	public ModelAndView viewDos() {
