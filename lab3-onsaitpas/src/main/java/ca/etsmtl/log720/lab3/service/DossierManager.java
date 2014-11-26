@@ -21,4 +21,19 @@ public class DossierManager {
     public void addDossier(Dossier dossier) {
     	dossierDao.insert(dossier);
 	}
+    
+    public Dossier searchDossierByID(int dosId){
+    	for(Dossier cur_dos : getDossiers() ){
+			if(cur_dos.getId()==dosId){
+				return cur_dos;
+			}
+		}
+    	return null;
+    }
+    
+    public boolean ajouterDossier(String nom, String prenom, String nopermis, String noplaque){
+		Dossier dos = new Dossier(nom, prenom, nopermis, noplaque);
+		addDossier(dos);
+		return true;
+	}
 }

@@ -39,11 +39,9 @@ public class DosinfractionDao {
 		return dosinfractions;
 	}
 	
+	@Transactional
     public void insert(Dosinfraction dosinfrac){
-    	Session session = sessionFactory.getCurrentSession();
-    	session.beginTransaction();
-    	session.save(dosinfrac);
-    	session.getTransaction().commit();
+    	sessionFactory.getCurrentSession().save(dosinfrac);
     }
 	
 	public void persist(Dosinfraction transientInstance) {

@@ -30,6 +30,14 @@ public class Dossier implements java.io.Serializable {
 		this.noplaque = noplaque;
 	}
 
+	public Dossier(String nom, String prenom, String nopermis, String noplaque) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.nopermis = nopermis;
+		this.noplaque = noplaque;
+		this.niveau = 0;
+	}
+	
 	public Dossier(int id, String nom, String prenom, String nopermis,
 			String noplaque, Integer niveau, Set<Dosinfraction> dosinfractions) {
 		this.id = id;

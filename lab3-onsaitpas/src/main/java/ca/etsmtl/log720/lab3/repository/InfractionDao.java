@@ -37,11 +37,9 @@ public class InfractionDao {
 		return infractions;
 	}
 	
+	@Transactional
 	public void insert(Infraction infraction) {
-		Session session = sessionFactory.getCurrentSession();
-    	session.beginTransaction();
-    	session.save(infraction);
-    	session.getTransaction().commit();
+		sessionFactory.getCurrentSession().save(infraction);
 	}
 	
 	//partie autogenere

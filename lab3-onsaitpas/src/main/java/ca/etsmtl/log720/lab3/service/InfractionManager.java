@@ -21,4 +21,19 @@ public class InfractionManager {
     public void addInfraction(Infraction infraction) {
     	infractionDao.insert(infraction);
 	}
+    
+    public Infraction searchInfractionByID(int infId){
+    	for(Infraction cur_inf : getInfractions() ){
+			if(cur_inf.getId()==infId){
+				return cur_inf;
+			}
+		}
+    	return null;
+    }
+    
+	public boolean ajouterInfraction(String description, int gravite){
+		Infraction inf = new Infraction(description,gravite);
+		addInfraction(inf);
+		return true;
+	}
 }

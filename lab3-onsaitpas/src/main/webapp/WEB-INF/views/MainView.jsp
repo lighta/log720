@@ -25,32 +25,6 @@
 	 
 	if(request.isUserInRole("log720_Admin")){ //user must be an admin to do those
 		out.print("User is a admin");
-		//Add infractions
-		if (request.getParameter("gravite") != null) {
-			gravite = Integer.parseInt(request.getParameter("gravite"));
-		}
-		description=request.getParameter("infraction");
-		if(gravite != 0 
-			&& description != null && !description.isEmpty())  {
-			pageContext.setAttribute("gravite", gravite);
-			pageContext.setAttribute("description", description);
-		}
-		
-		//Add dossier
-		nom = request.getParameter("nom");
-		prenom = request.getParameter("prenom");
-		permis = request.getParameter("permis");
-		plaque = request.getParameter("plaque");
-		if(nom != null && !nom.isEmpty()
-		 && prenom != null && !prenom.isEmpty()
-		 && permis != null && !permis.isEmpty()
-		 && plaque != null && !plaque.isEmpty()) 
-		{
-			pageContext.setAttribute("nom", nom);
-			pageContext.setAttribute("prenom", prenom);
-			pageContext.setAttribute("permis", permis);
-			pageContext.setAttribute("plaque", plaque);
-		}
 	}
 	else if(request.isUserInRole("log720_Policier")) { //user must be an policeman to do those
 		out.print("User is a policeman");
@@ -150,12 +124,12 @@
 		$( "#infractionDialog" ).hide();
 		$( "#dossierDialog" ).hide();
 	
-		$(".infractionsTable td").click(function(){
+		$(".infractionsTable tr").click(function(){
 			//alert($(this).text());
 			$('input[name=selectedInf]').val($(this).attr("id"));
 		});
 		
-		$(".dossiersTable td").click(function(){
+		$(".dossiersTable tr").click(function(){
 			//alert($(this).text());
 			$('input[name=selectedDos]').val($(this).attr("id"));
 			$("#viewDossierBtn").removeAttr("disabled");
@@ -166,7 +140,7 @@
 			}
 		});
 		
-		$(".infractionsTable td").click(function(){
+		$(".infractionsTable tr").click(function(){
 			if ( $('input[name=selectedInf]').val() != "" &&  $('input[name=selectedDos]').val() != "" )
 			{
 				$("#addInfractionToDossier").removeAttr("disabled");
@@ -195,9 +169,9 @@
 
 	
 	<div id="infractionDialog" title="Add infraction">
-		<form id="formAddInfraction" action="" method="get">
+		<form id="formAddInfraction" action="addInf" method="get">
 			<label for="infraction">Infraction: </label>
-			<input type="text" name="infraction" id="infraction" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(desc) %>" class="text ui-widget-content ui-corner-all">
+			<input type="text" name="description" id="infraction" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(desc) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="gravite">Gravite: </label>
 			<input type="number" name="gravite" id="gravite" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.chk_gravite(niveau) %>" class="number ui-widget-content ui-corner-all">
@@ -205,7 +179,7 @@
 	</div>
 
 	<div id="dossierDialog" title="Add dossier">
-		 <form id="formAddDossier" action="" method="get">
+		 <form id="formAddDossier" action="addDos" method="get">
 			<%
 				nom = "Doe";
 				prenom="John";
@@ -244,7 +218,7 @@
 	        	<th>Description</th>
 	        	<th>Niveau</th>
 				<c:forEach var="infractions" items="${infractions}" varStatus="status">
-	        	<tr>
+	        	<tr id="${infractions.id}">
 					<td>${infractions.id}</td>
 					<td>${infractions.description}</td>
 					<td>${infractions.niveau}</td>
@@ -272,7 +246,7 @@
 	        	<th>NoPlaque</th>
 	        	<th>Niveau</th>
 				<c:forEach var="dossiers" items="${dossiers}" varStatus="status">
-	        	<tr>
+	        	<tr id="${dossiers.id}">
 					<td>${dossiers.id}</td>
 					<td>${dossiers.nom}</td>
 					<td>${dossiers.prenom}</td>
@@ -286,7 +260,7 @@
 		
 		<div id="rightpanel" style="width:30%; min-height:500px; float:left; background-color:#BAF7A3;">
 			<div id="buttons" style="margin-top:20px;">
-				<form name="add" action="" method="get">
+				<form name="add" action="addinfToDos" method="get">
 							<br/> Selected Dossier: <input type="text" name="selectedDos" value="" readonly><br/>
 					<% 
 						if(request.isUserInRole("log720_Policier")){ 
@@ -299,7 +273,7 @@
 				</form>
 				<br/>
 				<br/>
-				<form id="viewDossier" action="viewdos.jsp" method="get">
+				<form id="viewDossier" action="viewdos" method="get">
 					<input type="submit" value="View Dossier" id="viewDossierBtn" disabled="true">
 					<input type="hidden" name="selectedDos" value="">
 				</form>

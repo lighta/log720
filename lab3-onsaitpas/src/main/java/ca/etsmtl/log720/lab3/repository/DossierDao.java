@@ -37,11 +37,9 @@ public class DossierDao {
 		return dossiers;
 	}
 	
+	@Transactional
 	public void insert(Dossier dossier) {
-		Session session = sessionFactory.getCurrentSession();
-    	session.beginTransaction();
-    	session.save(dossier);
-    	session.getTransaction().commit();
+		sessionFactory.getCurrentSession().save(dossier);
 	}
 	
 	public void persist(Dossier transientInstance) {

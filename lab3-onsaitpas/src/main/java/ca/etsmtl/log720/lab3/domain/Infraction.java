@@ -25,6 +25,11 @@ public class Infraction implements java.io.Serializable {
 		this.id = id;
 		this.description = description;
 	}
+	
+	public Infraction(String description, int niveau) {
+		this.description = description;
+		this.niveau = niveau;
+	}
 
 	public Infraction(int id, String description, Integer niveau,
 			Set<Dosinfraction> dosinfractions) {

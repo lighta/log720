@@ -26,20 +26,6 @@
 	.dossiersTable tr:hover {background-color:#ffffff;}
 	</style>
 	
-	
-	
-	<script>
-	
-	$(function() {
-		
-
-	$( document ).ready(function() {
-		
-	}
-	});	
-	
-	 
-	</script>
 </head>
 
 <body>
