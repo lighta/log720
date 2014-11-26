@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import ca.etsmtl.log720.lab3.domain.Dosinfraction;
 import ca.etsmtl.log720.lab3.domain.Dossier;
 import ca.etsmtl.log720.lab3.domain.Infraction;
 import ca.etsmtl.log720.lab3.service.DossierInfManager;
 import ca.etsmtl.log720.lab3.service.InfractionManager;
 import ca.etsmtl.log720.lab3.service.DossierManager;
+import ca.etsmtl.log720.lab3.utils.HTMLFilter;
 
 
 @Controller
@@ -31,18 +34,6 @@ public class ViewController {
     @Autowired
     private DossierInfManager dossierInfManager;
 	
-//	@RequestMapping(value="/")
-//	public ModelAndView home() {
-//		List<Infraction> infractions = this.infractionManager.getInfractions();
-//		List<Dossier> dossiers = this.dossierManager.getDossiers();
-//		List<Dosinfraction> dosInfs = this.dossierInfManager.getDossierInf();
-//		ModelAndView model = new ModelAndView("home");
-//		model.addObject("infractions", infractions);
-//		model.addObject("dossiers", dossiers);
-//		model.addObject("dosInfs", dosInfs);
-//		return model;
-//	}
-	
 	@RequestMapping(value="/")
 	public ModelAndView home() {	
 		List<Infraction> infractions = this.infractionManager.getInfractions();
@@ -53,12 +44,24 @@ public class ViewController {
 		return model;
 	}
 	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public ModelAndView addinf(@RequestParam("logoff") boolean logoff, HttpSession session) {
+		if(logoff==true){
+			session.invalidate();
+		}
+		return new ModelAndView("redirect:/");
+	}
+	
 	@RequestMapping(value="/addDos", method = RequestMethod.GET)
 	public ModelAndView addinf(@RequestParam("prenom") String prenom, @RequestParam("nom") String nom,
 			@RequestParam("permis") String nopermis, @RequestParam("plaque") String noplaque,
 			HttpServletRequest request) {
 		if(request.isUserInRole("log720_Admin")){
-			this.dossierManager.ajouterDossier(nom, prenom, nopermis, noplaque);
+			String filter_nom = HTMLFilter.filter(nom);
+			String filter_prenom = HTMLFilter.filter(prenom);
+			String filter_nopermis = HTMLFilter.filter(nopermis);
+			String filter_noplaque = HTMLFilter.filter(noplaque);
+			this.dossierManager.ajouterDossier(filter_nom, filter_prenom, filter_nopermis, filter_noplaque);
 		}
 		return new ModelAndView("redirect:/");
 	}
@@ -66,7 +69,9 @@ public class ViewController {
 	@RequestMapping(value="/addInf", method = RequestMethod.GET)
 	public ModelAndView addinf(@RequestParam("description") String description, @RequestParam("gravite") int niveau, HttpServletRequest request) {
 		if(request.isUserInRole("log720_Admin")){
-			this.infractionManager.ajouterInfraction(description,niveau);
+			String filter_desc = HTMLFilter.filter(description);
+			//TODO try with niveau = not int
+			this.infractionManager.ajouterInfraction(filter_desc,niveau);
 		}
 		return new ModelAndView("redirect:/");
 	}
@@ -74,6 +79,7 @@ public class ViewController {
 	@RequestMapping(value="/addinfToDos", method = RequestMethod.GET)
 	public ModelAndView addinf(@RequestParam("selectedDos") int iddos, @RequestParam("selectedInf") int idinf, HttpServletRequest request) {
 		if(request.isUserInRole("log720_Policier")){
+			//TODO try with iddos and idinf = not int
 			ajouteInfractionADossier(iddos,idinf);
 		}
 		return new ModelAndView("redirect:/");
@@ -81,6 +87,7 @@ public class ViewController {
 	
 	@RequestMapping(value="/viewdos", method = RequestMethod.GET)
 	public ModelAndView viewDos(@RequestParam("selectedDos") int iddos) {
+		//TODO try with iddos = not int
 		ModelAndView model = new ModelAndView("viewdos");
 		Dossier dossier = this.dossierManager.searchDossierByID(iddos);; //test see 1st dos
 		if(dossier != null){

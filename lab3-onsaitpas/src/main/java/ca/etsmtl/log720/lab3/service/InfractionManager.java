@@ -32,8 +32,14 @@ public class InfractionManager {
     }
     
 	public boolean ajouterInfraction(String description, int gravite){
+		if(chk_gravite(gravite)==false) return false;	
 		Infraction inf = new Infraction(description,gravite);
 		addInfraction(inf);
 		return true;
 	}
+	
+    
+    public boolean chk_gravite(int gravite) {
+		 return gravite < 1 ? false : gravite > 10 ? false : true;
+	 }
 }

@@ -3,48 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%
-  if (request.getParameter("logoff") != null) {
-    session.invalidate();
-    response.sendRedirect("/lab3/");
-    return;
-  }
-%>
-
-<%
-	//Our ugly DoStuff without servlet
-	String user;
-	String description;
-	int gravite=0;
-	
-	String nom, prenom;
-	String permis, plaque;
-	
-	
-	int id_infraction=0,id_dossier=0;
-	 
-	if(request.isUserInRole("log720_Admin")){ //user must be an admin to do those
-		out.print("User is a admin");
-	}
-	else if(request.isUserInRole("log720_Policier")) { //user must be an policeman to do those
-		out.print("User is a policeman");
-		//Add dosinfraction
-		if (request.getParameter("selectedInf") != null) {
-			id_infraction = Integer.parseInt(request.getParameter("selectedInf"));
-		}
-		if (request.getParameter("selectedDos") != null) {
-			id_dossier = Integer.parseInt(request.getParameter("selectedDos"));
-		}
-		if(id_dossier != 0 && id_infraction != 0) {
-			pageContext.setAttribute("idinf", id_infraction);
-			pageContext.setAttribute("iddos", id_dossier);
-		}
-	}
-	else {
-		out.print("You shouldn't be able to be here !!!!");
-	}	
-%>
-
 <html>
 
 <head>
@@ -154,37 +112,36 @@
 </head>
 
 <body>
-	<%
-			String desc = "Proxenetisme";
-			int niveau=0;
-	%>
-	
 	You are logged in as remote user
 	<b><%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(request.getRemoteUser()) %></b>
 	in session <b><%= session.getId() %></b><br><br>
 	You can log off by clicking
-	<a href='<%= response.encodeURL("/lab3/?logoff=true") %>'><b>here</b></a>.<br>
+	<a href='<%= response.encodeURL("/lab3/logout?logoff=true") %>'><b>here</b></a>.<br>
 	This should cause you to be returned to the logon page after the redirect
 	that is performed.
 
 	
 	<div id="infractionDialog" title="Add infraction">
 		<form id="formAddInfraction" action="addInf" method="get">
+			<%
+				String desc = "Proxenetisme";
+				int niveau=0;
+			%>
 			<label for="infraction">Infraction: </label>
 			<input type="text" name="description" id="infraction" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(desc) %>" class="text ui-widget-content ui-corner-all">
 			<br/><br/>
 			<label for="gravite">Gravite: </label>
-			<input type="number" name="gravite" id="gravite" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.chk_gravite(niveau) %>" class="number ui-widget-content ui-corner-all">
+			<input type="number" name="gravite" id="gravite" value="<%= niveau %>" class="number ui-widget-content ui-corner-all">
 		</form>
 	</div>
 
 	<div id="dossierDialog" title="Add dossier">
 		 <form id="formAddDossier" action="addDos" method="get">
 			<%
-				nom = "Doe";
-				prenom="John";
-		 		permis = "Doej1234";
-		 		plaque="a1b2c3";
+				String nom = "Doe";
+				String prenom="John";
+		 		String permis = "Doej1234";
+		 		String plaque="a1b2c3";
 			%>
 			<label for="prenom">Prenom: </label>
 			<input type="text" name="prenom" id="prenom" value="<%= ca.etsmtl.log720.lab3.utils.HTMLFilter.filter(prenom) %>" class="text ui-widget-content ui-corner-all">

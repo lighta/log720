@@ -62,9 +62,5 @@ public final class HTMLFilter {
         }
         return (result.toString());
     }
-    
-     public static int chk_gravite(int gravite) {
-		 return gravite < 1 ? 1 : gravite > 10 ? 10 : gravite;
-	 }
 }
 
