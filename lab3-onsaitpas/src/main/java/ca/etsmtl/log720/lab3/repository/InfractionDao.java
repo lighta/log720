@@ -7,9 +7,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.LockMode;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.etsmtl.log720.lab3.domain.Infraction;
@@ -37,9 +37,15 @@ public class InfractionDao {
 		return infractions;
 	}
 	
+	//@Transactional(rollbackFor={ConstraintViolationException.class} )
 	@Transactional
-	public void insert(Infraction infraction) {
-		sessionFactory.getCurrentSession().save(infraction);
+	public void insert(Infraction infraction) throws ConstraintViolationException {
+		try {
+			sessionFactory.getCurrentSession().save(infraction);
+		} catch (ConstraintViolationException e) {
+			log.error("Save fail", e);
+			throw e;
+		}
 	}
 	
 	//partie autogenere

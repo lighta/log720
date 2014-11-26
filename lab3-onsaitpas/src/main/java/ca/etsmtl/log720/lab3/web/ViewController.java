@@ -71,7 +71,8 @@ public class ViewController {
 		if(request.isUserInRole("log720_Admin")){
 			String filter_desc = HTMLFilter.filter(description);
 			//TODO try with niveau = not int
-			this.infractionManager.ajouterInfraction(filter_desc,niveau);
+			if(this.infractionManager.ajouterInfraction(filter_desc,niveau)==false)
+				return new ModelAndView("redirect:/AddinfFail");;
 		}
 		return new ModelAndView("redirect:/");
 	}
@@ -80,7 +81,8 @@ public class ViewController {
 	public ModelAndView addinf(@RequestParam("selectedDos") int iddos, @RequestParam("selectedInf") int idinf, HttpServletRequest request) {
 		if(request.isUserInRole("log720_Policier")){
 			//TODO try with iddos and idinf = not int
-			ajouteInfractionADossier(iddos,idinf);
+			if(ajouteInfractionADossier(iddos,idinf)==false);
+				return new ModelAndView("redirect:/AddinfToDosFail");
 		}
 		return new ModelAndView("redirect:/");
 	}
@@ -97,8 +99,6 @@ public class ViewController {
 		}
 		return model;
 	}
-	
-	
 	
 	private boolean ajouteInfractionADossier(int dosId, int infId){
 		Dossier dos= this.dossierManager.searchDossierByID(dosId); //recherche du dossier existant byID

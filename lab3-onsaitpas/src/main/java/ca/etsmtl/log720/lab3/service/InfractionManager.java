@@ -2,6 +2,8 @@ package ca.etsmtl.log720.lab3.service;
 
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import ca.etsmtl.log720.lab3.domain.Infraction;
 import ca.etsmtl.log720.lab3.repository.InfractionDao;
 
@@ -18,8 +20,13 @@ public class InfractionManager {
         this.infractionDao = infractionDao;
     }
  
-    public void addInfraction(Infraction infraction) {
-    	infractionDao.insert(infraction);
+    public boolean addInfraction(Infraction infraction) {
+    	try {
+    		infractionDao.insert(infraction);
+		} catch (ConstraintViolationException e) {
+			return false;
+		}
+    	return true;
 	}
     
     public Infraction searchInfractionByID(int infId){
@@ -32,14 +39,13 @@ public class InfractionManager {
     }
     
 	public boolean ajouterInfraction(String description, int gravite){
-		if(chk_gravite(gravite)==false) return false;	
+		//if(chk_gravite(gravite)==false) return false;	
 		Infraction inf = new Infraction(description,gravite);
-		addInfraction(inf);
-		return true;
+		return addInfraction(inf);
 	}
 	
     
     public boolean chk_gravite(int gravite) {
 		 return gravite < 1 ? false : gravite > 10 ? false : true;
-	 }
+	}
 }
