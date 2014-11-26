@@ -45,18 +45,19 @@ UTILISATION:
 Par Roger Champagne, ing., Ph. D.
 MAJ: 2011-Oct-07
 MAJ: 2014-Oct-08 (Rajout de mvn clean, Moreau Max)
+MAJ: 2014-Nov-26 (Rajout de checkfile, Moreau Max)
 -->
 <project name="ant-remise-lab" default="zip" basedir=".">
-  <property name="no.lab" value="1"/> <!-- Numero du lab -->
+  <property name="no.lab" value="3"/> <!-- Numero du lab -->
   <property name="equipe" value="onsaitpas"/> <!-- Numero d'equipe -->
-  <property name="racine.projet.mvn" value="./lab1-onsaitpas"/>
+  <property name="racine.projet.mvn" value="lab3-onsaitpas"/>
   <!--
      modules.a.inclure: les "/" apres chaque repertoire sont importants.
      
      Si votre projet maven n'utilise pas les modules, inclure simplement "src".
   -->
   <property name="modules.a.inclure"
-    value="scripts/,server_poste/,server_voiture/,idl/,client_voiture/,client_poste/,common/"/>
+    value="script/,conf/,src/"/>
   <property name="cours" value="log720"/> <!-- Sigle du cours -->
   <property name="session" value="A14"/>  <!-- Acronyme ETS pour sessions -->
 
@@ -65,11 +66,11 @@ MAJ: 2014-Oct-08 (Rajout de mvn clean, Moreau Max)
   <property name="nom.archive"
     value="${cours}-${session}-lab${no.lab}-equipe${equipe}"/>
   <property name="fichier.directives"
-    value="${racine.projet.mvn}/LISEZMOI.**"/>
+    value="${racine.projet.mvn}/LISEZMOI.*"/>
   <property name="fichier.rapport"
     value="${racine.projet.mvn}/${nom.archive}.pdf"/>
-  <property name="fichier.rapport_alt"
-    value="${racine.projet.mvn}/${nom.archive}.doc**"/>
+  <property name="fichier.pom"
+    value="${racine.projet.mvn}/pom.xml"/>
   <property name="dest.temp" value="${racine.temp}/${nom.archive}"/>
 
   <!--
@@ -89,7 +90,7 @@ MAJ: 2014-Oct-08 (Rajout de mvn clean, Moreau Max)
 
   <!-- Copie des fichiers pertinents dans un lieu temporaire qui sert a
        construire l'archive finale. -->
-  <target name="copie" depends="prepare">
+  <target name="copie" depends="checkfile, prepare">
     <copy todir="${dest.temp}" includeEmptyDirs="false"
       preservelastmodified="true">
 
@@ -103,36 +104,41 @@ MAJ: 2014-Oct-08 (Rajout de mvn clean, Moreau Max)
       </fileset>
       
       <!-- Les fichiers individuels a inclure -->
-      <fileset file="${racine.projet.mvn}/pom.xml"/>
+      <fileset file="${fichier.pom}"/>
       <fileset file="${fichier.directives}"/>
       <fileset file="${fichier.rapport}"/>
-      <fileset file="${fichier.rapport_alt}"/>
     </copy>
   </target>
-
-	<condition property="isWindows">
-	  <os family="windows" />
-	</condition>
-	<condition property="isUnix">
-	  <os family="unix" />
-	</condition>
-
-	<target name="mvn_clean" depends="mvn_windows, mvn_unix"/>
-
-	<target name="mvn_windows" if="isWindows">
-	  <exec dir="." executable="cmd">
-		<arg line="/c mvn -f ${dest.temp}/pom.xml clean" />
-	  </exec>
-	</target>
-
-	<target name="mvn_unix" if="isUnix">
-	  <exec dir="." executable="sh">
-		<arg line="-c 'mvn -f ${dest.temp}/pom.xml clean'" />
-	  </exec>
-	</target>
 	
-  <!-- Creation de l'archive -->
-  <target name="zip" depends="copie, mvn_clean">
-    <zip destfile="${archive}" basedir="${dest.temp}" includes="**/*" />
-  </target>
+	<!-- Creation de l'archive -->
+	<target name="zip" depends="copie, mvn_clean">
+		<zip destfile="${archive}" basedir="${dest.temp}" includes="**/*" />
+	</target>
+
+	<!-- Nettoyage dir remise avant package archive -->
+	<target name="mvn_clean">
+		<exec dir="." executable="cmd" osfamily="windows">
+			<arg line="/c mvn -f ${dest.temp}/pom.xml clean" />
+		</exec>
+		<exec dir="." executable="sh" osfamily="unix">
+			<arg line="-c 'mvn -f ${dest.temp}/pom.xml clean'" />
+		</exec>
+	</target>
+
+	<!-- Verification de certain fichier requis -->
+	<target name="checkfile">
+		<fail message="${fichier.rapport} manquant !!">
+			<condition><not><available file="${fichier.rapport}" property="rapportfound"/></not></condition>
+		</fail>
+		<fail message="${fichier.pom} manquant !!">
+			<condition><not><available file="${fichier.pom}" property="pomfound"/></not></condition>
+		</fail>
+		<fail message="${fichier.directives} manquant !!">
+			<condition>
+				<not><resourcecount count="1">
+					<fileset id="fs" dir="${racine.projet.mvn}" includes="LISEZMOI.*"/>
+				</resourcecount></not>
+			</condition>
+		</fail>
+	</target>
 </project>
