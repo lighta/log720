@@ -89,7 +89,7 @@
 			$_GET[decode(arguments[1])] = decode(arguments[2]);
 		});
 
-		// Show the addFail reason message
+		// Show the addFail reason message (dossier)
 		if($_GET["dos_addFail_reason"] != undefined)
 		{
 			$( "#responseDialog" ).show();
@@ -97,22 +97,12 @@
 			$( "#responseDialog" ).dialog();
 		}
 		
-		// Show the add Infraction success
-		if($_GET["description"] != undefined)
+		// Show the addFail reason message (infraction)
+		if($_GET["inf_addFail_reason"] != undefined)
 		{
-			if($_GET["gravite"] > 0)
-			{
-				$( "#responseDialog" ).show();
-				$( "#responseDialog" ).text("Added infraction");
-				$( "#responseDialog" ).dialog();
-			}
-			else
-			{
-				$( "#responseDialog" ).show();
-				$( "#responseDialog" ).text("Could not add infraction, gravite is less than 1");
-				$( "#responseDialog" ).dialog();
-			}
-			
+			$( "#responseDialog" ).show();
+			$( "#responseDialog" ).text($_GET["inf_addFail_reason"]);
+			$( "#responseDialog" ).dialog();
 		}
 		
 		// Show the add Infraction to Dossier success

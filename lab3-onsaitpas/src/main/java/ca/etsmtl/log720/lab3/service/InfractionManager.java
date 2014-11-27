@@ -48,4 +48,13 @@ public class InfractionManager {
     public boolean chk_gravite(int gravite) {
 		 return gravite < 1 ? false : gravite > 10 ? false : true;
 	}
+	
+	public boolean chk_is_int(String gravite) {
+		try { 
+			Integer.parseInt(gravite); 
+		} catch(NumberFormatException e) { 
+			return false;
+		}
+		return true;
+	}
 }

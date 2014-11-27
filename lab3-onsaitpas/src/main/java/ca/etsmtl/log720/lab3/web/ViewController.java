@@ -73,26 +73,47 @@ public class ViewController {
 	}
 	
 	@RequestMapping(value="/addInf", method = RequestMethod.GET)
-	public ModelAndView addinf(@RequestParam("description") String description, @RequestParam("gravite") int niveau, HttpServletRequest request) {
+	public ModelAndView addinf(@RequestParam("description") String description, @RequestParam("gravite") String niveau, HttpServletRequest request) {
 		String reason = null;
 		if(request.isUserInRole("log720_Admin")){
 			String filter_desc = HTMLFilter.filter(description);
-			//TODO try with niveau = not int
-			if(this.infractionManager.ajouterInfraction(filter_desc,niveau)==false){
-				reason = "Invalide niveau de gravite";
+			String filter_niveau = HTMLFilter.filter(niveau);
+			
+			if(this.infractionManager.chk_is_int(filter_niveau) == false){
+				reason = "Gravity number must be numeric";
+			}
+			else
+			{
+				int niveau_int = Integer.parseInt(filter_niveau);
+				if(this.infractionManager.ajouterInfraction(filter_desc,niveau_int)==false){
+					reason = "Invalide niveau de gravite";
+				}
 			}
 		} else reason = "BAD USER role";
 		
-		return home();
+		ModelAndView model = new ModelAndView("redirect:/");
+		model.addObject("inf_addFail_reason",reason);
+		return model;
 	}
 	
 	@RequestMapping(value="/addinfToDos", method = RequestMethod.GET)
-	public ModelAndView addinf(@RequestParam("selectedDos") int iddos, @RequestParam("selectedInf") int idinf, HttpServletRequest request) {
+	public ModelAndView addinftodos(@RequestParam("selectedDos") String iddos, @RequestParam("selectedInf") String idinf, HttpServletRequest request) {
 		String reason = null;
 		if(request.isUserInRole("log720_Policier")){
-			//TODO try with iddos and idinf = not int
-			if(ajouteInfractionADossier(iddos,idinf)==false){
-				reason = "something something";
+			String filter_iddos = HTMLFilter.filter(iddos);
+			String filter_idinf = HTMLFilter.filter(idinf);
+			
+			if(this.infractionManager.chk_is_int(filter_iddos) == false || this.infractionManager.chk_is_int(filter_idinf) == false){
+				reason = "Le numero de dossier et le niveau d infraction doivent etre des nombres";
+			}
+			else
+			{
+				int iddos_int = Integer.parseInt(filter_iddos);
+				int idinf_int = Integer.parseInt(filter_idinf);
+			
+				if(ajouteInfractionADossier(iddos_int,idinf_int)==false){
+					reason = "Error adding infraction to dossier";
+				}
 			}
 		} else reason = "BAD USER role";
 		return home();
