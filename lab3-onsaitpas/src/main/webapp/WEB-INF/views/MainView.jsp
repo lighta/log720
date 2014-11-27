@@ -78,6 +78,51 @@
 	});
 
 	$( document ).ready(function() {
+		$( "#responseDialog" ).hide();
+		// Retrieve the success/error messages
+		var $_GET = {};
+		document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+			function decode(s) {
+				return decodeURIComponent(s.split("+").join(" "));
+			}
+
+			$_GET[decode(arguments[1])] = decode(arguments[2]);
+		});
+
+		// Show the addFail reason message
+		if($_GET["dos_addFail_reason"] != undefined)
+		{
+			$( "#responseDialog" ).show();
+			$( "#responseDialog" ).text($_GET["dos_addFail_reason"]);
+			$( "#responseDialog" ).dialog();
+		}
+		
+		// Show the add Infraction success
+		if($_GET["description"] != undefined)
+		{
+			if($_GET["gravite"] > 0)
+			{
+				$( "#responseDialog" ).show();
+				$( "#responseDialog" ).text("Added infraction");
+				$( "#responseDialog" ).dialog();
+			}
+			else
+			{
+				$( "#responseDialog" ).show();
+				$( "#responseDialog" ).text("Could not add infraction, gravite is less than 1");
+				$( "#responseDialog" ).dialog();
+			}
+			
+		}
+		
+		// Show the add Infraction to Dossier success
+		if($_GET["selectedDos"] != undefined)
+		{
+			$( "#responseDialog" ).show();
+			$( "#responseDialog" ).text("Added Infraction to dossier");
+			$( "#responseDialog" ).dialog();
+		}
+	
 	
 		$( "#infractionDialog" ).hide();
 		$( "#dossierDialog" ).hide();
@@ -131,6 +176,10 @@
 	<c:if test="${inf_addFail_reason}">L'ajout d'infraction a echouer pour la raison ${inf_addFail_reason}</c:if>
 	<c:if test="${dos_addFail_reason}">L'ajout de dossier a echouer pour la raison ${dos_addFail_reason}</c:if>
 	<c:if test="${dosInf_addFail_reason}">L'ajout d' infraction au dossier a echouer pour la raison ${dosInf_addFail_reason}</c:if>
+	
+	<div id="responseDialog" title="Operation result">
+	</div>
+	
 	
 	<div id="infractionDialog" title="Add infraction">
 		<form id="formAddInfraction" action="addInf" method="get">
