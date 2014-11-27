@@ -10,11 +10,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import ca.etsmtl.log720.lab3.domain.Dosinfraction;
 import ca.etsmtl.log720.lab3.domain.Dossier;
 import ca.etsmtl.log720.lab3.domain.Infraction;
@@ -108,6 +108,20 @@ public class ViewController {
 			Set<Dosinfraction> dosInfs = dossier.getDosinfractions();
 			model.addObject("dosInfs", dosInfs);		
 		}
+		return model;
+	}
+	
+	@ExceptionHandler(org.springframework.transaction.CannotCreateTransactionException.class)
+	public ModelAndView handleHibernateException(org.springframework.transaction.CannotCreateTransactionException ex) {
+		ModelAndView model = new ModelAndView("error/HibernateSession");
+		model.addObject("exception", ex);
+		return model;
+	}
+	
+	@ExceptionHandler(java.net.UnknownHostException.class)
+	public ModelAndView handleHostException(java.net.UnknownHostException ex) {
+		ModelAndView model = new ModelAndView("error/UnknownHost");
+		model.addObject("exception", ex);
 		return model;
 	}
 	
