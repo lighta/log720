@@ -48,15 +48,13 @@
 		<div id="middlepanel" style="width:45%;min-height:500px; float:left; background-color:#ADDEC5;">
 			<h1>Dossiers Infractions List</h1>
         	<table border="1">
-	        	<th>ID</th>
-	        	<th>dossierID</th>
-	        	<th>infractionID</th>
-	        	<th>date</th>
+	        	<th>Infraction ID</th>
+	        	<th>Infraction Desc</th>
+	        	<th>Date</th>
 				<c:forEach var="dosInfs" items="${dosInfs}" varStatus="status">
 	        	<tr>
-	        		<td>${status.index + 1}</td>
-					<td>${dosInfs.id.iddossier}</td>
-					<td>${dosInfs.id.idinfraction}</td>
+					<td>${dosInfs.infraction.id}</td>
+					<td>${dosInfs.infraction.description}</td>
 					<td>${dosInfs.id.date}</td>
 	        	</tr>
 				</c:forEach>

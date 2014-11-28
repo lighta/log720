@@ -33,9 +33,9 @@ public class ViewController {
     private DossierManager dossierManager;
     @Autowired
     private DossierInfManager dossierInfManager;
-	
+  	
 	@RequestMapping(value="/")
-	public ModelAndView home() {	
+	public ModelAndView home() {
 		List<Infraction> infractions = this.infractionManager.getInfractions();
 		List<Dossier> dossiers = this.dossierManager.getDossiers();
 		ModelAndView model = new ModelAndView("MainView");
@@ -79,11 +79,10 @@ public class ViewController {
 			String filter_desc = HTMLFilter.filter(description);
 			String filter_niveau = HTMLFilter.filter(niveau);
 			
-			if(this.infractionManager.chk_is_int(filter_niveau) == false){
+			if(HTMLFilter.chk_is_int(filter_niveau) == false){
 				reason = "Gravity number must be numeric";
 			}
-			else
-			{
+			else {
 				int niveau_int = Integer.parseInt(filter_niveau);
 				if(this.infractionManager.ajouterInfraction(filter_desc,niveau_int)==false){
 					reason = "Invalide niveau de gravite";
@@ -103,7 +102,8 @@ public class ViewController {
 			String filter_iddos = HTMLFilter.filter(iddos);
 			String filter_idinf = HTMLFilter.filter(idinf);
 			
-			if(this.infractionManager.chk_is_int(filter_iddos) == false || this.infractionManager.chk_is_int(filter_idinf) == false){
+			if( HTMLFilter.chk_is_int(filter_iddos) == false 
+				|| HTMLFilter.chk_is_int(filter_idinf) == false){
 				reason = "Le numero de dossier et le niveau d infraction doivent etre des nombres";
 			}
 			else
@@ -116,7 +116,9 @@ public class ViewController {
 				}
 			}
 		} else reason = "BAD USER role";
-		return home();
+		ModelAndView model = new ModelAndView("redirect:/");
+		model.addObject("infdos_addFail_reason",reason);
+		return model;
 	}
 	
 	@RequestMapping(value="/viewdos", method = RequestMethod.GET)

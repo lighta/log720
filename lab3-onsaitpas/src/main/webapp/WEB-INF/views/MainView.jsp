@@ -105,6 +105,14 @@
 			$( "#responseDialog" ).dialog();
 		}
 		
+		// Show the addFail reason message (infraction to dos)
+		if($_GET["infdos_addFail_reason"] != undefined)
+		{
+			$( "#responseDialog" ).show();
+			$( "#responseDialog" ).text($_GET["infdos_addFail_reason"]);
+			$( "#responseDialog" ).dialog();
+		}
+		
 		// Show the add Infraction to Dossier success
 		if($_GET["selectedDos"] != undefined)
 		{

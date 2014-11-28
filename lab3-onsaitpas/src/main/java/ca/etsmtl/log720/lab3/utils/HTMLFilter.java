@@ -62,5 +62,14 @@ public final class HTMLFilter {
         }
         return (result.toString());
     }
+    
+    public static boolean chk_is_int(String gravite) {
+		try { 
+			Integer.parseInt(gravite); 
+		} catch(NumberFormatException e) { 
+			return false;
+		}
+		return true;
+	}
 }
 
