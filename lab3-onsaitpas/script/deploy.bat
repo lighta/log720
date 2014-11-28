@@ -2,16 +2,16 @@
 ::you need to have tomcat as a service, CATALIBA_BASE set and maven =)
 ::by lighta
 
-::back to root dir
-cd .. 
-::compile and package
-mvn clean compile package 
-::cleanup old webapp release
-rmdir /Q /S %CATALINA_BASE%\webapps\lab3
-del %CATALINA_BASE%\webapps\lab3.war 
+@echo off
+cd ..
+::mvn clean compile package
 
-::copy new one into webapp
-copy target\lab3.war %CATALINA_BASE%\webapps\lab3.war
+echo Copying war into webapp for tomcat
+rmdir %CATALINA_BASE%\webapps\lab3 /s/q
+del %CATALINA_BASE%\webapps\lab3.war
+pause
 
-::relaunch tomcat
-::%CATALINA_HOME%\bin\startup 
+xcopy target\lab3.war %CATALINA_BASE%\webapps\
+
+::yes this is not stronk but whatever...
+cd script

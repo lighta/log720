@@ -72,6 +72,11 @@ MAJ: 2014-Nov-26 (Rajout de checkfile, Moreau Max)
   <property name="fichier.pom"
     value="${racine.projet.mvn}/pom.xml"/>
   <property name="dest.temp" value="${racine.temp}/${nom.archive}"/>
+  
+  <!-- Comment this if you don't want to check files at the end of archive  
+	<condition property="checkfiles"> 
+  -->
+       
 
   <!--
        Le suffixe "_" apres l'extension zip permet d'empecher les fournisseurs
@@ -126,7 +131,7 @@ MAJ: 2014-Nov-26 (Rajout de checkfile, Moreau Max)
 	</target>
 
 	<!-- Verification de certain fichier requis -->
-	<target name="checkfile">
+	<target name="checkfile" if="checkfiles">
 		<fail message="${fichier.rapport} manquant !!">
 			<condition><not><available file="${fichier.rapport}" property="rapportfound"/></not></condition>
 		</fail>
