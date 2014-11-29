@@ -4,7 +4,7 @@
 
 @echo off
 cd ..
-::mvn clean compile package
+mvn clean compile package
 
 echo Copying war into webapp for tomcat
 rmdir %CATALINA_BASE%\webapps\lab3 /s/q
@@ -13,5 +13,4 @@ pause
 
 xcopy target\lab3.war %CATALINA_BASE%\webapps\
 
-::yes this is not stronk but whatever...
 cd script

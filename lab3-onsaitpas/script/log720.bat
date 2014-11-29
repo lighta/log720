@@ -46,7 +46,10 @@ set CONFIG_HOME=%CONFIG_DRIVE%\log720
 :: fortement recommande d'ecraser le PATH par defaut sur les postes du lab
 :: a l'ETS, car cette variable est surchargee et contient parfois des entrees
 :: qui causent des problemes dans ce cours (conflits de versions, etc).
-::set path=%CONFIG_HOME%
+set path=%CONFIG_HOME%
+
+:: varia utile
+set PATH=%PATH%;C:\Windows\SysWOW64
 
 :: 2 - Reglages SDK java =======================================================
 
@@ -94,6 +97,12 @@ set CATALINA_HOME=C:\apache\tomcat\7.0.53
 set CATALINA_BASE=J:\log720\catalina_base
 ::ajout du bin de tomcat dans le path
 set path=%PATH%;%CATALINA_HOME%\bin
+
+:: 6 - Environnement SQL =========================================================
+set PSQL_HOME=C:\Program Files (x86)\OpenERP 7.0-20131206-002433\PostgreSQL
+::ajout de psql dans le path
+set path=%PSQL_HOME%\bin;%PATH%
+echo %PATH%
 
 :: last - Demarrage d'une coquille (shell) a un endroit predetermine ==============
 

@@ -65,7 +65,9 @@ md %CATALINA_BASE%\temp
 xcopy %CATALINA_HOME%\conf %CATALINA_BASE%\conf /e /s
 xcopy %CATALINA_HOME%\lib %CATALINA_BASE%\lib /e /s
 xcopy %CATALINA_HOME%\webapps %CATALINA_BASE%\webapps /e /s
+
 goto :created_catabase
+
 
 :catabase_exist
 set /p res="Delete and recreate CATALINA_BASE ? (Y/N):  "
@@ -77,4 +79,19 @@ echo Assuming CATALINA_BASE directory is fine
 
 :created_catabase
 echo CATALINA_BASE folder is ready 
+
+
+
+:create_database
+IF "%PSQL_HOME%"=="" ( 
+  set /p PSQL_HOME="Enter PSQL_HOME (path ou se trouve psql) :  "
+  echo Registering PSQL_HOME as "%PSQL_HOME%"
+) 
+set /p res="Using PSQL_HOME=%PSQL_HOME% (Y/N):  "
+IF NOT "%res%"=="Y" (
+  set PSQL_HOME=
+  goto :create_database
+)
+
+
 

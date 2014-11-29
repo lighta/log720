@@ -1,4 +1,4 @@
-﻿--Insertion des dossier
+--Insertion des dossier
 insert into "dossier" ("nom","prenom","nopermis","noplaque") values ('john','do','Pe0001','Pl001');
 insert into "dossier" ("nom","prenom","nopermis","noplaque") values ('steven','do','Pe0002','Pl002');
 --test UNQ_nopermis
